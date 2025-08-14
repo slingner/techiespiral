@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechieSpiral - Best Tech Tools Directory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 300px;
+        }
+
+        .filter-select {
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            font-size: 16px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .tool-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #6b7280;
+        }
+
+        .tool-info h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .tool-meta {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tag {
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .price-tag {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .tool-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            background: #1d4ed8;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 0;
+            color: #6b7280;
+        }
+
+        .error {
+            text-align: center;
+            padding: 60px 0;
+            color: #ef4444;
+        }
+
+        footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 40px 0;
+            margin-top: 80px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .search-input {
+                width: 200px;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">TechieSpiral</div>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search tools..." id="searchInput">
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Developer Tools">Developer Tools</option>
+                        <option value="Design Tools">Design Tools</option>
+                        <option value="Project Management">Project Management</option>
+                        <option value="Communication">Communication</option>
+                        <option value="Analytics">Analytics</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="AI Tools">AI Tools</option>
+                        <option value="No-Code Tools">No-Code Tools</option>
+                        <option value="Hosting">Hosting</option>
+                        <option value="Database">Database</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Find Your Perfect Tech Tools</h1>
+            <p>Discover the best software tools to boost your productivity and build amazing projects</p>
+        </div>
+
+        <div id="toolsContainer">
+            <div class="loading">Loading amazing tools...</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TechieSpiral. Find tools that actually work.</p>
+        </div>
+    </footer>
+
+    <script>
+        // NocoDB API configuration
+        const NOCODB_API_URL = 'YOUR_NOCODB_API_URL_HERE';
+        const API_TOKEN = 'YOUR_API_TOKEN_HERE';
+        
+        let allTools = [];
+        let filteredTools = [];
+
+        // Fetch tools from NocoDB
+        async function fetchTools() {
+            try {
+                const response = await fetch(`${NOCODB_API_URL}/api/v1/db/data/noco/YOUR_PROJECT_ID/Tools`, {
+                    headers: {
+                        'xc-token': API_TOKEN
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch tools');
+                }
+                
+                const data = await response.json();
+                allTools = data.list || [];
+                filteredTools = [...allTools];
+                renderTools();
+            } catch (error) {
+                console.error('Error fetching tools:', error);
+                document.getElementById('toolsContainer').innerHTML = 
+                    '<div class="error">Failed to load tools. Please try again later.</div>';
+            }
+        }
+
+        // Render tools grid
+        function renderTools() {
+            const container = document.getElementById('toolsContainer');
+            
+            if (filteredTools.length === 0) {
+                container.innerHTML = '<div class="error">No tools found matching your criteria.</div>';
+                return;
+            }
+
+            const toolsHTML = filteredTools.map(tool => `
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-logo">
+                            ${tool.logo_url ? 
+                                `<img src="${tool.logo_url}" alt="${tool.tool_name}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">` : 
+                                tool.tool_name.charAt(0).toUpperCase()
+                            }
+                        </div>
+                        <div class="tool-info">
+                            <h3>${tool.tool_name}</h3>
+                        </div>
+                    </div>
+                    <div class="tool-meta">
+                        <span class="tag">${tool.category}</span>
+                        <span class="tag price-tag">${tool.price_range}</span>
+                        ${tool.best_for ? `<span class="tag">${tool.best_for}</span>` : ''}
+                    </div>
+                    <p class="tool-description">${tool.description || 'Discover what this tool can do for you.'}</p>
+                    <a href="${tool.affiliate_link || tool.website_url}" 
+                       target="_blank" 
+                       class="cta-button">
+                        Learn More & Try It
+                    </a>
+                </div>
+            `).join('');
+
+            container.innerHTML = `<div class="tools-grid">${toolsHTML}</div>`;
+        }
+
+        // Search functionality
+        function filterTools() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedCategory = document.getElementById('categoryFilter').value;
+
+            filteredTools = allTools.filter(tool => {
+                const matchesSearch = !searchTerm || 
+                    tool.tool_name.toLowerCase().includes(searchTerm) ||
+                    (tool.description && tool.description.toLowerCase().includes(searchTerm)) ||
+                    (tool.best_for && tool.best_for.toLowerCase().includes(searchTerm));
+                
+                const matchesCategory = !selectedCategory || tool.category === selectedCategory;
+                
+                return matchesSearch && matchesCategory;
+            });
+
+            renderTools();
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterTools);
+        document.getElementById('categoryFilter').addEventListener('change', filterTools);
+
+        // Initialize
+        fetchTools();
+    </script>
+</body>
+</html>
