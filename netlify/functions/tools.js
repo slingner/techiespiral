@@ -11,14 +11,22 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    console.log('API URL:', process.env.NOCODB_API_URL);
+    console.log('Project ID:', process.env.NOCODB_PROJECT_ID);
+    console.log('Token exists:', !!process.env.NOCODB_API_TOKEN);
+    
     const response = await fetch(`${process.env.NOCODB_API_URL}/api/v1/db/data/noco/${process.env.NOCODB_PROJECT_ID}/Tools`, {
       headers: {
         'xc-token': process.env.NOCODB_API_TOKEN
       }
     });
 
+    console.log('Response status:', response.status);
+
     if (!response.ok) {
-      throw new Error('Failed to fetch tools');
+      const errorText = await response.text();
+      console.log('Error response:', errorText);
+      throw new Error(`API Error: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
