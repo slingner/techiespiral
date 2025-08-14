@@ -254,22 +254,13 @@
     </footer>
 
     <script>
-        // NocoDB API configuration from environment
-        const NOCODB_API_URL = process.env.NOCODB_API_URL;
-        const API_TOKEN = process.env.NOCODB_API_TOKEN;
-        const PROJECT_ID = process.env.NOCODB_PROJECT_ID;
-        
         let allTools = [];
         let filteredTools = [];
 
-        // Fetch tools from NocoDB
+        // Fetch tools from Netlify function
         async function fetchTools() {
             try {
-                const response = await fetch(`${NOCODB_API_URL}/api/v1/db/data/noco/${PROJECT_ID}/Tools`, {
-                    headers: {
-                        'xc-token': API_TOKEN
-                    }
-                });
+                const response = await fetch('/.netlify/functions/tools');
                 
                 if (!response.ok) {
                     throw new Error('Failed to fetch tools');
