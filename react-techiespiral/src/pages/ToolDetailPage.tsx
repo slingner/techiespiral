@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -25,6 +25,11 @@ import { useToolsContext } from '../context/ToolsContext';
 export const ToolDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { tools: allTools, loading, getToolById } = useToolsContext();
+
+  // Force scroll to top when this component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   const tool = useMemo(() => {
     if (!id) return null;
