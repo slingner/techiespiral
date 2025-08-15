@@ -217,6 +217,72 @@
             margin-right: 8px;
         }
 
+        .related-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .related-tool-card {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .related-tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .related-tool-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .related-tool-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .related-tool-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 16px;
+        }
+
+        .related-tool-description {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .related-tool-category {
+            font-size: 12px;
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
         .pros-cons {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -305,10 +371,11 @@
 
     <script>
         // Get tool ID from URL
-       function getToolId() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return parseInt(urlParams.get('id'));
-}
+        function getToolId() {
+            const path = window.location.pathname;
+            const matches = path.match(/\/tool\/(\d+)/);
+            return matches ? parseInt(matches[1]) : null;
+        }
 
         // Fetch tool data
         async function fetchToolData(id) {
@@ -412,9 +479,62 @@
                         ${prosConsHTML}
                     </div>
                 </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">Related Tools</h2>
+                    <div class="section-content">
+                        <div id="relatedTools" class="related-tools-grid">
+                            Loading related tools...
+                        </div>
+                    </div>
+                </div>
             `;
 
             document.getElementById('toolContent').innerHTML = content;
+            
+            // Load related tools
+            loadRelatedTools(tool);
+        }
+
+        // Load related tools
+        async function loadRelatedTools(currentTool) {
+            try {
+                const response = await fetch('/.netlify/functions/tools');
+                const data = await response.json();
+                
+                // Get tools from same category, excluding current tool
+                const relatedTools = data.list
+                    .filter(tool => tool.category === currentTool.category && tool.Id !== currentTool.Id)
+                    .slice(0, 3);
+                
+                // If not enough from same category, add from other categories
+                if (relatedTools.length < 3) {
+                    const otherTools = data.list
+                        .filter(tool => tool.category !== currentTool.category && tool.Id !== currentTool.Id)
+                        .slice(0, 3 - relatedTools.length);
+                    relatedTools.push(...otherTools);
+                }
+                
+                const relatedHTML = relatedTools.map(tool => `
+                    <a href="tool.html?id=${tool.Id}" class="related-tool-card">
+                        <div class="related-tool-header">
+                            <div class="related-tool-logo">
+                                ${tool.logo_url ? 
+                                    `<img src="${tool.logo_url}" alt="${tool.tool_name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">` : 
+                                    tool.tool_name.charAt(0).toUpperCase()
+                                }
+                            </div>
+                            <div class="related-tool-name">${tool.tool_name}</div>
+                        </div>
+                        <div class="related-tool-description">${tool.description || 'Discover what this tool can do for you.'}</div>
+                        <div class="related-tool-category">${tool.category}</div>
+                    </a>
+                `).join('');
+                
+                document.getElementById('relatedTools').innerHTML = relatedHTML || '<p>No related tools found.</p>';
+            } catch (error) {
+                document.getElementById('relatedTools').innerHTML = '<p>Unable to load related tools.</p>';
+            }
         }
 
         // Initialize page
