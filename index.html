@@ -236,90 +236,6 @@
                 grid-template-columns: 1fr;
             }
         }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 40px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .close {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #9ca3af;
-        }
-
-        .close:hover {
-            color: #374151;
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .modal-logo {
-            width: 64px;
-            height: 64px;
-            border-radius: 12px;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #64748b;
-            overflow: hidden;
-        }
-
-        .modal-title {
-            font-size: 28px;
-            font-weight: bold;
-            color: #1f2937;
-        }
-
-        .modal-description {
-            font-size: 18px;
-            color: #6b7280;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .modal-tags {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .modal-cta {
-            display: flex;
-            gap: 12px;
-        }
     </style>
 </head>
 <body>
@@ -327,7 +243,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="./images/logo.png" alt="TechieSpiral Logo" class="logo-image">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9InVybCgjZ3JhZGllbnQwKSIvPgo8ZGVmcz4KPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkaWVudDAiIGN4PSIwLjUiIGN5PSIwLjUiIHI9IjAuNSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxZTQwYWYiLz4KPHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiNkYzI2MjYiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZWFiMzA4Ii8+CjwvcmFkaWFsR3JhZGllbnQ+CjwvZGVmcz4KPHN2Zz4K" alt="TechieSpiral Logo" class="logo-image">
                     TechieSpiral
                 </div>
                 <div class="search-bar">
@@ -358,26 +274,6 @@
 
         <div id="toolsContainer">
             <div class="loading">Loading amazing tools...</div>
-        </div>
-
-        <!-- Modal for tool details -->
-        <div id="toolModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div class="modal-header">
-                    <div class="modal-logo" id="modalLogo"></div>
-                    <div>
-                        <div class="modal-title" id="modalTitle"></div>
-                        <div class="modal-tags" id="modalTags"></div>
-                    </div>
-                </div>
-                <div class="modal-description" id="modalDescription"></div>
-                <div class="modal-cta">
-                    <a href="#" id="modalLink" target="_blank" class="cta-button" style="flex: 1;">
-                        Visit Official Website
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -440,7 +336,7 @@
                     </div>
                     <p class="tool-description">${tool.description || 'Discover what this tool can do for you.'}</p>
                     <div style="display: flex; gap: 8px;">
-                        <a href="#" onclick="showToolDetails(${tool.Id}); return false;" 
+                        <a href="tool.html?id=${tool.Id}" 
                            class="cta-button" style="background: #6366f1; flex: 1;">
                             Learn More
                         </a>
@@ -478,46 +374,6 @@
         // Event listeners
         document.getElementById('searchInput').addEventListener('input', filterTools);
         document.getElementById('categoryFilter').addEventListener('change', filterTools);
-
-        // Modal functions
-        function showToolDetails(toolId) {
-            const tool = allTools.find(t => t.Id === toolId);
-            if (!tool) return;
-
-            document.getElementById('modalTitle').textContent = tool.tool_name;
-            document.getElementById('modalDescription').textContent = tool.description || 'Discover what this amazing tool can do for you.';
-            document.getElementById('modalLink').href = tool.affiliate_link || tool.website_url;
-            
-            // Logo
-            const modalLogo = document.getElementById('modalLogo');
-            if (tool.logo_url) {
-                modalLogo.innerHTML = `<img src="${tool.logo_url}" alt="${tool.tool_name}">`;
-            } else {
-                modalLogo.innerHTML = tool.tool_name.charAt(0).toUpperCase();
-            }
-            
-            // Tags
-            const tagsHtml = `
-                <span class="tag">${tool.category}</span>
-                <span class="tag price-tag">${tool.price_range}</span>
-                ${tool.best_for ? `<span class="tag best-for-tag">${tool.best_for}</span>` : ''}
-            `;
-            document.getElementById('modalTags').innerHTML = tagsHtml;
-            
-            document.getElementById('toolModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('toolModal').style.display = 'none';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('toolModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
 
         // Initialize
         fetchTools();
