@@ -305,11 +305,10 @@
 
     <script>
         // Get tool ID from URL
-        function getToolId() {
-            const path = window.location.pathname;
-            const matches = path.match(/\/tool\/(\d+)/);
-            return matches ? parseInt(matches[1]) : null;
-        }
+       function getToolId() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return parseInt(urlParams.get('id'));
+}
 
         // Fetch tool data
         async function fetchToolData(id) {
