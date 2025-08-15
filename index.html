@@ -121,7 +121,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 24px;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         .tool-card {
@@ -222,6 +222,40 @@
             background: #1e3a8a;
         }
 
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin: 40px 0;
+        }
+
+        .load-more-btn {
+            background: #1e40af;
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 16px;
+        }
+
+        .load-more-btn:hover {
+            background: #1e3a8a;
+        }
+
+        .load-more-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .tools-count {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
         .loading {
             text-align: center;
             padding: 60px 0;
@@ -295,6 +329,11 @@
         <div id="toolsContainer">
             <div class="loading">Loading amazing tools...</div>
         </div>
+
+        <div id="paginationContainer" class="pagination-container" style="display: none;">
+            <div class="tools-count" id="toolsCount"></div>
+            <button id="loadMoreBtn" class="load-more-btn">Load More Tools</button>
+        </div>
     </div>
 
     <footer>
@@ -306,6 +345,8 @@
     <script>
         let allTools = [];
         let filteredTools = [];
+        let currentPage = 1;
+        const toolsPerPage = 24;
 
         // Fetch tools from Netlify function
         async function fetchTools() {
@@ -319,6 +360,7 @@
                 const data = await response.json();
                 allTools = data.list || [];
                 filteredTools = [...allTools];
+                currentPage = 1;
                 renderTools();
             } catch (error) {
                 console.error('Error fetching tools:', error);
@@ -327,16 +369,25 @@
             }
         }
 
-        // Render tools grid
+        // Render tools grid with pagination
         function renderTools() {
             const container = document.getElementById('toolsContainer');
+            const paginationContainer = document.getElementById('paginationContainer');
+            const toolsCount = document.getElementById('toolsCount');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
             
             if (filteredTools.length === 0) {
                 container.innerHTML = '<div class="error">No tools found matching your criteria.</div>';
+                paginationContainer.style.display = 'none';
                 return;
             }
 
-            const toolsHTML = filteredTools.map(tool => `
+            // Calculate tools to show
+            const totalTools = filteredTools.length;
+            const toolsToShow = Math.min(currentPage * toolsPerPage, totalTools);
+            const displayTools = filteredTools.slice(0, toolsToShow);
+
+            const toolsHTML = displayTools.map(tool => `
                 <div class="tool-card">
                     <div class="tool-header">
                         <div class="tool-logo">
@@ -370,6 +421,21 @@
             `).join('');
 
             container.innerHTML = `<div class="tools-grid">${toolsHTML}</div>`;
+
+            // Update pagination
+            toolsCount.textContent = `Showing ${toolsToShow} of ${totalTools} tools`;
+            
+            const hasMore = toolsToShow < totalTools;
+            loadMoreBtn.disabled = !hasMore;
+            loadMoreBtn.textContent = hasMore ? 'Load More Tools' : 'All Tools Loaded';
+            
+            paginationContainer.style.display = 'flex';
+        }
+
+        // Load more functionality
+        function loadMore() {
+            currentPage++;
+            renderTools();
         }
 
         // Search functionality
@@ -388,12 +454,14 @@
                 return matchesSearch && matchesCategory;
             });
 
+            currentPage = 1;
             renderTools();
         }
 
         // Event listeners
         document.getElementById('searchInput').addEventListener('input', filterTools);
         document.getElementById('categoryFilter').addEventListener('change', filterTools);
+        document.getElementById('loadMoreBtn').addEventListener('click', loadMore);
 
         // Initialize
         fetchTools();
