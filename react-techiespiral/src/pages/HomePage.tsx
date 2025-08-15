@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Box,
   Heading,
@@ -14,7 +14,7 @@ import {
   Container
 } from '@chakra-ui/react';
 import { ToolCard } from '../components/ToolCard';
-import { useFilteredTools } from '../hooks/useTools';
+import { useToolsContext } from '../context/ToolsContext';
 
 const CATEGORIES = [
   'Developer Tools',
@@ -34,10 +34,23 @@ export const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [displayCount, setDisplayCount] = useState(24);
 
-  const { tools, loading, error } = useFilteredTools(searchTerm, selectedCategory);
+  const { tools: allTools, loading, error } = useToolsContext();
 
-  const displayedTools = tools.slice(0, displayCount);
-  const hasMoreTools = tools.length > displayCount;
+  const filteredTools = useMemo(() => {
+    return allTools.filter(tool => {
+      const matchesSearch = !searchTerm || 
+        tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (tool.description && tool.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (tool.best_for && tool.best_for.toLowerCase().includes(searchTerm.toLowerCase()));
+
+      const matchesCategory = !selectedCategory || tool.category === selectedCategory;
+
+      return matchesSearch && matchesCategory;
+    });
+  }, [allTools, searchTerm, selectedCategory]);
+
+  const displayedTools = filteredTools.slice(0, displayCount);
+  const hasMoreTools = filteredTools.length > displayCount;
 
   const handleLoadMore = () => {
     setDisplayCount(prev => prev + 24);
@@ -125,7 +138,7 @@ export const HomePage = () => {
       </Flex>
 
       {/* Tools Grid */}
-      {tools.length === 0 ? (
+      {filteredTools.length === 0 ? (
         <Alert status="info" rounded="md">
           No tools found matching your criteria.
         </Alert>
@@ -140,7 +153,7 @@ export const HomePage = () => {
           {/* Load More / Pagination */}
           <Flex justify="center" align="center" direction="column" gap={4}>
             <Text color="gray.600" fontSize="sm">
-              Showing {displayedTools.length} of {tools.length} tools
+              Showing {displayedTools.length} of {filteredTools.length} tools
             </Text>
             
             {hasMoreTools && (

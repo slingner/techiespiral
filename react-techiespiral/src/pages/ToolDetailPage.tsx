@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -20,38 +20,18 @@ import {
   SimpleGrid
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Tool } from '../types/Tool';
-import { toolsApi } from '../services/api';
-import { useTools } from '../hooks/useTools';
+import { useToolsContext } from '../context/ToolsContext';
 
 export const ToolDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [tool, setTool] = useState<Tool | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  
-  const { tools: allTools } = useTools();
+  const { tools: allTools, loading, getToolById } = useToolsContext();
 
-  useEffect(() => {
-    const fetchTool = async () => {
-      if (!id) return;
-      
-      try {
-        setLoading(true);
-        const toolData = await toolsApi.fetchToolById(parseInt(id));
-        setTool(toolData);
-        setError(null);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch tool');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const tool = useMemo(() => {
+    if (!id) return null;
+    return getToolById(parseInt(id));
+  }, [id, getToolById]);
 
-    fetchTool();
-  }, [id]);
-
-  const getRelatedTools = () => {
+  const getRelatedTools = useMemo(() => {
     if (!tool) return [];
     
     const relatedTools = allTools
@@ -66,7 +46,7 @@ export const ToolDetailPage = () => {
     }
     
     return relatedTools;
-  };
+  }, [tool, allTools]);
 
   const parseFeatures = (features?: string) => {
     if (!features) return [];
@@ -83,7 +63,8 @@ export const ToolDetailPage = () => {
     return { pros, cons };
   };
 
-  if (loading) {
+  // Show loading only on initial app load, not during navigation
+  if (loading && allTools.length === 0) {
     return (
       <VStack spacing={4} py={20}>
         <Spinner size="xl" color="blue.500" />
@@ -92,7 +73,8 @@ export const ToolDetailPage = () => {
     );
   }
 
-  if (error || !tool) {
+  // Show not found immediately if tool doesn't exist (no loading spinner)
+  if (!loading && (!tool || !id)) {
     return (
       <Alert status="error" rounded="md">
         Tool not found or failed to load
@@ -100,9 +82,19 @@ export const ToolDetailPage = () => {
     );
   }
 
+  // If still loading but we don't have the specific tool, show a minimal loading state
+  if (!tool) {
+    return (
+      <VStack spacing={4} py={8}>
+        <Spinner size="lg" color="blue.500" />
+        <Text color="gray.600">Loading...</Text>
+      </VStack>
+    );
+  }
+
   const features = parseFeatures(tool.features);
   const { pros, cons } = parseProsCons(tool.pros_cons);
-  const relatedTools = getRelatedTools();
+  const relatedTools = getRelatedTools;
 
   return (
     <VStack spacing={10} align="stretch">
