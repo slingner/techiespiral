@@ -11,37 +11,42 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    console.log('API URL:', process.env.NOCODB_API_URL);
-    console.log('Project ID:', process.env.NOCODB_PROJECT_ID);
-    console.log('Token exists:', !!process.env.NOCODB_API_TOKEN);
-    
-    const response = await fetch(`${process.env.NOCODB_API_URL}/api/v1/db/data/noco/${process.env.NOCODB_PROJECT_ID}/Tools`, {
-      headers: {
-        'xc-token': process.env.NOCODB_API_TOKEN
+    const allTools = [];
+    let page = 1;
+    let hasMore = true;
+
+    while (hasMore) {
+      const response = await fetch(`${process.env.NOCODB_API_URL}/api/v1/db/data/noco/${process.env.NOCODB_PROJECT_ID}/Tools?limit=100&offset=${(page-1)*100}`, {
+        headers: {
+          'xc-token': process.env.NOCODB_API_TOKEN
+        }
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`API Error: ${response.status} - ${errorText}`);
       }
-    });
 
-    console.log('Response status:', response.status);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.log('Error response:', errorText);
-      throw new Error(`API Error: ${response.status} - ${errorText}`);
+      const data = await response.json();
+      allTools.push(...data.list);
+      
+      hasMore = data.pageInfo && !data.pageInfo.isLastPage;
+      page++;
     }
 
-    const data = await response.json();
-    console.log('Data received:', JSON.stringify(data, null, 2));
+    console.log(`Fetched ${allTools.length} tools total`);
     
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(data)
+      body: JSON.stringify({ list: allTools })
     };
   } catch (error) {
+    console.error('Function error:', error);
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: 'Failed to fetch tools' })
+      body: JSON.stringify({ error: 'Failed to fetch tools', details: error.message })
     };
   }
 };
