@@ -48,19 +48,35 @@ export const StacksPage = () => {
   }
 
   return (
-    <VStack spacing={10} align="stretch">
-      {/* Hero Section */}
+    <VStack spacing={12} align="stretch">
+      {/* Hero Section - NYT Style */}
       <Box
-        bgGradient="linear(135deg, purple.600 0%, blue.600 50%, cyan.400 100%)"
-        rounded="3xl"
-        p={{ base: 10, md: 16 }}
+        borderBottom="1px"
+        borderColor="nyt.border"
+        pb={8}
         textAlign="center"
-        color="white"
       >
-        <Heading size="2xl" mb={4} textShadow="0 2px 10px rgba(0,0,0,0.3)">
-          Complete Tech Stacks for Indie Hackers
+        <Heading
+          as="h1"
+          fontSize={{ base: '3xl', md: '5xl', lg: '6xl' }}
+          fontWeight="700"
+          color="nyt.black"
+          lineHeight="1.1"
+          mb={6}
+          letterSpacing="-0.03em"
+        >
+          Complete Tech Stacks
+          <br />
+          for Indie Hackers
         </Heading>
-        <Text fontSize="xl" maxW="700px" mx="auto" opacity={0.9}>
+        <Text
+          fontSize={{ base: 'lg', md: 'xl' }}
+          color="nyt.darkGray"
+          maxW="800px"
+          mx="auto"
+          lineHeight="1.6"
+          fontFamily="body"
+        >
           Proven tool combinations used by successful founders. Skip the research—start building.
         </Text>
       </Box>
@@ -79,16 +95,13 @@ export const StacksPage = () => {
                 as={RouterLink}
                 to={`/stack/${stack.id}`}
                 bg="white"
-                rounded="2xl"
+                border="1px"
+                borderColor="nyt.border"
                 p={6}
-                shadow="md"
-                border="2px"
-                borderColor="transparent"
-                transition="all 0.3s"
+                transition="all 0.2s"
                 _hover={{
-                  transform: 'translateY(-4px)',
-                  shadow: 'xl',
-                  borderColor: 'blue.400',
+                  borderColor: 'nyt.black',
+                  bg: 'nyt.veryLightGray',
                   textDecoration: 'none'
                 }}
               >
@@ -96,15 +109,10 @@ export const StacksPage = () => {
                   {/* Badge */}
                   {stack.badge && (
                     <Badge
-                      colorScheme={
-                        stack.badge === 'Most Popular' ? 'purple' :
-                        stack.badge === 'Popular' ? 'blue' :
-                        stack.badge === 'Budget-Friendly' ? 'green' :
-                        stack.badge === 'No-Code' ? 'orange' :
-                        'red'
-                      }
-                      fontSize="xs"
-                      px={2}
+                      bg="nyt.black"
+                      color="white"
+                      fontSize="10px"
+                      px={3}
                       py={1}
                       alignSelf="flex-start"
                     >
@@ -113,32 +121,43 @@ export const StacksPage = () => {
                   )}
 
                   {/* Stack Name */}
-                  <Heading size="md" color="gray.800">
+                  <Heading
+                    size="md"
+                    color="nyt.black"
+                    fontWeight="700"
+                  >
                     {stack.stack_name}
                   </Heading>
 
                   {/* Tagline */}
-                  <Text fontSize="sm" color="blue.600" fontWeight="semibold">
+                  <Text
+                    fontSize="14px"
+                    color="nyt.darkGray"
+                    fontWeight="600"
+                    fontFamily='"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'
+                    textTransform="uppercase"
+                    letterSpacing="0.5px"
+                  >
                     {stack.tagline}
                   </Text>
 
                   {/* Description */}
-                  <Text fontSize="sm" color="gray.600" noOfLines={3}>
+                  <Text fontSize="16px" color="nyt.mediumGray" noOfLines={3} lineHeight="1.6">
                     {stack.description}
                   </Text>
 
                   {/* Metadata */}
-                  <Flex gap={2} flexWrap="wrap">
-                    <Badge colorScheme="gray" fontSize="xs">
+                  <Flex gap={3} pt={2} borderTop="1px" borderColor="nyt.border" flexWrap="wrap">
+                    <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="11px" px={2} py={1}>
                       {stack.category}
                     </Badge>
-                    <Badge colorScheme="green" fontSize="xs">
+                    <Badge bg="nyt.black" color="white" fontSize="11px" px={2} py={1}>
                       {stack.total_monthly_cost}
                     </Badge>
                   </Flex>
 
                   {/* Target Audience */}
-                  <Text fontSize="xs" color="gray.500" fontStyle="italic">
+                  <Text fontSize="13px" color="nyt.mediumGray" fontStyle="italic">
                     For: {stack.target_audience}
                   </Text>
                 </VStack>
@@ -146,17 +165,17 @@ export const StacksPage = () => {
             ))}
           </SimpleGrid>
 
-          {/* Load More */}
+          {/* Load More - NYT Style */}
           {hasMoreStacks && (
-            <Flex justify="center" align="center" direction="column" gap={4}>
-              <Text color="gray.600" fontSize="sm">
+            <Flex justify="center" align="center" direction="column" gap={4} mt={4}>
+              <Text color="nyt.mediumGray" fontSize="14px" fontFamily="body">
                 Showing {displayedStacks.length} of {stacks.length} stacks
               </Text>
               <Button
                 onClick={handleLoadMore}
-                colorScheme="blue"
+                variant="outline"
                 size="lg"
-                px={8}
+                px={10}
               >
                 Load More Stacks
               </Button>

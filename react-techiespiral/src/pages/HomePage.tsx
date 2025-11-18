@@ -84,71 +84,104 @@ export const HomePage = () => {
   }
 
   return (
-    <VStack spacing={10} align="stretch">
-      {/* Hero Section */}
+    <VStack spacing={12} align="stretch">
+      {/* Hero Section - NYT Style */}
       <Box
-        bgGradient="linear(135deg, blue.600 0%, red.600 50%, yellow.400 100%)"
-        rounded="3xl"
-        p={{ base: 10, md: 20 }}
+        borderBottom="1px"
+        borderColor="nyt.border"
+        pb={8}
         textAlign="center"
-        color="white"
       >
-        <Heading size="2xl" mb={5} textShadow="0 2px 10px rgba(0,0,0,0.3)">
-          The Tech Stack Advisor for Indie Hackers
+        <Heading
+          as="h1"
+          fontSize={{ base: '3xl', md: '5xl', lg: '6xl' }}
+          fontWeight="700"
+          color="nyt.black"
+          lineHeight="1.1"
+          mb={6}
+          letterSpacing="-0.03em"
+        >
+          The Tech Stack Advisor
+          <br />
+          for Indie Hackers
         </Heading>
-        <Text fontSize="xl" maxW="700px" mx="auto" opacity={0.9}>
+        <Text
+          fontSize={{ base: 'lg', md: 'xl' }}
+          color="nyt.darkGray"
+          maxW="800px"
+          mx="auto"
+          lineHeight="1.6"
+          fontFamily="body"
+        >
           Curated tools and complete tech stacks to build, ship, and grow—without breaking the bank
         </Text>
-        <HStack justify="center" spacing={4} mt={6} fontSize="sm" opacity={0.9}>
-          <Text>🚀 Scout-Rated Tools</Text>
-          <Text>•</Text>
-          <Text>📦 Complete Stacks</Text>
-          <Text>•</Text>
-          <Text>💰 Budget-Friendly</Text>
+        <HStack
+          justify="center"
+          spacing={6}
+          mt={6}
+          fontSize="13px"
+          color="nyt.mediumGray"
+          fontFamily='"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'
+          textTransform="uppercase"
+          letterSpacing="0.5px"
+        >
+          <Text>Scout-Rated Tools</Text>
+          <Text>·</Text>
+          <Text>Complete Stacks</Text>
+          <Text>·</Text>
+          <Text>Budget-Friendly</Text>
         </HStack>
       </Box>
 
-      {/* Search and Filter */}
-      <Flex
-        direction={{ base: 'column', md: 'row' }}
-        gap={4}
-        align="center"
-        justify="center"
+      {/* Search and Filter - NYT Style */}
+      <Box
+        borderTop="1px"
+        borderBottom="1px"
+        borderColor="nyt.border"
+        py={6}
+        bg="nyt.veryLightGray"
       >
-        <Input
-          placeholder="Search tools..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          maxW="300px"
-          bg="white"
-          border="2px"
-          borderColor="gray.200"
-          _focus={{
-            borderColor: 'blue.500',
-            boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.1)'
-          }}
-        />
-        
-        <Select
-          placeholder="All Categories"
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          maxW="200px"
-          bg="white"
-          border="2px"
-          borderColor="gray.200"
-          _focus={{
-            borderColor: 'blue.500',
-            boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.1)'
-          }}
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          gap={4}
+          align="center"
+          justify="center"
         >
-          {CATEGORIES.map(category => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </Select>
-      </Flex>
+          <Input
+            placeholder="Search tools..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            maxW="350px"
+            bg="white"
+            borderColor="nyt.border"
+            fontSize="16px"
+            _focus={{
+              borderColor: 'nyt.black',
+              boxShadow: 'none'
+            }}
+          />
+
+          <Select
+            placeholder="All Categories"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            maxW="250px"
+            bg="white"
+            borderColor="nyt.border"
+            fontSize="16px"
+            _focus={{
+              borderColor: 'nyt.black',
+              boxShadow: 'none'
+            }}
+          >
+            {CATEGORIES.map(category => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </Select>
+        </Flex>
+      </Box>
 
       {/* Tools Grid */}
       {filteredTools.length === 0 ? (
@@ -163,18 +196,18 @@ export const HomePage = () => {
             ))}
           </SimpleGrid>
 
-          {/* Load More / Pagination */}
-          <Flex justify="center" align="center" direction="column" gap={4}>
-            <Text color="gray.600" fontSize="sm">
+          {/* Load More / Pagination - NYT Style */}
+          <Flex justify="center" align="center" direction="column" gap={4} mt={4}>
+            <Text color="nyt.mediumGray" fontSize="14px" fontFamily="body">
               Showing {displayedTools.length} of {filteredTools.length} tools
             </Text>
-            
+
             {hasMoreTools && (
               <Button
                 onClick={handleLoadMore}
-                colorScheme="blue"
+                variant="outline"
                 size="lg"
-                px={8}
+                px={10}
               >
                 Load More Tools
               </Button>
@@ -183,79 +216,100 @@ export const HomePage = () => {
         </>
       )}
 
-      {/* Featured Tech Stacks Section */}
+      {/* Featured Tech Stacks Section - NYT Style */}
       {stacks.length > 0 && (
-        <Box bg="white" rounded="2xl" p={8} shadow="md">
-          <Flex justify="space-between" align="center" mb={6}>
-            <VStack align="flex-start" spacing={1}>
-              <Heading size="lg" color="gray.800">
-                📦 Featured Tech Stacks
+        <Box
+          borderTop="3px solid"
+          borderColor="nyt.black"
+          pt={8}
+          mt={8}
+        >
+          <Flex justify="space-between" align="center" mb={8}>
+            <VStack align="flex-start" spacing={2}>
+              <Heading
+                size="xl"
+                color="nyt.black"
+                fontWeight="700"
+              >
+                Featured Tech Stacks
               </Heading>
-              <Text fontSize="sm" color="gray.600">
+              <Text
+                fontSize="16px"
+                color="nyt.mediumGray"
+                fontFamily="body"
+              >
                 Complete tool collections for indie hackers
               </Text>
             </VStack>
             <Button
               as={RouterLink}
               to="/stacks"
-              colorScheme="blue"
               variant="outline"
+              display={{ base: 'none', md: 'flex' }}
             >
               View All Stacks
             </Button>
           </Flex>
 
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
             {stacks.slice(0, 3).map(stack => (
               <Box
                 key={stack.id}
                 as={RouterLink}
                 to={`/stack/${stack.id}`}
-                bg="gray.50"
-                rounded="xl"
-                p={5}
-                border="2px"
-                borderColor="gray.200"
-                transition="all 0.3s"
+                border="1px"
+                borderColor="nyt.border"
+                p={6}
+                transition="all 0.2s"
                 _hover={{
-                  borderColor: 'blue.400',
-                  bg: 'blue.50',
-                  transform: 'translateY(-2px)',
-                  shadow: 'md',
+                  borderColor: 'nyt.black',
+                  bg: 'nyt.veryLightGray',
                   textDecoration: 'none'
                 }}
               >
-                <VStack align="stretch" spacing={3}>
+                <VStack align="stretch" spacing={4}>
                   {stack.badge && (
                     <Badge
-                      colorScheme={
-                        stack.badge === 'Most Popular' ? 'purple' :
-                        stack.badge === 'Popular' ? 'blue' :
-                        stack.badge === 'Budget-Friendly' ? 'green' :
-                        'orange'
-                      }
-                      fontSize="xs"
-                      px={2}
+                      bg="nyt.black"
+                      color="white"
+                      fontSize="10px"
+                      px={3}
                       py={1}
                       alignSelf="flex-start"
                     >
                       {stack.badge}
                     </Badge>
                   )}
-                  <Heading size="sm" color="gray.800">
+                  <Heading
+                    size="md"
+                    color="nyt.black"
+                    fontWeight="700"
+                  >
                     {stack.stack_name}
                   </Heading>
-                  <Text fontSize="xs" color="blue.600" fontWeight="semibold">
+                  <Text
+                    fontSize="14px"
+                    color="nyt.darkGray"
+                    fontWeight="600"
+                    fontFamily='"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'
+                    textTransform="uppercase"
+                    letterSpacing="0.5px"
+                  >
                     {stack.tagline}
                   </Text>
-                  <Text fontSize="xs" color="gray.600" noOfLines={2}>
+                  <Text
+                    fontSize="16px"
+                    color="nyt.mediumGray"
+                    noOfLines={3}
+                    lineHeight="1.6"
+                  >
                     {stack.description}
                   </Text>
-                  <HStack spacing={2}>
-                    <Badge colorScheme="green" fontSize="xs">
+                  <HStack spacing={3} pt={2} borderTop="1px" borderColor="nyt.border">
+                    <Badge bg="nyt.black" color="white" fontSize="11px" px={2} py={1}>
                       {stack.total_monthly_cost}
                     </Badge>
-                    <Badge colorScheme="gray" fontSize="xs">
+                    <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="11px" px={2} py={1}>
                       {stack.tool_ids.length} tools
                     </Badge>
                   </HStack>
@@ -263,6 +317,16 @@ export const HomePage = () => {
               </Box>
             ))}
           </SimpleGrid>
+          <Button
+            as={RouterLink}
+            to="/stacks"
+            variant="outline"
+            display={{ base: 'flex', md: 'none' }}
+            mt={6}
+            mx="auto"
+          >
+            View All Stacks
+          </Button>
         </Box>
       )}
 

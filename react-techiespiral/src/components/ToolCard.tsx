@@ -22,29 +22,28 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
   return (
     <Box
       bg="white"
-      rounded="xl"
+      border="1px"
+      borderColor="nyt.border"
       p={6}
-      shadow="md"
       transition="all 0.2s"
       _hover={{
-        transform: 'translateY(-4px)',
-        shadow: 'xl'
+        borderColor: 'nyt.black',
+        bg: 'nyt.veryLightGray'
       }}
     >
       <VStack align="stretch" spacing={4}>
         {/* Tool Header */}
-        <Flex align="center" gap={3}>
+        <Flex align="flex-start" gap={4}>
           <Box
-            w="56px"
-            h="56px"
-            rounded="xl"
-            bg="gray.50"
-            border="2px"
-            borderColor="gray.200"
+            w="60px"
+            h="60px"
+            border="1px"
+            borderColor="nyt.border"
             display="flex"
             alignItems="center"
             justifyContent="center"
             overflow="hidden"
+            flexShrink={0}
           >
             {tool.logo_url ? (
               <Image
@@ -53,51 +52,56 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
                 w="full"
                 h="full"
                 objectFit="cover"
-                rounded="lg"
               />
             ) : (
-              <Text fontSize="xl" fontWeight="bold" color="gray.500">
+              <Text fontSize="2xl" fontWeight="bold" color="nyt.mediumGray">
                 {tool.tool_name.charAt(0).toUpperCase()}
               </Text>
             )}
           </Box>
-          
+
           <Box flex="1">
-            <Heading size="md" color="gray.800" mb={1}>
+            <Heading
+              size="md"
+              color="nyt.black"
+              mb={2}
+              fontWeight="700"
+              lineHeight="1.2"
+            >
               {tool.tool_name}
             </Heading>
+            {tool.scout_score && (
+              <ScoutScore scoutScore={tool.scout_score} size="sm" />
+            )}
           </Box>
         </Flex>
 
         {/* Tags */}
         <HStack spacing={2} flexWrap="wrap">
-          <Badge colorScheme="blue" fontSize="xs">
+          <Badge bg="nyt.black" color="white" fontSize="10px" px={2} py={1}>
             {tool.category}
           </Badge>
-          <Badge colorScheme="yellow" fontSize="xs">
+          <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="10px" px={2} py={1}>
             {tool.price_range}
           </Badge>
           {tool.best_for && (
-            <Badge colorScheme="red" fontSize="xs">
+            <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="10px" px={2} py={1}>
               {tool.best_for}
             </Badge>
-          )}
-          {tool.scout_score && (
-            <ScoutScore scoutScore={tool.scout_score} size="sm" />
           )}
         </HStack>
 
         {/* Description */}
-        <Text color="gray.600" fontSize="sm" lineHeight="1.5">
+        <Text color="nyt.mediumGray" fontSize="16px" lineHeight="1.6">
           {tool.description || 'Discover what this tool can do for you.'}
         </Text>
 
         {/* Action Buttons */}
-        <Flex gap={2}>
+        <Flex gap={3} pt={2} borderTop="1px" borderColor="nyt.border">
           <Button
             as={RouterLink}
             to={`/tool/${tool.Id}`}
-            colorScheme="purple"
+            variant="solid"
             size="sm"
             flex="1"
           >
@@ -107,11 +111,11 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
             as={ChakraLink}
             href={tool.affiliate_link || tool.website_url}
             target="_blank"
-            colorScheme="blue"
+            variant="outline"
             size="sm"
             flex="1"
           >
-            Try It Now
+            Visit Site
           </Button>
         </Flex>
       </VStack>

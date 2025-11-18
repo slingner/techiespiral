@@ -116,18 +116,16 @@ export const ToolDetailPage = () => {
 
   return (
     <VStack spacing={10} align="stretch">
-      {/* Tool Hero Section */}
-      <Box bg="white" rounded="2xl" p={10} shadow="lg">
+      {/* Tool Hero Section - NYT Style */}
+      <Box bg="white" border="1px" borderColor="nyt.border" p={10}>
         <VStack spacing={6} align="stretch">
           {/* Tool Header */}
           <Flex align="center" gap={6}>
             <Box
               w="80px"
               h="80px"
-              rounded="2xl"
-              bg="gray.50"
-              border="2px"
-              borderColor="gray.200"
+              border="1px"
+              borderColor="nyt.border"
               display="flex"
               alignItems="center"
               justifyContent="center"
@@ -140,28 +138,27 @@ export const ToolDetailPage = () => {
                   w="full"
                   h="full"
                   objectFit="cover"
-                  rounded="xl"
                 />
               ) : (
-                <Text fontSize="2xl" fontWeight="bold" color="gray.500">
+                <Text fontSize="2xl" fontWeight="bold" color="nyt.mediumGray">
                   {tool.tool_name.charAt(0).toUpperCase()}
                 </Text>
               )}
             </Box>
-            
+
             <VStack align="flex-start" flex="1">
-              <Heading size="xl" color="gray.800">
+              <Heading size="xl" color="nyt.black" fontWeight="700">
                 {tool.tool_name}
               </Heading>
               <HStack spacing={2} flexWrap="wrap">
-                <Badge colorScheme="blue" fontSize="sm" px={3} py={1}>
+                <Badge bg="nyt.black" color="white" fontSize="11px" px={3} py={1}>
                   {tool.category}
                 </Badge>
-                <Badge colorScheme="yellow" fontSize="sm" px={3} py={1}>
+                <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="11px" px={3} py={1}>
                   {tool.price_range}
                 </Badge>
                 {tool.best_for && (
-                  <Badge colorScheme="red" fontSize="sm" px={3} py={1}>
+                  <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="11px" px={3} py={1}>
                     {tool.best_for}
                   </Badge>
                 )}
@@ -170,17 +167,17 @@ export const ToolDetailPage = () => {
           </Flex>
 
           {/* Description */}
-          <Text fontSize="lg" color="gray.600" lineHeight="1.7">
+          <Text fontSize="18px" color="nyt.mediumGray" lineHeight="1.7">
             {tool.long_description || tool.description || 'Detailed description coming soon.'}
           </Text>
 
           {/* CTA Buttons */}
-          <Flex gap={4} direction={{ base: 'column', sm: 'row' }}>
+          <Flex gap={4} direction={{ base: 'column', sm: 'row' }} pt={4} borderTop="1px" borderColor="nyt.border">
             <Button
               as={ChakraLink}
               href={tool.website_url}
               target="_blank"
-              colorScheme="blue"
+              variant="solid"
               size="lg"
               flex="1"
             >
@@ -190,7 +187,7 @@ export const ToolDetailPage = () => {
               as={ChakraLink}
               href={tool.affiliate_link || tool.website_url}
               target="_blank"
-              colorScheme="red"
+              variant="outline"
               size="lg"
               flex="1"
             >
@@ -200,36 +197,36 @@ export const ToolDetailPage = () => {
         </VStack>
       </Box>
 
-      {/* Content Grid */}
+      {/* Content Grid - NYT Style */}
       <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={10}>
         {/* Features */}
         <GridItem>
-          <Box bg="white" rounded="xl" p={8} shadow="md">
-            <Heading size="lg" mb={4} color="gray.800">
+          <Box bg="white" border="1px" borderColor="nyt.border" p={8}>
+            <Heading size="lg" mb={4} color="nyt.black" fontWeight="700">
               Key Features
             </Heading>
             {features.length > 0 ? (
               <List spacing={2}>
                 {features.map((feature, index) => (
-                  <ListItem key={index} color="gray.600">
-                    <Text as="span" color="green.500" mr={2}>✓</Text>
+                  <ListItem key={index} color="nyt.mediumGray" fontSize="16px" lineHeight="1.6">
+                    <Text as="span" color="nyt.black" mr={2}>✓</Text>
                     {feature}
                   </ListItem>
                 ))}
               </List>
             ) : (
-              <Text color="gray.500">Feature information coming soon.</Text>
+              <Text color="nyt.lightGray">Feature information coming soon.</Text>
             )}
           </Box>
         </GridItem>
 
         {/* Use Cases */}
         <GridItem>
-          <Box bg="white" rounded="xl" p={8} shadow="md">
-            <Heading size="lg" mb={4} color="gray.800">
+          <Box bg="white" border="1px" borderColor="nyt.border" p={8}>
+            <Heading size="lg" mb={4} color="nyt.black" fontWeight="700">
               Best Use Cases
             </Heading>
-            <Text color="gray.600" lineHeight="1.7">
+            <Text color="nyt.mediumGray" lineHeight="1.7" fontSize="16px">
               {tool.use_cases || 'Use case information coming soon.'}
             </Text>
           </Box>
