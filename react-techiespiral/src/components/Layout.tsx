@@ -8,7 +8,8 @@ import {
   Link as ChakraLink,
   HStack,
   VStack,
-  Divider
+  Divider,
+  Badge
 } from '@chakra-ui/react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { ReactNode, useEffect } from 'react';
@@ -74,10 +75,10 @@ export const Layout = ({ children }: LayoutProps) => {
                 as={RouterLink}
                 to="/"
                 fontSize="13px"
-                fontFamily='"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'
+                fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
                 fontWeight="600"
                 textTransform="uppercase"
-                letterSpacing="0.5px"
+                letterSpacing="2px"
                 color={isActive('/') ? 'nyt.black' : 'nyt.mediumGray'}
                 borderBottom={isActive('/') ? '2px solid' : 'none'}
                 borderColor="nyt.black"
@@ -93,10 +94,10 @@ export const Layout = ({ children }: LayoutProps) => {
                 as={RouterLink}
                 to="/stacks"
                 fontSize="13px"
-                fontFamily='"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'
+                fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
                 fontWeight="600"
                 textTransform="uppercase"
-                letterSpacing="0.5px"
+                letterSpacing="2px"
                 color={isActive('/stacks') || location.pathname.startsWith('/stack/') ? 'nyt.black' : 'nyt.mediumGray'}
                 borderBottom={isActive('/stacks') || location.pathname.startsWith('/stack/') ? '2px solid' : 'none'}
                 borderColor="nyt.black"
@@ -112,10 +113,10 @@ export const Layout = ({ children }: LayoutProps) => {
                 as={RouterLink}
                 to="/compare"
                 fontSize="13px"
-                fontFamily='"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'
+                fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
                 fontWeight="600"
                 textTransform="uppercase"
-                letterSpacing="0.5px"
+                letterSpacing="2px"
                 color={isActive('/compare') ? 'nyt.black' : 'nyt.mediumGray'}
                 borderBottom={isActive('/compare') ? '2px solid' : 'none'}
                 borderColor="nyt.black"
@@ -166,12 +167,34 @@ export const Layout = ({ children }: LayoutProps) => {
               Your trusted source for curated tools and complete tech stacks.
               Helping indie hackers build, ship, and grow without breaking the bank.
             </Text>
-            <HStack spacing={4} fontSize="12px" color="nyt.mediumGray">
-              <Text>Curated Tools</Text>
-              <Text>·</Text>
-              <Text>Complete Stacks</Text>
-              <Text>·</Text>
-              <Text>Budget-Friendly</Text>
+            <HStack spacing={3}>
+              <Badge
+                bg="nyt.veryLightGray"
+                color="nyt.mediumGray"
+                px={3}
+                py={1}
+                borderRadius="md"
+              >
+                Curated Tools
+              </Badge>
+              <Badge
+                bg="nyt.veryLightGray"
+                color="nyt.mediumGray"
+                px={3}
+                py={1}
+                borderRadius="md"
+              >
+                Complete Stacks
+              </Badge>
+              <Badge
+                bg="nyt.veryLightGray"
+                color="nyt.mediumGray"
+                px={3}
+                py={1}
+                borderRadius="md"
+              >
+                Budget-Friendly
+              </Badge>
             </HStack>
             <Divider borderColor="nyt.border" />
             <Text fontSize="11px" color="nyt.lightGray">

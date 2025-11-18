@@ -134,9 +134,9 @@ export const StacksPage = () => {
                     fontSize="14px"
                     color="nyt.darkGray"
                     fontWeight="600"
-                    fontFamily='"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'
+                    fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
                     textTransform="uppercase"
-                    letterSpacing="0.5px"
+                    letterSpacing="1px"
                   >
                     {stack.tagline}
                   </Text>

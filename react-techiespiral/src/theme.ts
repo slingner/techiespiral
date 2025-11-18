@@ -34,10 +34,10 @@ const theme = extendTheme({
   components: {
     Button: {
       baseStyle: {
-        fontFamily: '"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
         fontWeight: '600',
         textTransform: 'uppercase',
-        letterSpacing: '0.5px',
+        letterSpacing: '1px',
         fontSize: '13px',
       },
       variants: {
@@ -89,10 +89,10 @@ const theme = extendTheme({
     },
     Badge: {
       baseStyle: {
-        fontFamily: '"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
         fontWeight: '600',
         textTransform: 'uppercase',
-        letterSpacing: '0.5px',
+        letterSpacing: '1px',
         fontSize: '10px',
       },
     },

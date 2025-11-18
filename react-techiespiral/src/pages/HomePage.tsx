@@ -117,19 +117,36 @@ export const HomePage = () => {
         </Text>
         <HStack
           justify="center"
-          spacing={6}
+          spacing={3}
           mt={6}
-          fontSize="13px"
-          color="nyt.mediumGray"
-          fontFamily='"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'
-          textTransform="uppercase"
-          letterSpacing="0.5px"
         >
-          <Text>Scout-Rated Tools</Text>
-          <Text>·</Text>
-          <Text>Complete Stacks</Text>
-          <Text>·</Text>
-          <Text>Budget-Friendly</Text>
+          <Badge
+            bg="nyt.veryLightGray"
+            color="nyt.mediumGray"
+            px={3}
+            py={1}
+            borderRadius="md"
+          >
+            Scout-Rated Tools
+          </Badge>
+          <Badge
+            bg="nyt.veryLightGray"
+            color="nyt.mediumGray"
+            px={3}
+            py={1}
+            borderRadius="md"
+          >
+            Complete Stacks
+          </Badge>
+          <Badge
+            bg="nyt.veryLightGray"
+            color="nyt.mediumGray"
+            px={3}
+            py={1}
+            borderRadius="md"
+          >
+            Budget-Friendly
+          </Badge>
         </HStack>
       </Box>
 
@@ -291,9 +308,9 @@ export const HomePage = () => {
                     fontSize="14px"
                     color="nyt.darkGray"
                     fontWeight="600"
-                    fontFamily='"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif'
+                    fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
                     textTransform="uppercase"
-                    letterSpacing="0.5px"
+                    letterSpacing="1px"
                   >
                     {stack.tagline}
                   </Text>
