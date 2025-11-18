@@ -11,10 +11,15 @@ import {
   Button,
   Spinner,
   Alert,
-  Container
+  Container,
+  HStack,
+  Badge
 } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 import { ToolCard } from '../components/ToolCard';
+import { NewsletterSignup } from '../components/NewsletterSignup';
 import { useToolsContext } from '../context/ToolsContext';
+import { useStacksContext } from '../context/StacksContext';
 
 const CATEGORIES = [
   'Developer Tools',
@@ -35,6 +40,7 @@ export const HomePage = () => {
   const [displayCount, setDisplayCount] = useState(24);
 
   const { tools: allTools, loading, error } = useToolsContext();
+  const { stacks } = useStacksContext();
 
   const filteredTools = useMemo(() => {
     return allTools.filter(tool => {
@@ -88,11 +94,18 @@ export const HomePage = () => {
         color="white"
       >
         <Heading size="2xl" mb={5} textShadow="0 2px 10px rgba(0,0,0,0.3)">
-          Find Your Perfect Tech Tools
+          The Tech Stack Advisor for Indie Hackers
         </Heading>
-        <Text fontSize="xl" maxW="600px" mx="auto" opacity={0.9}>
-          Discover the best software tools to boost your productivity and build amazing projects
+        <Text fontSize="xl" maxW="700px" mx="auto" opacity={0.9}>
+          Curated tools and complete tech stacks to build, ship, and grow—without breaking the bank
         </Text>
+        <HStack justify="center" spacing={4} mt={6} fontSize="sm" opacity={0.9}>
+          <Text>🚀 Scout-Rated Tools</Text>
+          <Text>•</Text>
+          <Text>📦 Complete Stacks</Text>
+          <Text>•</Text>
+          <Text>💰 Budget-Friendly</Text>
+        </HStack>
       </Box>
 
       {/* Search and Filter */}
@@ -169,6 +182,92 @@ export const HomePage = () => {
           </Flex>
         </>
       )}
+
+      {/* Featured Tech Stacks Section */}
+      {stacks.length > 0 && (
+        <Box bg="white" rounded="2xl" p={8} shadow="md">
+          <Flex justify="space-between" align="center" mb={6}>
+            <VStack align="flex-start" spacing={1}>
+              <Heading size="lg" color="gray.800">
+                📦 Featured Tech Stacks
+              </Heading>
+              <Text fontSize="sm" color="gray.600">
+                Complete tool collections for indie hackers
+              </Text>
+            </VStack>
+            <Button
+              as={RouterLink}
+              to="/stacks"
+              colorScheme="blue"
+              variant="outline"
+            >
+              View All Stacks
+            </Button>
+          </Flex>
+
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
+            {stacks.slice(0, 3).map(stack => (
+              <Box
+                key={stack.id}
+                as={RouterLink}
+                to={`/stack/${stack.id}`}
+                bg="gray.50"
+                rounded="xl"
+                p={5}
+                border="2px"
+                borderColor="gray.200"
+                transition="all 0.3s"
+                _hover={{
+                  borderColor: 'blue.400',
+                  bg: 'blue.50',
+                  transform: 'translateY(-2px)',
+                  shadow: 'md',
+                  textDecoration: 'none'
+                }}
+              >
+                <VStack align="stretch" spacing={3}>
+                  {stack.badge && (
+                    <Badge
+                      colorScheme={
+                        stack.badge === 'Most Popular' ? 'purple' :
+                        stack.badge === 'Popular' ? 'blue' :
+                        stack.badge === 'Budget-Friendly' ? 'green' :
+                        'orange'
+                      }
+                      fontSize="xs"
+                      px={2}
+                      py={1}
+                      alignSelf="flex-start"
+                    >
+                      {stack.badge}
+                    </Badge>
+                  )}
+                  <Heading size="sm" color="gray.800">
+                    {stack.stack_name}
+                  </Heading>
+                  <Text fontSize="xs" color="blue.600" fontWeight="semibold">
+                    {stack.tagline}
+                  </Text>
+                  <Text fontSize="xs" color="gray.600" noOfLines={2}>
+                    {stack.description}
+                  </Text>
+                  <HStack spacing={2}>
+                    <Badge colorScheme="green" fontSize="xs">
+                      {stack.total_monthly_cost}
+                    </Badge>
+                    <Badge colorScheme="gray" fontSize="xs">
+                      {stack.tool_ids.length} tools
+                    </Badge>
+                  </HStack>
+                </VStack>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Box>
+      )}
+
+      {/* Newsletter Signup */}
+      <NewsletterSignup />
     </VStack>
   );
 };

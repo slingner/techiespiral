@@ -17,10 +17,12 @@ import {
   Spinner,
   Alert,
   Link as ChakraLink,
-  SimpleGrid
+  SimpleGrid,
+  Divider
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useToolsContext } from '../context/ToolsContext';
+import { ScoutScore } from '../components/ScoutScore';
 
 export const ToolDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,20 +40,30 @@ export const ToolDetailPage = () => {
 
   const getRelatedTools = useMemo(() => {
     if (!tool) return [];
-    
+
     const relatedTools = allTools
       .filter(t => t.category === tool.category && t.Id !== tool.Id)
       .slice(0, 3);
-    
+
     if (relatedTools.length < 3) {
       const otherTools = allTools
         .filter(t => t.category !== tool.category && t.Id !== tool.Id)
         .slice(0, 3 - relatedTools.length);
       relatedTools.push(...otherTools);
     }
-    
+
     return relatedTools;
   }, [tool, allTools]);
+
+  const getAlternativeTools = useMemo(() => {
+    if (!tool || !tool.alternatives) return [];
+
+    const alternativeIds = tool.alternatives.split(',').map(id => parseInt(id.trim()));
+    return alternativeIds
+      .map(id => getToolById(id))
+      .filter(t => t !== null)
+      .slice(0, 3);
+  }, [tool, getToolById]);
 
   const parseFeatures = (features?: string) => {
     if (!features) return [];
@@ -100,6 +112,7 @@ export const ToolDetailPage = () => {
   const features = parseFeatures(tool.features);
   const { pros, cons } = parseProsCons(tool.pros_cons);
   const relatedTools = getRelatedTools;
+  const alternativeTools = getAlternativeTools;
 
   return (
     <VStack spacing={10} align="stretch">
@@ -223,6 +236,20 @@ export const ToolDetailPage = () => {
         </GridItem>
       </Grid>
 
+      {/* Scout Score */}
+      {(tool.scout_score || tool.value_score || tool.ease_score || tool.features_score) && (
+        <Box bg="white" rounded="xl" p={8} shadow="md">
+          <ScoutScore
+            scoutScore={tool.scout_score}
+            valueScore={tool.value_score}
+            easeScore={tool.ease_score}
+            featuresScore={tool.features_score}
+            size="lg"
+            showDetails={true}
+          />
+        </Box>
+      )}
+
       {/* Pros & Cons */}
       {(pros || cons) && (
         <Box bg="white" rounded="xl" p={8} shadow="md">
@@ -243,6 +270,91 @@ export const ToolDetailPage = () => {
               <Text color="gray.700">{cons || 'Cons information coming soon.'}</Text>
             </Box>
           </Grid>
+        </Box>
+      )}
+
+      {/* Alternative Tools */}
+      {alternativeTools.length > 0 && (
+        <Box bg="white" rounded="xl" p={8} shadow="md">
+          <Heading size="lg" mb={6} color="gray.800">
+            🔄 Alternatives to {tool.tool_name}
+          </Heading>
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
+            {alternativeTools.map(altTool => (
+              <Box
+                key={altTool?.Id}
+                as={RouterLink}
+                to={`/tool/${altTool?.Id}`}
+                bg="purple.50"
+                rounded="lg"
+                p={4}
+                border="2px"
+                borderColor="purple.200"
+                transition="all 0.2s"
+                _hover={{
+                  transform: 'translateY(-2px)',
+                  shadow: 'md',
+                  borderColor: 'purple.400',
+                  textDecoration: 'none'
+                }}
+              >
+                <Flex align="center" gap={3} mb={2}>
+                  <Box
+                    w="32px"
+                    h="32px"
+                    rounded="md"
+                    bg="white"
+                    border="1px"
+                    borderColor="gray.200"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    {altTool?.logo_url ? (
+                      <Image
+                        src={altTool.logo_url}
+                        alt={altTool.tool_name}
+                        w="full"
+                        h="full"
+                        objectFit="cover"
+                        rounded="sm"
+                      />
+                    ) : (
+                      <Text fontSize="sm" fontWeight="bold" color="gray.500">
+                        {altTool?.tool_name.charAt(0).toUpperCase()}
+                      </Text>
+                    )}
+                  </Box>
+                  <Text fontWeight="semibold" color="gray.800">
+                    {altTool?.tool_name}
+                  </Text>
+                </Flex>
+                <Text fontSize="sm" color="gray.600" mb={2}>
+                  {altTool?.description || 'Discover what this tool can do for you.'}
+                </Text>
+                <HStack spacing={2}>
+                  <Badge colorScheme="purple" fontSize="xs">
+                    {altTool?.category}
+                  </Badge>
+                  <Badge colorScheme="green" fontSize="xs">
+                    {altTool?.price_range}
+                  </Badge>
+                </HStack>
+              </Box>
+            ))}
+          </SimpleGrid>
+          <Divider my={4} />
+          <Flex justify="center">
+            <Button
+              as={RouterLink}
+              to={`/compare?tool1=${tool.Id}&tool2=${alternativeTools[0]?.Id}`}
+              colorScheme="purple"
+              variant="outline"
+              size="sm"
+            >
+              Compare with Alternative
+            </Button>
+          </Flex>
         </Box>
       )}
 
