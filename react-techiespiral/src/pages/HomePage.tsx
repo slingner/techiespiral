@@ -162,6 +162,39 @@ export const HomePage = () => {
         </HStack>
       </Box>
 
+      {/* How It Works - Explainer */}
+      <Box
+        bg="blue.50"
+        border="1px"
+        borderColor="blue.200"
+        p={6}
+        borderRadius="md"
+      >
+        <VStack spacing={4} align="stretch">
+          <Heading size="md" color="blue.900">
+            Find the Right Tools for Your Stage
+          </Heading>
+          <Text color="blue.800" fontSize="16px" lineHeight="1.6">
+            Click a stage button below to instantly see tools recommended for where you are.
+            No search needed—just pick your stage!
+          </Text>
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3}>
+            <Box bg="white" p={3} borderRadius="md" border="1px" borderColor="blue.100">
+              <Text fontSize="14px" color="gray.700">
+                <Text as="span" fontWeight="bold" color="blue.700">Example:</Text> Click "Building MVP"
+                → See tools like GitHub, Figma perfect for prototyping
+              </Text>
+            </Box>
+            <Box bg="white" p={3} borderRadius="md" border="1px" borderColor="blue.100">
+              <Text fontSize="14px" color="gray.700">
+                <Text as="span" fontWeight="bold" color="blue.700">Combine filters:</Text> Select "Scaling"
+                + "Communication" → Find team tools for growth stage
+              </Text>
+            </Box>
+          </SimpleGrid>
+        </VStack>
+      </Box>
+
       {/* Search and Filter - NYT Style */}
       <Box
         borderTop="1px"
@@ -170,59 +203,17 @@ export const HomePage = () => {
         py={6}
         bg="nyt.veryLightGray"
       >
-        <VStack spacing={4}>
-          <Flex
-            direction={{ base: 'column', md: 'row' }}
-            gap={4}
-            align="center"
-            justify="center"
-            w="full"
-          >
-            <Input
-              placeholder="Search tools..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              maxW="350px"
-              bg="white"
-              borderColor="nyt.border"
-              fontSize="16px"
-              _focus={{
-                borderColor: 'nyt.black',
-                boxShadow: 'none'
-              }}
-            />
-
-            <Select
-              placeholder="All Categories"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              maxW="250px"
-              bg="white"
-              borderColor="nyt.border"
-              fontSize="16px"
-              _focus={{
-                borderColor: 'nyt.black',
-                boxShadow: 'none'
-              }}
-            >
-              {CATEGORIES.map(category => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </Select>
-          </Flex>
-
-          {/* Startup Stage Filter */}
-          <Box w="full" maxW="container.md">
+        <VStack spacing={5}>
+          {/* Startup Stage Filter - FIRST */}
+          <Box w="full" maxW="container.lg">
             <VStack spacing={3}>
               <Heading
                 size="sm"
                 color="nyt.black"
-                fontWeight="600"
+                fontWeight="700"
                 textAlign="center"
               >
-                Filter by Your Startup Stage
+                1. Where Are You In Your Journey?
               </Heading>
               <Flex
                 gap={3}
@@ -261,25 +252,145 @@ export const HomePage = () => {
                 ))}
               </Flex>
               {selectedStage && (
-                <Text
-                  fontSize="14px"
-                  color="nyt.mediumGray"
-                  fontStyle="italic"
-                  textAlign="center"
+                <Badge
+                  bg="blue.100"
+                  color="blue.800"
+                  fontSize="13px"
+                  px={4}
+                  py={2}
+                  borderRadius="md"
                 >
-                  {STARTUP_STAGES.find(s => s.value === selectedStage)?.description}
-                </Text>
+                  Showing tools for: {STARTUP_STAGES.find(s => s.value === selectedStage)?.description}
+                </Badge>
               )}
+            </VStack>
+          </Box>
+
+          {/* Optional Refinement Filters */}
+          <Box w="full" borderTop="1px" borderColor="nyt.border" pt={4}>
+            <VStack spacing={3}>
+              <Heading
+                size="xs"
+                color="nyt.mediumGray"
+                fontWeight="600"
+                textAlign="center"
+              >
+                2. Refine Your Search (Optional)
+              </Heading>
+              <Flex
+                direction={{ base: 'column', md: 'row' }}
+                gap={4}
+                align="center"
+                justify="center"
+                w="full"
+              >
+                <Input
+                  placeholder="Search by tool name..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  maxW="350px"
+                  bg="white"
+                  borderColor="nyt.border"
+                  fontSize="16px"
+                  _focus={{
+                    borderColor: 'nyt.black',
+                    boxShadow: 'none'
+                  }}
+                />
+
+                <Select
+                  placeholder="All Categories"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  maxW="250px"
+                  bg="white"
+                  borderColor="nyt.border"
+                  fontSize="16px"
+                  _focus={{
+                    borderColor: 'nyt.black',
+                    boxShadow: 'none'
+                  }}
+                >
+                  {CATEGORIES.map(category => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </Select>
+              </Flex>
             </VStack>
           </Box>
         </VStack>
       </Box>
 
+      {/* Active Filters Display */}
+      {(selectedStage || selectedCategory || searchTerm) && (
+        <Box bg="white" border="1px" borderColor="nyt.border" p={4} borderRadius="md">
+          <Flex justify="space-between" align="center" wrap="wrap" gap={3}>
+            <HStack spacing={2} flexWrap="wrap">
+              <Text fontSize="14px" fontWeight="600" color="nyt.mediumGray">
+                Active filters:
+              </Text>
+              {selectedStage && (
+                <Badge bg="blue.100" color="blue.800" fontSize="12px" px={3} py={1}>
+                  Stage: {STARTUP_STAGES.find(s => s.value === selectedStage)?.label}
+                </Badge>
+              )}
+              {selectedCategory && (
+                <Badge bg="purple.100" color="purple.800" fontSize="12px" px={3} py={1}>
+                  Category: {selectedCategory}
+                </Badge>
+              )}
+              {searchTerm && (
+                <Badge bg="gray.100" color="gray.800" fontSize="12px" px={3} py={1}>
+                  Search: "{searchTerm}"
+                </Badge>
+              )}
+            </HStack>
+            <Button
+              size="xs"
+              variant="ghost"
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('');
+                setSelectedStage('');
+              }}
+            >
+              Clear all
+            </Button>
+          </Flex>
+        </Box>
+      )}
+
       {/* Tools Grid */}
       {filteredTools.length === 0 ? (
-        <Alert status="info" rounded="md">
-          No tools found matching your criteria.
-        </Alert>
+        <Box bg="white" border="1px" borderColor="gray.200" p={8} borderRadius="md">
+          <VStack spacing={4}>
+            <Heading size="md" color="gray.700">
+              No tools found
+            </Heading>
+            <Text color="gray.600" textAlign="center">
+              {selectedStage && selectedCategory
+                ? `No tools match both "${STARTUP_STAGES.find(s => s.value === selectedStage)?.label}" stage and "${selectedCategory}" category.`
+                : selectedStage
+                ? `No tools found for the "${STARTUP_STAGES.find(s => s.value === selectedStage)?.label}" stage${searchTerm ? ` matching "${searchTerm}"` : ''}.`
+                : selectedCategory
+                ? `No tools found in "${selectedCategory}"${searchTerm ? ` matching "${searchTerm}"` : ''}.`
+                : `No tools found matching "${searchTerm}".`}
+            </Text>
+            <Button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('');
+                setSelectedStage('');
+              }}
+              colorScheme="blue"
+              variant="outline"
+            >
+              Clear All Filters
+            </Button>
+          </VStack>
+        </Box>
       ) : (
         <>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
