@@ -63,6 +63,28 @@ export const ComparePage = () => {
 
   return (
     <VStack spacing={10} align="stretch">
+      {/* Featured Comparisons Link */}
+      <Box bg="blue.50" rounded="lg" p={4} borderLeft="4px" borderColor="blue.500">
+        <Flex justify="space-between" align="center">
+          <VStack align="flex-start" spacing={1}>
+            <Text fontWeight="semibold" color="gray.800">
+              📚 Looking for In-Depth Comparisons?
+            </Text>
+            <Text fontSize="sm" color="gray.600">
+              Check out our SEO-optimized comparison guides with FAQs and detailed analysis
+            </Text>
+          </VStack>
+          <Button
+            as={RouterLink}
+            to="/comparisons"
+            colorScheme="blue"
+            size="sm"
+          >
+            Browse Comparisons
+          </Button>
+        </Flex>
+      </Box>
+
       {/* Hero */}
       <Box
         bgGradient="linear(135deg, green.600 0%, blue.600 50%, purple.400 100%)"

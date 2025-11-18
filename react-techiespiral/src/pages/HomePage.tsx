@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   Box,
   Heading,
@@ -20,6 +20,8 @@ import { ToolCard } from '../components/ToolCard';
 import { NewsletterSignup } from '../components/NewsletterSignup';
 import { useToolsContext } from '../context/ToolsContext';
 import { useStacksContext } from '../context/StacksContext';
+import { comparisonsApi } from '../services/comparisonsApi';
+import { FeaturedComparison } from '../types/Tool';
 
 const CATEGORIES = [
   'Developer Tools',
@@ -38,9 +40,23 @@ export const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [displayCount, setDisplayCount] = useState(24);
+  const [comparisons, setComparisons] = useState<FeaturedComparison[]>([]);
 
   const { tools: allTools, loading, error } = useToolsContext();
   const { stacks } = useStacksContext();
+
+  // Fetch featured comparisons
+  useEffect(() => {
+    const fetchComparisons = async () => {
+      try {
+        const data = await comparisonsApi.fetchAllComparisons();
+        setComparisons(data);
+      } catch (error) {
+        console.error('Error fetching comparisons:', error);
+      }
+    };
+    fetchComparisons();
+  }, []);
 
   const filteredTools = useMemo(() => {
     return allTools.filter(tool => {
@@ -259,6 +275,78 @@ export const HomePage = () => {
                       {stack.tool_ids.length} tools
                     </Badge>
                   </HStack>
+                </VStack>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Box>
+      )}
+
+      {/* Featured Comparisons Section */}
+      {comparisons.length > 0 && (
+        <Box bg="white" rounded="2xl" p={8} shadow="md">
+          <Flex justify="space-between" align="center" mb={6}>
+            <VStack align="flex-start" spacing={1}>
+              <Heading size="lg" color="gray.800">
+                ⚖️ Featured Comparisons
+              </Heading>
+              <Text fontSize="sm" color="gray.600">
+                In-depth tool comparisons with FAQs and recommendations
+              </Text>
+            </VStack>
+            <Button
+              as={RouterLink}
+              to="/comparisons"
+              colorScheme="blue"
+              variant="outline"
+            >
+              View All
+            </Button>
+          </Flex>
+
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+            {comparisons.slice(0, 4).map(comp => (
+              <Box
+                key={comp.id}
+                as={RouterLink}
+                to={`/comparisons/${comp.id}`}
+                bg="gray.50"
+                rounded="xl"
+                p={4}
+                border="2px"
+                borderColor="gray.200"
+                transition="all 0.3s"
+                _hover={{
+                  borderColor: 'blue.400',
+                  bg: 'blue.50',
+                  transform: 'translateY(-2px)',
+                  shadow: 'md',
+                  textDecoration: 'none'
+                }}
+              >
+                <VStack align="stretch" spacing={2}>
+                  <HStack justify="space-between">
+                    <Badge colorScheme="blue" fontSize="xs">
+                      {comp.tool1_slug}
+                    </Badge>
+                    <Text fontSize="xs" fontWeight="bold" color="gray.400">
+                      VS
+                    </Text>
+                    <Badge colorScheme="purple" fontSize="xs">
+                      {comp.tool2_slug}
+                    </Badge>
+                  </HStack>
+                  <Heading size="sm" color="gray.800" noOfLines={2}>
+                    {comp.title}
+                  </Heading>
+                  <Text fontSize="xs" color="gray.600" noOfLines={2}>
+                    {comp.meta_description}
+                  </Text>
+                  {comp.faqs && comp.faqs.length > 0 && (
+                    <Text fontSize="xs" color="gray.500">
+                      📝 {comp.faqs.length} FAQs
+                    </Text>
+                  )}
                 </VStack>
               </Box>
             ))}

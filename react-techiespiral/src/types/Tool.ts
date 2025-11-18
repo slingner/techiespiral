@@ -1,6 +1,7 @@
 export interface Tool {
   Id: number;
   tool_name: string;
+  slug?: string; // URL-friendly slug (e.g., "notion", "github")
   category: string;
   description?: string;
   long_description?: string;
@@ -26,6 +27,14 @@ export interface Tool {
   click_count?: number;
 }
 
+// Helper function to generate slug from tool name
+export const generateSlug = (toolName: string): string => {
+  return toolName
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
 // Tech Stack interface - curated collections of tools
 export interface TechStack {
   id: number;
@@ -50,6 +59,29 @@ export interface PricingTier {
   billing: string; // "monthly" | "annually" | "one-time"
   features: string[];
   recommended?: boolean;
+}
+
+// Featured comparison for SEO
+export interface FeaturedComparison {
+  id: string;
+  tool1_id: number;
+  tool2_id: number;
+  tool1_slug: string;
+  tool2_slug: string;
+  title: string; // e.g., "Notion vs Asana: Which is Better in 2025?"
+  meta_description: string;
+  summary: string;
+  winner?: string; // "tool1" | "tool2" | "tie"
+  use_case_recommendations: string;
+  faqs: ComparisonFAQ[];
+  popular_searches?: string[]; // e.g., ["notion vs asana", "asana notion comparison"]
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ComparisonFAQ {
+  question: string;
+  answer: string;
 }
 
 export interface ToolsResponse {
