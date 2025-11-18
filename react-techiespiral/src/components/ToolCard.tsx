@@ -8,15 +8,23 @@ import {
   Badge,
   VStack,
   HStack,
-  Link as ChakraLink
+  Link as ChakraLink,
+  Tooltip
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Tool } from '../types/Tool';
+import { Tool, StartupStage } from '../types/Tool';
 import { ScoutScore } from './ScoutScore';
 
 interface ToolCardProps {
   tool: Tool;
 }
+
+const STAGE_LABELS: Record<StartupStage, string> = {
+  validating: 'Validating',
+  mvp: 'MVP',
+  launched: 'Launched',
+  scaling: 'Scaling'
+};
 
 export const ToolCard = ({ tool }: ToolCardProps) => {
   return (
@@ -77,19 +85,43 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
         </Flex>
 
         {/* Tags */}
-        <HStack spacing={2} flexWrap="wrap">
-          <Badge bg="nyt.black" color="white" fontSize="10px" px={2} py={1}>
-            {tool.category}
-          </Badge>
-          <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="10px" px={2} py={1}>
-            {tool.price_range}
-          </Badge>
-          {tool.best_for && (
-            <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="10px" px={2} py={1}>
-              {tool.best_for}
+        <VStack align="stretch" spacing={2}>
+          <HStack spacing={2} flexWrap="wrap">
+            <Badge bg="nyt.black" color="white" fontSize="10px" px={2} py={1}>
+              {tool.category}
             </Badge>
+            <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="10px" px={2} py={1}>
+              {tool.price_range}
+            </Badge>
+            {tool.best_for && (
+              <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="10px" px={2} py={1}>
+                {tool.best_for}
+              </Badge>
+            )}
+          </HStack>
+
+          {/* Startup Stage Badges */}
+          {tool.startup_stages && tool.startup_stages.length > 0 && (
+            <HStack spacing={1} flexWrap="wrap">
+              <Text fontSize="11px" color="nyt.mediumGray" fontWeight="600">
+                Recommended for:
+              </Text>
+              {tool.startup_stages.map(stage => (
+                <Badge
+                  key={stage}
+                  bg="blue.50"
+                  color="blue.700"
+                  fontSize="9px"
+                  px={2}
+                  py={0.5}
+                  borderRadius="sm"
+                >
+                  {STAGE_LABELS[stage]}
+                </Badge>
+              ))}
+            </HStack>
           )}
-        </HStack>
+        </VStack>
 
         {/* Description */}
         <Text color="nyt.mediumGray" fontSize="16px" lineHeight="1.6">
