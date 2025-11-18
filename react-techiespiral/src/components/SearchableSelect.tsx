@@ -75,7 +75,7 @@ export const SearchableSelect = ({
     <Box position="relative" w="full" ref={ref}>
       <InputGroup size={size}>
         <InputLeftElement pointerEvents="none">
-          <SearchIcon color="gray.400" />
+          <SearchIcon color={isOpen ? "blue.500" : "gray.400"} />
         </InputLeftElement>
         <Input
           placeholder={placeholder}
@@ -85,9 +85,15 @@ export const SearchableSelect = ({
           bg="white"
           border="2px"
           borderColor="gray.200"
+          cursor="text"
+          _hover={{
+            borderColor: 'blue.300',
+            bg: 'blue.50'
+          }}
           _focus={{
             borderColor: 'blue.500',
-            boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.1)'
+            boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.1)',
+            bg: 'white'
           }}
         />
       </InputGroup>

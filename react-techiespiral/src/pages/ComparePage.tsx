@@ -107,41 +107,57 @@ export const ComparePage = () => {
         <Heading size="lg" mb={6} color="gray.800">
           🔍 Search & Compare Tools
         </Heading>
-        <Text fontSize="sm" color="gray.600" mb={4}>
-          Type to search through {tools.length} tools by name, category, or description
+        <Text fontSize="sm" color="gray.600" mb={6}>
+          Type to search through {tools.length} tools by name, category, or description. Click the search box and start typing!
         </Text>
-        <Flex gap={4} direction={{ base: 'column', md: 'row' }} align="center">
-          <SearchableSelect
-            tools={tools}
-            value={selectedTool1}
-            onChange={setSelectedTool1}
-            placeholder="Search for first tool..."
-            size="lg"
-          />
+        <Flex gap={4} direction={{ base: 'column', md: 'row' }} align="flex-start">
+          <VStack flex="1" align="stretch" spacing={2}>
+            <Text fontSize="sm" fontWeight="semibold" color="gray.700">
+              Tool 1 (Type to search)
+            </Text>
+            <SearchableSelect
+              tools={tools}
+              value={selectedTool1}
+              onChange={setSelectedTool1}
+              placeholder="🔍 Type tool name, category, or keyword..."
+              size="lg"
+            />
+          </VStack>
 
-          <Text fontSize="2xl" fontWeight="bold" color="gray.400" flexShrink={0}>
-            VS
-          </Text>
+          <Flex align="center" pt={{ base: 0, md: 8 }} flexShrink={0}>
+            <Text fontSize="2xl" fontWeight="bold" color="gray.400">
+              VS
+            </Text>
+          </Flex>
 
-          <SearchableSelect
-            tools={tools}
-            value={selectedTool2}
-            onChange={setSelectedTool2}
-            placeholder="Search for second tool..."
-            size="lg"
-          />
+          <VStack flex="1" align="stretch" spacing={2}>
+            <Text fontSize="sm" fontWeight="semibold" color="gray.700">
+              Tool 2 (Type to search)
+            </Text>
+            <SearchableSelect
+              tools={tools}
+              value={selectedTool2}
+              onChange={setSelectedTool2}
+              placeholder="🔍 Type tool name, category, or keyword..."
+              size="lg"
+            />
+          </VStack>
 
-          <Button
-            colorScheme="blue"
-            size="lg"
-            px={8}
-            onClick={handleCompare}
-            isDisabled={!selectedTool1 || !selectedTool2 || selectedTool1 === selectedTool2}
-            flexShrink={0}
-          >
-            Compare
-          </Button>
+          <Flex pt={{ base: 0, md: 8 }} flexShrink={0}>
+            <Button
+              colorScheme="blue"
+              size="lg"
+              px={8}
+              onClick={handleCompare}
+              isDisabled={!selectedTool1 || !selectedTool2 || selectedTool1 === selectedTool2}
+            >
+              Compare
+            </Button>
+          </Flex>
         </Flex>
+        <Text fontSize="xs" color="gray.500" mt={4} textAlign="center">
+          💡 Tip: Click inside the search box and start typing to filter tools instantly
+        </Text>
       </Box>
 
       {/* Comparison Table */}
