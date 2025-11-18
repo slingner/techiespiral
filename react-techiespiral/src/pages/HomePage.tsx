@@ -60,8 +60,14 @@ export const HomePage = () => {
 
       const matchesCategory = !selectedCategory || tool.category === selectedCategory;
 
+      // For startup stage: if no stage selected, show all tools
+      // If a stage is selected:
+      //   - Tools WITHOUT startup_stages defined -> show them (backwards compatibility)
+      //   - Tools WITH startup_stages -> only show if stage matches
       const matchesStage = !selectedStage ||
-        (tool.startup_stages && tool.startup_stages.includes(selectedStage));
+        !tool.startup_stages ||
+        tool.startup_stages.length === 0 ||
+        tool.startup_stages.includes(selectedStage);
 
       return matchesSearch && matchesCategory && matchesStage;
     });
@@ -175,8 +181,8 @@ export const HomePage = () => {
             Find the Right Tools for Your Stage
           </Heading>
           <Text color="blue.800" fontSize="16px" lineHeight="1.6">
-            Click a stage button below to instantly see tools recommended for where you are.
-            No search needed—just pick your stage!
+            Click a stage button below to see tools recommended for where you are.
+            Tools with stage recommendations will be highlighted. Tools without recommendations are shown for all stages.
           </Text>
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3}>
             <Box bg="white" p={3} borderRadius="md" border="1px" borderColor="blue.100">
