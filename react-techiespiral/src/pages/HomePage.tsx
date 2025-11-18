@@ -20,10 +20,11 @@ import { ToolCard } from '../components/ToolCard';
 import { NewsletterSignup } from '../components/NewsletterSignup';
 import { useToolsContext } from '../context/ToolsContext';
 import { useStacksContext } from '../context/StacksContext';
+import { StartupStage } from '../types/Tool';
 
 const CATEGORIES = [
   'Developer Tools',
-  'Design Tools', 
+  'Design Tools',
   'Project Management',
   'Communication',
   'Analytics',
@@ -34,9 +35,17 @@ const CATEGORIES = [
   'Database'
 ];
 
+const STARTUP_STAGES: { value: StartupStage; label: string; description: string }[] = [
+  { value: 'validating', label: 'Validating Idea', description: 'Researching and validating your idea' },
+  { value: 'mvp', label: 'Building MVP', description: 'Building your first version' },
+  { value: 'launched', label: 'First Customers', description: 'Getting early traction' },
+  { value: 'scaling', label: 'Scaling', description: 'Growing your business' }
+];
+
 export const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedStage, setSelectedStage] = useState<StartupStage | ''>('');
   const [displayCount, setDisplayCount] = useState(24);
 
   const { tools: allTools, loading, error } = useToolsContext();
@@ -44,16 +53,19 @@ export const HomePage = () => {
 
   const filteredTools = useMemo(() => {
     return allTools.filter(tool => {
-      const matchesSearch = !searchTerm || 
+      const matchesSearch = !searchTerm ||
         tool.tool_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (tool.description && tool.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (tool.best_for && tool.best_for.toLowerCase().includes(searchTerm.toLowerCase()));
 
       const matchesCategory = !selectedCategory || tool.category === selectedCategory;
 
-      return matchesSearch && matchesCategory;
+      const matchesStage = !selectedStage ||
+        (tool.startup_stages && tool.startup_stages.includes(selectedStage));
+
+      return matchesSearch && matchesCategory && matchesStage;
     });
-  }, [allTools, searchTerm, selectedCategory]);
+  }, [allTools, searchTerm, selectedCategory, selectedStage]);
 
   const displayedTools = filteredTools.slice(0, displayCount);
   const hasMoreTools = filteredTools.length > displayCount;
@@ -158,46 +170,109 @@ export const HomePage = () => {
         py={6}
         bg="nyt.veryLightGray"
       >
-        <Flex
-          direction={{ base: 'column', md: 'row' }}
-          gap={4}
-          align="center"
-          justify="center"
-        >
-          <Input
-            placeholder="Search tools..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            maxW="350px"
-            bg="white"
-            borderColor="nyt.border"
-            fontSize="16px"
-            _focus={{
-              borderColor: 'nyt.black',
-              boxShadow: 'none'
-            }}
-          />
-
-          <Select
-            placeholder="All Categories"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            maxW="250px"
-            bg="white"
-            borderColor="nyt.border"
-            fontSize="16px"
-            _focus={{
-              borderColor: 'nyt.black',
-              boxShadow: 'none'
-            }}
+        <VStack spacing={4}>
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            gap={4}
+            align="center"
+            justify="center"
+            w="full"
           >
-            {CATEGORIES.map(category => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </Select>
-        </Flex>
+            <Input
+              placeholder="Search tools..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              maxW="350px"
+              bg="white"
+              borderColor="nyt.border"
+              fontSize="16px"
+              _focus={{
+                borderColor: 'nyt.black',
+                boxShadow: 'none'
+              }}
+            />
+
+            <Select
+              placeholder="All Categories"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              maxW="250px"
+              bg="white"
+              borderColor="nyt.border"
+              fontSize="16px"
+              _focus={{
+                borderColor: 'nyt.black',
+                boxShadow: 'none'
+              }}
+            >
+              {CATEGORIES.map(category => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </Select>
+          </Flex>
+
+          {/* Startup Stage Filter */}
+          <Box w="full" maxW="container.md">
+            <VStack spacing={3}>
+              <Heading
+                size="sm"
+                color="nyt.black"
+                fontWeight="600"
+                textAlign="center"
+              >
+                Filter by Your Startup Stage
+              </Heading>
+              <Flex
+                gap={3}
+                justify="center"
+                align="center"
+                wrap="wrap"
+              >
+                <Button
+                  size="md"
+                  variant={selectedStage === '' ? 'solid' : 'outline'}
+                  bg={selectedStage === '' ? 'nyt.black' : 'white'}
+                  color={selectedStage === '' ? 'white' : 'nyt.black'}
+                  borderColor="nyt.border"
+                  onClick={() => setSelectedStage('')}
+                  _hover={{
+                    bg: selectedStage === '' ? 'nyt.darkGray' : 'nyt.veryLightGray'
+                  }}
+                >
+                  All Stages
+                </Button>
+                {STARTUP_STAGES.map(stage => (
+                  <Button
+                    key={stage.value}
+                    size="md"
+                    variant={selectedStage === stage.value ? 'solid' : 'outline'}
+                    bg={selectedStage === stage.value ? 'nyt.black' : 'white'}
+                    color={selectedStage === stage.value ? 'white' : 'nyt.black'}
+                    borderColor="nyt.border"
+                    onClick={() => setSelectedStage(stage.value)}
+                    _hover={{
+                      bg: selectedStage === stage.value ? 'nyt.darkGray' : 'nyt.veryLightGray'
+                    }}
+                  >
+                    {stage.label}
+                  </Button>
+                ))}
+              </Flex>
+              {selectedStage && (
+                <Text
+                  fontSize="14px"
+                  color="nyt.mediumGray"
+                  fontStyle="italic"
+                  textAlign="center"
+                >
+                  {STARTUP_STAGES.find(s => s.value === selectedStage)?.description}
+                </Text>
+              )}
+            </VStack>
+          </Box>
+        </VStack>
       </Box>
 
       {/* Tools Grid */}

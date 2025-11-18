@@ -17,6 +17,8 @@ export interface Tool {
   value_score?: number; // 0-5
   ease_score?: number; // 0-5
   features_score?: number; // 0-5
+  // Startup stage recommendations
+  startup_stages?: StartupStage[]; // Which stages this tool is recommended for
   // Additional metadata
   pricing_tiers?: string; // JSON string of pricing tiers
   alternatives?: string; // Comma-separated tool IDs
@@ -25,6 +27,13 @@ export interface Tool {
   view_count?: number;
   click_count?: number;
 }
+
+// Startup stages for indie hackers
+export type StartupStage =
+  | 'validating' // Validating idea, doing customer research
+  | 'mvp' // Building MVP, prototyping
+  | 'launched' // First customers, early traction
+  | 'scaling'; // Growing, scaling operations
 
 // Tech Stack interface - curated collections of tools
 export interface TechStack {
