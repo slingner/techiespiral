@@ -104,16 +104,17 @@ export const ComparePage = () => {
     <VStack spacing={10} align="stretch">
       {/* Hero */}
       <Box
-        bgGradient="linear(135deg, green.600 0%, blue.600 50%, purple.400 100%)"
-        rounded="3xl"
+        border="1px"
+        borderColor="nyt.border"
+        rounded="md"
         p={{ base: 10, md: 16 }}
         textAlign="center"
-        color="white"
+        bg="white"
       >
-        <Heading size="2xl" mb={4} textShadow="0 2px 10px rgba(0,0,0,0.3)">
+        <Heading size="2xl" mb={4} color="nyt.black">
           Compare Tech Tools Side-by-Side
         </Heading>
-        <Text fontSize="xl" maxW="700px" mx="auto" opacity={0.9}>
+        <Text fontSize="xl" maxW="700px" mx="auto" color="nyt.darkGray">
           Make informed decisions by comparing features, pricing, and pros & cons
         </Text>
       </Box>
@@ -314,12 +315,12 @@ export const ComparePage = () => {
               </Tr>
               <Tr>
                 <Td fontWeight="semibold" verticalAlign="top">Pros</Td>
-                <Td verticalAlign="top" bg="green.50">
+                <Td verticalAlign="top">
                   <Text fontSize="sm" color="gray.700">
                     {parseProsCons(tool1.pros_cons).pros || 'No pros listed'}
                   </Text>
                 </Td>
-                <Td verticalAlign="top" bg="green.50">
+                <Td verticalAlign="top">
                   <Text fontSize="sm" color="gray.700">
                     {parseProsCons(tool2.pros_cons).pros || 'No pros listed'}
                   </Text>
@@ -327,12 +328,12 @@ export const ComparePage = () => {
               </Tr>
               <Tr>
                 <Td fontWeight="semibold" verticalAlign="top">Cons</Td>
-                <Td verticalAlign="top" bg="red.50">
+                <Td verticalAlign="top">
                   <Text fontSize="sm" color="gray.700">
                     {parseProsCons(tool1.pros_cons).cons || 'No cons listed'}
                   </Text>
                 </Td>
-                <Td verticalAlign="top" bg="red.50">
+                <Td verticalAlign="top">
                   <Text fontSize="sm" color="gray.700">
                     {parseProsCons(tool2.pros_cons).cons || 'No cons listed'}
                   </Text>
