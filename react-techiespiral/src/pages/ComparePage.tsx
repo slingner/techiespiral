@@ -21,6 +21,7 @@ import {
   Link as ChakraLink
 } from '@chakra-ui/react';
 import { useToolsContext } from '../context/ToolsContext';
+import { SearchableSelect } from '../components/SearchableSelect';
 
 export const ComparePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -104,38 +105,31 @@ export const ComparePage = () => {
       {/* Tool Selection */}
       <Box bg="white" rounded="2xl" p={8} shadow="md">
         <Heading size="lg" mb={6} color="gray.800">
-          Select Tools to Compare
+          🔍 Search & Compare Tools
         </Heading>
+        <Text fontSize="sm" color="gray.600" mb={4}>
+          Type to search through {tools.length} tools by name, category, or description
+        </Text>
         <Flex gap={4} direction={{ base: 'column', md: 'row' }} align="center">
-          <Select
-            placeholder="Select first tool"
+          <SearchableSelect
+            tools={tools}
             value={selectedTool1}
-            onChange={(e) => setSelectedTool1(e.target.value)}
+            onChange={setSelectedTool1}
+            placeholder="Search for first tool..."
             size="lg"
-          >
-            {tools.map(tool => (
-              <option key={tool.Id} value={tool.Id}>
-                {tool.tool_name}
-              </option>
-            ))}
-          </Select>
+          />
 
-          <Text fontSize="2xl" fontWeight="bold" color="gray.400">
+          <Text fontSize="2xl" fontWeight="bold" color="gray.400" flexShrink={0}>
             VS
           </Text>
 
-          <Select
-            placeholder="Select second tool"
+          <SearchableSelect
+            tools={tools}
             value={selectedTool2}
-            onChange={(e) => setSelectedTool2(e.target.value)}
+            onChange={setSelectedTool2}
+            placeholder="Search for second tool..."
             size="lg"
-          >
-            {tools.map(tool => (
-              <option key={tool.Id} value={tool.Id}>
-                {tool.tool_name}
-              </option>
-            ))}
-          </Select>
+          />
 
           <Button
             colorScheme="blue"
@@ -143,6 +137,7 @@ export const ComparePage = () => {
             px={8}
             onClick={handleCompare}
             isDisabled={!selectedTool1 || !selectedTool2 || selectedTool1 === selectedTool2}
+            flexShrink={0}
           >
             Compare
           </Button>
