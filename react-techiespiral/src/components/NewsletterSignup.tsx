@@ -68,51 +68,76 @@ export const NewsletterSignup = () => {
 
   return (
     <Box
-      bg="gradient"
-      bgGradient="linear(135deg, blue.600, purple.600)"
-      rounded="2xl"
-      p={8}
-      color="white"
-      shadow="lg"
+      border="3px solid"
+      borderColor="nyt.black"
+      p={10}
+      bg="white"
+      mt={12}
     >
-      <VStack spacing={4} align="stretch">
-        <Heading size="lg">
-          📬 Get Weekly Tool Picks
-        </Heading>
-        <Text fontSize="md" opacity={0.9}>
-          Join indie hackers getting curated tool recommendations, stack breakdowns, and exclusive deals every week.
-        </Text>
+      <VStack spacing={6} align="stretch">
+        <VStack spacing={3} textAlign="center">
+          <Heading
+            size="xl"
+            color="nyt.black"
+            fontWeight="700"
+          >
+            Get Weekly Tool Picks
+          </Heading>
+          <Text
+            fontSize="16px"
+            color="nyt.mediumGray"
+            maxW="600px"
+            lineHeight="1.6"
+          >
+            Join indie hackers getting curated tool recommendations, stack breakdowns, and exclusive deals every week.
+          </Text>
+        </VStack>
 
         <form onSubmit={handleSubmit}>
           <FormControl isInvalid={!!error}>
-            <HStack spacing={3}>
-              <Input
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                bg="white"
-                color="gray.800"
-                border="none"
-                size="lg"
-                _placeholder={{ color: 'gray.400' }}
-              />
-              <Button
-                type="submit"
-                colorScheme="yellow"
-                size="lg"
-                px={8}
-                isLoading={isLoading}
-                flexShrink={0}
-              >
-                Subscribe
-              </Button>
-            </HStack>
-            {error && <FormErrorMessage color="yellow.200">{error}</FormErrorMessage>}
+            <VStack spacing={3}>
+              <HStack spacing={3} w="full" maxW="500px" mx="auto">
+                <Input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  bg="white"
+                  borderColor="nyt.border"
+                  color="nyt.black"
+                  size="lg"
+                  fontSize="16px"
+                  _placeholder={{ color: 'nyt.lightGray' }}
+                  _focus={{
+                    borderColor: 'nyt.black',
+                    boxShadow: 'none'
+                  }}
+                />
+                <Button
+                  type="submit"
+                  variant="solid"
+                  size="lg"
+                  px={8}
+                  isLoading={isLoading}
+                  flexShrink={0}
+                >
+                  Subscribe
+                </Button>
+              </HStack>
+              {error && (
+                <FormErrorMessage justifyContent="center">
+                  {error}
+                </FormErrorMessage>
+              )}
+            </VStack>
           </FormControl>
         </form>
 
-        <Text fontSize="xs" opacity={0.7}>
+        <Text
+          fontSize="12px"
+          color="nyt.lightGray"
+          textAlign="center"
+        >
           No spam. Unsubscribe anytime. We respect your inbox.
         </Text>
       </VStack>
