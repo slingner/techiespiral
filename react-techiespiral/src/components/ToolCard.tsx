@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Tool } from '../types/Tool';
+import { ScoutScore } from './ScoutScore';
 
 interface ToolCardProps {
   tool: Tool;
@@ -80,6 +81,9 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
             <Badge colorScheme="red" fontSize="xs">
               {tool.best_for}
             </Badge>
+          )}
+          {tool.scout_score && (
+            <ScoutScore scoutScore={tool.scout_score} size="sm" />
           )}
         </HStack>
 
