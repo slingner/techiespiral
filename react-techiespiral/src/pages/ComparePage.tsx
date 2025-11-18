@@ -7,7 +7,6 @@ import {
   Button,
   VStack,
   HStack,
-  Select,
   Table,
   Thead,
   Tbody,
@@ -20,7 +19,14 @@ import {
   Flex,
   Link as ChakraLink
 } from '@chakra-ui/react';
+import Select from 'react-select';
 import { useToolsContext } from '../context/ToolsContext';
+
+type ToolOption = {
+  value: string;
+  label: string;
+  category: string;
+};
 
 export const ComparePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,6 +37,39 @@ export const ComparePage = () => {
 
   const [selectedTool1, setSelectedTool1] = useState(tool1Id || '');
   const [selectedTool2, setSelectedTool2] = useState(tool2Id || '');
+
+  // Convert tools to react-select options
+  const allToolOptions: ToolOption[] = useMemo(() => {
+    return tools.map(tool => ({
+      value: tool.Id.toString(),
+      label: tool.tool_name,
+      category: tool.category
+    }));
+  }, [tools]);
+
+  // Filter options for second dropdown based on first selection
+  const tool2Options = useMemo(() => {
+    if (!selectedTool1) {
+      // If no first tool selected, show all tools
+      return allToolOptions;
+    }
+
+    const selectedTool1Data = tools.find(t => t.Id === parseInt(selectedTool1));
+
+    // Exclude the selected tool from first dropdown
+    let filtered = allToolOptions.filter(opt => opt.value !== selectedTool1);
+
+    // Prioritize tools from the same category
+    if (selectedTool1Data) {
+      const sameCategory = filtered.filter(opt => opt.category === selectedTool1Data.category);
+      const otherCategory = filtered.filter(opt => opt.category !== selectedTool1Data.category);
+
+      // Show same category tools first, then others
+      filtered = [...sameCategory, ...otherCategory];
+    }
+
+    return filtered;
+  }, [selectedTool1, allToolOptions, tools]);
 
   const tool1 = useMemo(() => {
     if (!selectedTool1) return null;
@@ -85,35 +124,56 @@ export const ComparePage = () => {
           Select Tools to Compare
         </Heading>
         <Flex gap={4} direction={{ base: 'column', md: 'row' }} align="center">
-          <Select
-            placeholder="Select first tool"
-            value={selectedTool1}
-            onChange={(e) => setSelectedTool1(e.target.value)}
-            size="lg"
-          >
-            {tools.map(tool => (
-              <option key={tool.Id} value={tool.Id}>
-                {tool.tool_name}
-              </option>
-            ))}
-          </Select>
+          <Box flex={1} w="full">
+            <Select
+              placeholder="Search and select first tool..."
+              options={allToolOptions}
+              value={allToolOptions.find(opt => opt.value === selectedTool1) || null}
+              onChange={(option) => setSelectedTool1(option?.value || '')}
+              isClearable
+              isSearchable
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  minHeight: '48px',
+                  borderColor: '#E2E8F0',
+                  '&:hover': { borderColor: '#CBD5E0' }
+                }),
+                menu: (base) => ({ ...base, zIndex: 10 })
+              }}
+            />
+          </Box>
 
-          <Text fontSize="2xl" fontWeight="bold" color="gray.400">
+          <Text fontSize="2xl" fontWeight="bold" color="gray.400" flexShrink={0}>
             VS
           </Text>
 
-          <Select
-            placeholder="Select second tool"
-            value={selectedTool2}
-            onChange={(e) => setSelectedTool2(e.target.value)}
-            size="lg"
-          >
-            {tools.map(tool => (
-              <option key={tool.Id} value={tool.Id}>
-                {tool.tool_name}
-              </option>
-            ))}
-          </Select>
+          <Box flex={1} w="full">
+            <Select
+              placeholder={selectedTool1 ? "Search and select second tool..." : "Select first tool first"}
+              options={tool2Options}
+              value={tool2Options.find(opt => opt.value === selectedTool2) || null}
+              onChange={(option) => setSelectedTool2(option?.value || '')}
+              isClearable
+              isSearchable
+              isDisabled={!selectedTool1}
+              formatOptionLabel={(option: ToolOption) => (
+                <Box>
+                  <Text fontWeight="medium">{option.label}</Text>
+                  <Text fontSize="xs" color="gray.500">{option.category}</Text>
+                </Box>
+              )}
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  minHeight: '48px',
+                  borderColor: '#E2E8F0',
+                  '&:hover': { borderColor: '#CBD5E0' }
+                }),
+                menu: (base) => ({ ...base, zIndex: 10 })
+              }}
+            />
+          </Box>
 
           <Button
             colorScheme="blue"
@@ -121,6 +181,7 @@ export const ComparePage = () => {
             px={8}
             onClick={handleCompare}
             isDisabled={!selectedTool1 || !selectedTool2 || selectedTool1 === selectedTool2}
+            flexShrink={0}
           >
             Compare
           </Button>
