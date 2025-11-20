@@ -27,6 +27,22 @@ The cool part: We removed the database! Everything now lives in two JSON files:
 
 ## Running It On Your Computer 💻
 
+### ⚠️ IMPORTANT: You Must Be In The Right Folder!
+
+All npm commands must be run from inside the `react-techiespiral` folder, NOT the root project folder!
+
+```bash
+# ❌ WRONG - This won't work!
+cd techiespiral
+npm run dev
+
+# ✅ CORRECT - Do this instead!
+cd techiespiral/react-techiespiral
+npm run dev
+```
+
+If you see an error like "Could not read package.json", you're in the wrong folder!
+
 ### Step 1: Make Sure You Have The Right Tools
 
 You need Node.js installed on your computer. Think of Node.js as the engine that runs JavaScript outside of a web browser.
@@ -218,6 +234,13 @@ npm update
 ```
 
 ## Troubleshooting 🔧
+
+### "Could not read package.json" or "ENOENT: no such file or directory"
+You're in the wrong folder! Make sure you're inside the `react-techiespiral` folder:
+```bash
+cd react-techiespiral
+npm run dev
+```
 
 ### "npm: command not found"
 You need to install Node.js from [nodejs.org](https://nodejs.org/)
