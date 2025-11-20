@@ -1,15 +1,12 @@
 [build]
   # Set base directory to the React app
   base = "react-techiespiral"
-  
+
   # Build command (runs from base directory)
   command = "npm install && npm run build"
-  
+
   # Directory to publish (relative to base directory)
   publish = "dist"
-  
-  # Functions directory (relative to base directory)
-  functions = "netlify/functions"
 
 # Redirect all routes to index.html for React Router
 [[redirects]]
