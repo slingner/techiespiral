@@ -1,34 +1,14 @@
-import { Tool, ToolsResponse } from '../types/Tool';
-import { mockTools } from './mockData';
-
-const API_BASE_URL = '/.netlify/functions';
+import { Tool } from '../types/Tool';
+import toolsData from '../data/tools.json';
 
 export const toolsApi = {
   async fetchAllTools(): Promise<Tool[]> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/tools`);
-      
-      if (!response.ok) {
-        // If API fails, use mock data for local development
-        console.warn('API not available, using mock data for local development');
-        return mockTools;
-      }
-      
-      const data: ToolsResponse = await response.json();
-      return data.list || [];
-    } catch (error) {
-      console.warn('Error fetching tools, using mock data for local development:', error);
-      return mockTools;
-    }
+    // Return data directly from local JSON file
+    return Promise.resolve(toolsData as Tool[]);
   },
 
   async fetchToolById(id: number): Promise<Tool | null> {
-    try {
-      const tools = await this.fetchAllTools();
-      return tools.find(tool => tool.Id === id) || null;
-    } catch (error) {
-      console.error('Error fetching tool by ID:', error);
-      throw error;
-    }
+    const tool = toolsData.find(tool => tool.Id === id);
+    return Promise.resolve(tool as Tool || null);
   }
 };
