@@ -10,10 +10,11 @@ import {
   Flex
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Tool, StartupStage } from '../../types/Tool';
+import { Tool, StartupStage, TechStack } from '../../types/Tool';
 import { QuizAnswers } from '../../types/Quiz';
 import { ToolCard } from '../ToolCard';
 import { BUDGET_RANGES } from '../../utils/budgetFilters';
+import { useStacksContext } from '../../context/StacksContext';
 
 const STARTUP_STAGES: { value: StartupStage; label: string; description: string }[] = [
   { value: 'validating', label: 'Validating Idea', description: 'Researching and validating your idea' },
@@ -29,6 +30,8 @@ interface QuizResultsProps {
 }
 
 export const QuizResults = ({ answers, filteredTools, onRetakeQuiz }: QuizResultsProps) => {
+  const { stacks } = useStacksContext();
+
   const stageLabels = answers.stages.map(stage =>
     STARTUP_STAGES.find(s => s.value === stage)?.label
   ).filter(Boolean);
@@ -38,6 +41,16 @@ export const QuizResults = ({ answers, filteredTools, onRetakeQuiz }: QuizResult
   ).filter(Boolean);
 
   const hasFilters = answers.stages.length > 0 || answers.budgets.length > 0 || answers.categories.length > 0;
+
+  // Filter stacks based on quiz answers
+  const filteredStacks = stacks.filter(stack => {
+    // If user selected categories, match stack category to selected categories
+    if (answers.categories.length > 0) {
+      return answers.categories.includes(stack.category);
+    }
+    // If no categories selected, show all stacks
+    return true;
+  }).slice(0, 6); // Limit to top 6 featured stacks
 
   return (
     <VStack spacing={8} align="stretch">
@@ -111,6 +124,119 @@ export const QuizResults = ({ answers, filteredTools, onRetakeQuiz }: QuizResult
           </Flex>
         </VStack>
       </Box>
+
+      {/* Featured Tech Stacks Section */}
+      {filteredStacks.length > 0 && (
+        <>
+          <Box>
+            <Heading size="lg" color="nyt.black" mb={2}>
+              Featured Tech Stacks for You
+            </Heading>
+            <Text color="nyt.mediumGray" mb={4}>
+              Complete toolkits curated for your needs
+            </Text>
+          </Box>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+            {filteredStacks.map(stack => (
+              <Box
+                key={stack.id}
+                as={RouterLink}
+                to={`/stack/${stack.id}`}
+                bg='white'
+                border='1px'
+                borderColor='nyt.border'
+                p={6}
+                transition='all 0.2s'
+                _hover={{
+                  borderColor: "nyt.black",
+                  bg: "nyt.veryLightGray",
+                  textDecoration: "none",
+                }}
+              >
+                <VStack align='stretch' spacing={4}>
+                  {/* Badge */}
+                  {stack.badge && (
+                    <Badge
+                      bg='nyt.black'
+                      color='white'
+                      fontSize='10px'
+                      px={3}
+                      py={1}
+                      alignSelf='flex-start'
+                    >
+                      {stack.badge}
+                    </Badge>
+                  )}
+
+                  {/* Stack Name */}
+                  <Heading size='md' color='nyt.black' fontWeight='700'>
+                    {stack.stack_name}
+                  </Heading>
+
+                  {/* Tagline */}
+                  <Text
+                    fontSize='14px'
+                    color='nyt.darkGray'
+                    fontWeight='600'
+                    fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
+                    textTransform='uppercase'
+                    letterSpacing='1px'
+                  >
+                    {stack.tagline}
+                  </Text>
+
+                  {/* Description */}
+                  <Text
+                    fontSize='16px'
+                    color='nyt.mediumGray'
+                    noOfLines={3}
+                    lineHeight='1.6'
+                  >
+                    {stack.description}
+                  </Text>
+
+                  {/* Metadata */}
+                  <Flex
+                    gap={3}
+                    pt={2}
+                    borderTop='1px'
+                    borderColor='nyt.border'
+                    flexWrap='wrap'
+                  >
+                    <Badge
+                      bg='nyt.veryLightGray'
+                      color='nyt.mediumGray'
+                      fontSize='11px'
+                      px={2}
+                      py={1}
+                    >
+                      {stack.category}
+                    </Badge>
+                    <Badge
+                      bg='nyt.black'
+                      color='white'
+                      fontSize='11px'
+                      px={2}
+                      py={1}
+                    >
+                      {stack.total_monthly_cost}
+                    </Badge>
+                  </Flex>
+
+                  {/* Target Audience */}
+                  <Text
+                    fontSize='13px'
+                    color='nyt.mediumGray'
+                    fontStyle='italic'
+                  >
+                    For: {stack.target_audience}
+                  </Text>
+                </VStack>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </>
+      )}
 
       {/* Tools Grid or Empty State */}
       {filteredTools.length === 0 ? (
