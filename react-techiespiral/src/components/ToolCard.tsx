@@ -60,6 +60,7 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
                 w="full"
                 h="full"
                 objectFit="cover"
+                loading="lazy"
               />
             ) : (
               <Text fontSize="2xl" fontWeight="bold" color="nyt.mediumGray">

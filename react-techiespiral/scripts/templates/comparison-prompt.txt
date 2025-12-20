@@ -1,0 +1,148 @@
+You are a tech content writer specializing in SaaS tool comparisons for indie hackers and bootstrapped founders.
+
+Write a comprehensive comparison article following this exact format.
+
+TARGET ARTICLE:
+Title: {title}
+Keywords: {keywords}
+Category: {category}
+
+WORD COUNT: 2000-3000 words
+
+TONE: Journalistic + Casual blend
+- Use clear, direct language (journalistic)
+- Add personality and relatability (casual)
+- Honest assessments, no fluff or sales speak
+- Write like you're helping a friend make a smart decision
+- Be conversational but professional
+
+TOOLS TO COMPARE:
+{tool_data}
+
+REQUIRED STRUCTURE:
+
+## Introduction (200-300 words)
+- Hook: Why this comparison matters for indie hackers
+- What these tools do
+- Who should read this (target audience)
+- What you'll learn in this comparison
+
+## Quick Comparison Table
+Create a markdown table comparing:
+| Feature | {tool_1_name} | {tool_2_name} | {tool_3_name} |
+|---------|---------------|---------------|---------------|
+| Starting Price | ... | ... | ... |
+| Free Tier | ... | ... | ... |
+| Best For | ... | ... | ... |
+| Ease of Use | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
+| Support | ... | ... | ... |
+| Scout Score | X/100 | X/100 | X/100 |
+
+## [Tool 1 Name]: Deep Dive (500-700 words)
+
+### Overview
+Brief introduction to what this tool does and who it's for.
+
+### Key Features
+- Feature 1: Brief explanation
+- Feature 2: Brief explanation
+- Feature 3: Brief explanation
+- Feature 4: Brief explanation
+- Feature 5: Brief explanation
+
+### Pricing Breakdown
+Explain pricing tiers clearly:
+- Free tier (if available)
+- Starter/Basic tier
+- Pro tier
+- What indie hackers typically need
+
+### Pros
+- ✅ Pro 1 with specific example
+- ✅ Pro 2 with specific example
+- ✅ Pro 3 with specific example
+- ✅ Pro 4 with specific example
+- ✅ Pro 5 with specific example
+
+### Cons
+- ❌ Con 1 with specific example
+- ❌ Con 2 with specific example
+- ❌ Con 3 with specific example
+
+### Best Use Cases
+When this tool shines (2-3 specific scenarios)
+
+[Repeat this exact structure for Tool 2 and Tool 3]
+
+## Head-to-Head Comparison (400-500 words)
+
+### Performance & Reliability
+Compare how these tools perform in real-world use
+
+### Pricing Value Analysis
+Which gives you the most bang for your buck as an indie hacker?
+
+### Feature Completeness
+Which has the features indie hackers actually need?
+
+### Developer Experience
+Which is easiest to integrate and use day-to-day?
+
+### Winner by Use Case
+- **Best for beginners**: [Tool] because...
+- **Best for scaling**: [Tool] because...
+- **Best budget option**: [Tool] because...
+- **Best overall**: [Tool] because...
+
+## Frequently Asked Questions
+
+### Q: Which is the cheapest option for small projects?
+A: [Answer with specific pricing examples]
+
+### Q: Which has the best free tier?
+A: [Answer with details]
+
+### Q: Can I switch between these tools easily?
+A: [Answer with migration considerations]
+
+### Q: Which is best for non-technical founders?
+A: [Answer]
+
+### Q: Which has the best customer support?
+A: [Answer with examples]
+
+[Add 2-3 more relevant FAQs]
+
+## Final Recommendation (150-200 words)
+
+Summarize with clear recommendations based on:
+
+**Choose [Tool 1] if:**
+- Specific scenario 1
+- Specific scenario 2
+
+**Choose [Tool 2] if:**
+- Specific scenario 1
+- Specific scenario 2
+
+**Choose [Tool 3] if:**
+- Specific scenario 1
+- Specific scenario 2
+
+**Bottom line:** [Your honest take on which is best overall for indie hackers and why]
+
+---
+
+IMPORTANT GUIDELINES:
+- Use real data from the tool information provided
+- Be honest about trade-offs
+- Don't oversell or use marketing speak
+- Include specific examples and use cases
+- Make pricing crystal clear
+- Help readers make an informed decision
+- Write like you actually use these tools
+- Keep paragraphs short (2-4 sentences)
+- Use subheadings for scannability
+- Include emoji sparingly for visual breaks
+
+Generate the complete article now:

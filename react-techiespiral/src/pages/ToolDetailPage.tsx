@@ -23,6 +23,7 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import { useToolsContext } from '../context/ToolsContext';
 import { ScoutScore } from '../components/ScoutScore';
+import { SEO } from '../components/SEO';
 
 export const ToolDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -114,9 +115,40 @@ export const ToolDetailPage = () => {
   const relatedTools = getRelatedTools;
   const alternativeTools = getAlternativeTools;
 
+  // Create schema.org SoftwareApplication markup
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": tool.tool_name,
+    "description": tool.long_description || tool.description,
+    "applicationCategory": tool.category,
+    "offers": {
+      "@type": "Offer",
+      "price": tool.price_range,
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": tool.scout_score ? {
+      "@type": "AggregateRating",
+      "ratingValue": tool.scout_score,
+      "bestRating": "10",
+      "worstRating": "0"
+    } : undefined,
+    "url": tool.website_url,
+    "image": tool.logo_url
+  };
+
   return (
-    <VStack spacing={10} align="stretch">
-      {/* Tool Hero Section - NYT Style */}
+    <>
+      <SEO
+        title={`${tool.tool_name} Review - ${tool.category}`}
+        description={tool.long_description || tool.description || `Discover ${tool.tool_name}, a ${tool.category} tool for indie hackers. ${tool.best_for || ''}`}
+        url={`https://techiespiral.com/tool/${tool.Id}`}
+        image={tool.logo_url}
+        keywords={`${tool.tool_name}, ${tool.category}, ${tool.best_for || ''}, developer tools, indie hackers`}
+        schema={schema}
+      />
+      <VStack spacing={10} align="stretch">
+        {/* Tool Hero Section - NYT Style */}
       <Box bg="white" border="1px" borderColor="nyt.border" p={10}>
         <VStack spacing={6} align="stretch">
           {/* Tool Header */}
@@ -315,6 +347,7 @@ export const ToolDetailPage = () => {
                         h="full"
                         objectFit="cover"
                         rounded="sm"
+                        loading="lazy"
                       />
                     ) : (
                       <Text fontSize="sm" fontWeight="bold" color="gray.500">
@@ -399,6 +432,7 @@ export const ToolDetailPage = () => {
                         h="full"
                         objectFit="cover"
                         rounded="sm"
+                        loading="lazy"
                       />
                     ) : (
                       <Text fontSize="sm" fontWeight="bold" color="gray.500">
@@ -421,6 +455,7 @@ export const ToolDetailPage = () => {
           </SimpleGrid>
         </Box>
       )}
-    </VStack>
+      </VStack>
+    </>
   );
 };

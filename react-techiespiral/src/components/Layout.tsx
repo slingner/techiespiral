@@ -167,6 +167,35 @@ export const Layout = ({ children }: LayoutProps) => {
               >
                 Compare
               </ChakraLink>
+              <ChakraLink
+                as={RouterLink}
+                to='/blog'
+                fontSize='13px'
+                fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
+                fontWeight='600'
+                textTransform='uppercase'
+                letterSpacing='2px'
+                padding='8px'
+                color={
+                  isActive("/blog") || location.pathname.startsWith("/blog/")
+                    ? "nyt.black"
+                    : "nyt.mediumGray"
+                }
+                borderBottom={
+                  isActive("/blog") || location.pathname.startsWith("/blog/")
+                    ? "2px solid"
+                    : "none"
+                }
+                borderColor='nyt.black'
+                pb={1}
+                _hover={{
+                  color: "nyt.black",
+                  bgColor: "orange.50",
+                  textDecoration: "none",
+                }}
+              >
+                Blog
+              </ChakraLink>
             </HStack>
           </Box>
         </Box>

@@ -1,0 +1,56 @@
+You are a tech researcher specializing in discovering new tools for indie hackers and bootstrapped founders.
+
+Research and identify 10-20 NEW trending tools that would be valuable for indie hackers in 2025.
+
+EXISTING TOOLS (DO NOT suggest these):
+{existing_tool_names}
+
+FOCUS AREAS:
+- Developer tools (AI assistants, deployment, databases, etc.)
+- SaaS essentials (payments, email, analytics, etc.)
+- Design tools
+- No-code/low-code platforms
+- Marketing & growth tools
+- Project management
+- Communication tools
+
+CRITERIA FOR SELECTION:
+1. **Indie Hacker Fit**: Specifically valuable for solo developers or small teams
+2. **Launched Recently**: Tools launched or gained traction in 2024-2025
+3. **Affordable**: Has reasonable pricing or generous free tier
+4. **Growing Popularity**: Trending on Product Hunt, HN, or dev communities
+5. **Active Development**: Still being actively maintained
+
+RESEARCH SOURCES TO CONSIDER:
+- Product Hunt trending (developer tools)
+- Hacker News (Show HN, popular tool discussions)
+- GitHub trending repositories
+- Dev.to popular tools
+- Indie Hackers tool discussions
+- Reddit r/SaaS, r/Entrepreneur
+
+FOR EACH TOOL, PROVIDE:
+{
+  "tool_name": "Exact tool name",
+  "category": "One of: Developer Tools, Design Tools, Project Management, Communication, Analytics, Marketing, AI Tools, No-Code Tools, Hosting, Database, Payments",
+  "description": "One-line description (140 characters max)",
+  "long_description": "Detailed paragraph (200-300 words) explaining what it does, key features, and why indie hackers should care",
+  "price_range": "e.g., 'Free - $29/month' or '$10 - $99/month'",
+  "website_url": "Official website URL",
+  "best_for": "e.g., 'Developers', 'Solo Founders', 'Small Teams'",
+  "startup_stages": ["Array of: validating, mvp, launched, scaling"],
+  "features": "Comma-separated list of 5-7 key features",
+  "use_cases": "Paragraph explaining best use cases for indie hackers",
+  "pros_cons": "PROS: Bullet list. CONS: Bullet list.",
+  "why_trending": "1-2 sentences why this tool is gaining traction now"
+}
+
+RESPONSE FORMAT:
+Respond with ONLY valid JSON array (no markdown, no explanation):
+[
+  {tool object 1},
+  {tool object 2},
+  ...
+]
+
+Aim for 10-20 tools that would genuinely help indie hackers in 2025.

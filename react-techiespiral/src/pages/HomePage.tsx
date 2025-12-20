@@ -18,6 +18,7 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import { ToolCard } from "../components/ToolCard";
 import { NewsletterSignup } from "../components/NewsletterSignup";
+import { SEO } from "../components/SEO";
 import { useToolsContext } from "../context/ToolsContext";
 import { useStacksContext } from "../context/StacksContext";
 
@@ -88,8 +89,15 @@ export const HomePage = () => {
   }
 
   return (
-    <VStack spacing={12} align='stretch'>
-      {/* Hero Section - NYT Style */}
+    <>
+      <SEO
+        title="TechieSpiral - Tech Stack Advisor for Indie Hackers"
+        description="Curated tools and complete tech stacks for indie developers and bootstrapped founders. Scout-rated tools, budget-friendly picks, and proven tool combinations to build, ship, and grow."
+        url="https://techiespiral.com"
+        keywords="tech tools, indie hackers, tech stacks, developer tools, SaaS tools, bootstrapped founders, startup tools, best tools for developers"
+      />
+      <VStack spacing={12} align='stretch'>
+        {/* Hero Section - NYT Style */}
       <Box
         border='1px'
         borderColor='nyt.border'
@@ -445,6 +453,7 @@ export const HomePage = () => {
 
       {/* Newsletter Signup */}
       <NewsletterSignup />
-    </VStack>
+      </VStack>
+    </>
   );
 };

@@ -1,0 +1,63 @@
+You are a SaaS tool analyst evaluating developer tools for indie hackers and bootstrapped founders.
+
+Analyze this tool and provide ratings in JSON format.
+
+TOOL DATA:
+Name: {tool_name}
+Category: {category}
+Description: {description}
+Detailed Description: {long_description}
+Price: {price_range}
+Features: {features}
+Best For: {best_for}
+
+TOOLS IN SAME CATEGORY (for alternative suggestions):
+{category_tools_list}
+
+TASK 1 - Generate Scout Scores:
+Provide numeric scores based on these criteria for indie hackers specifically:
+
+1. scout_score (0-100): Overall quality and recommendation strength
+   - Consider: reputation, reliability, community support, documentation, indie hacker fit
+   - 90-100: Industry leader, highly recommended for indie hackers
+   - 70-89: Solid choice, reliable and well-supported
+   - 50-69: Decent option with caveats
+   - 30-49: Niche use cases only
+   - 0-29: Generally not recommended
+
+2. value_score (0-5): Price-to-value ratio for bootstrappers
+   - 5: Exceptional value, generous free tier or very affordable
+   - 4: Good value for money, reasonable pricing
+   - 3: Fair pricing, market average
+   - 2: Expensive for what it offers
+   - 1: Overpriced for indie budgets
+
+3. ease_score (0-5): Learning curve and ease of use
+   - 5: Extremely intuitive, minimal setup, great docs
+   - 4: Easy to start, good documentation
+   - 3: Moderate learning curve
+   - 2: Steep learning curve, complex setup
+   - 1: Very complex, difficult to use
+
+4. features_score (0-5): Feature completeness for indie hackers
+   - 5: Has everything indie hackers need and more
+   - 4: Covers all essential features well
+   - 3: Covers most needs, some gaps
+   - 2: Limited feature set
+   - 1: Bare minimum features
+
+TASK 2 - Identify Alternatives:
+From the list of tools in the same category above, select 3-5 tool IDs that are GENUINE alternatives.
+Consider: similar use case, comparable features, actual competitors.
+Only include tool IDs from the category list provided.
+
+RESPONSE FORMAT:
+Respond ONLY with valid JSON (no markdown, no explanation):
+{
+  "scout_score": 85,
+  "value_score": 4,
+  "ease_score": 5,
+  "features_score": 4,
+  "alternatives": [12, 45, 67],
+  "reasoning": "Brief 1-2 sentence explanation of overall assessment"
+}

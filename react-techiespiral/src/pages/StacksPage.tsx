@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useStacksContext } from "../context/StacksContext";
+import { SEO } from "../components/SEO";
 
 export const StacksPage = () => {
   const { stacks, loading, error } = useStacksContext();
@@ -48,8 +49,15 @@ export const StacksPage = () => {
   }
 
   return (
-    <VStack spacing={12} align='stretch'>
-      {/* Hero Section - NYT Style */}
+    <>
+      <SEO
+        title="Tech Stacks for Indie Hackers"
+        description="Curated complete tech stacks for indie developers and bootstrapped founders. Proven tool combinations to build, ship, and grow your projects."
+        url="https://techiespiral.com/stacks"
+        keywords="tech stacks, indie hackers, startup tech stack, developer tools, SaaS stack, complete tool sets"
+      />
+      <VStack spacing={12} align='stretch'>
+        {/* Hero Section - NYT Style */}
       <Box
         border='1px'
         borderColor='nyt.border'
@@ -197,6 +205,7 @@ export const StacksPage = () => {
           )}
         </>
       )}
-    </VStack>
+      </VStack>
+    </>
   );
 };

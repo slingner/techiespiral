@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://techiespiral.com/sitemap.xml
+
+# Optimize crawl budget
+User-agent: *
+Crawl-delay: 1
+
+# Block specific bots if needed (currently allowing all)

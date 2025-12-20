@@ -22,6 +22,7 @@ import {
   CategoryQuestion,
 } from "../components/quiz/QuizQuestions";
 import { QuizResults } from "../components/quiz/QuizResults";
+import { SEO } from "../components/SEO";
 
 const TOTAL_STEPS = 3;
 
@@ -162,8 +163,15 @@ export const QuizPage = () => {
   }
 
   return (
-    <VStack spacing={10} align='stretch'>
-      {/* Header */}
+    <>
+      <SEO
+        title="Tech Stack Quiz - Find Your Perfect Tools"
+        description="Take our interactive quiz to discover the perfect tech tools and stack for your indie hacker project. Get personalized recommendations based on your stage, budget, and needs."
+        url="https://techiespiral.com/quiz"
+        keywords="tech stack quiz, developer tools quiz, indie hacker tools, personalized tech recommendations, startup tools"
+      />
+      <VStack spacing={10} align='stretch'>
+        {/* Header */}
       <Box
         border='1px'
         borderColor='nyt.border'
@@ -257,6 +265,7 @@ export const QuizPage = () => {
           {currentStep === TOTAL_STEPS - 1 ? "See Results" : "Next"}
         </Button>
       </Flex>
-    </VStack>
+      </VStack>
+    </>
   );
 };

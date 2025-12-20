@@ -5,20 +5,27 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run generate:sitemap && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.10.9",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "framer-motion": "^12.23.12",
+    "gray-matter": "^4.0.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-helmet-async": "^2.0.5",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^7.8.0",
-    "react-select": "^5.10.2"
+    "react-select": "^5.10.2",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

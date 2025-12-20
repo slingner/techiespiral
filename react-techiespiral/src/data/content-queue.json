@@ -1,0 +1,330 @@
+{
+  "queue": [
+    {
+      "title": "Railway vs Render vs Fly.io for Indie Hackers",
+      "keywords": "railway vs render, fly.io comparison, indie hacker hosting, serverless hosting 2025",
+      "category": "Hosting",
+      "toolNames": ["Railway", "Render", "Fly.io"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "Lemon Squeezy vs Gumroad vs Paddle for Digital Products",
+      "keywords": "lemon squeezy vs gumroad, paddle comparison, digital product payments, merchant of record",
+      "category": "Payments",
+      "toolNames": ["Lemon Squeezy", "Gumroad", "Paddle"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "Cursor vs GitHub Copilot vs Codeium 2025",
+      "keywords": "cursor vs github copilot, codeium comparison, AI code assistant, best coding AI",
+      "category": "Developer Tools",
+      "toolNames": ["Cursor", "GitHub Copilot", "Codeium"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "ConvertKit vs Loops vs Mailchimp for SaaS",
+      "keywords": "convertkit vs loops, mailchimp for saas, email marketing indie hackers",
+      "category": "Marketing",
+      "toolNames": ["ConvertKit", "Loops", "Mailchimp"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "Clerk vs Supabase Auth vs Auth0 for Startups",
+      "keywords": "clerk vs supabase auth, auth0 comparison, authentication for startups",
+      "category": "Developer Tools",
+      "toolNames": ["Clerk", "Supabase", "Auth0"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "Vercel vs Netlify vs Cloudflare Pages",
+      "keywords": "vercel vs netlify, cloudflare pages comparison, jamstack hosting 2025",
+      "category": "Hosting",
+      "toolNames": ["Vercel", "Netlify", "Cloudflare Pages"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "Stripe vs Lemon Squeezy: Which is Better for Indie Hackers?",
+      "keywords": "stripe vs lemon squeezy, payment processor comparison, indie hacker payments",
+      "category": "Payments",
+      "toolNames": ["Stripe", "Lemon Squeezy"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "PlanetScale vs Supabase vs Neon Postgres",
+      "keywords": "planetscale vs supabase, neon postgres comparison, serverless database 2025",
+      "category": "Database",
+      "toolNames": ["PlanetScale", "Supabase", "Neon"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "Linear vs Notion vs Asana for Small Teams",
+      "keywords": "linear vs notion, asana comparison, project management small teams",
+      "category": "Project Management",
+      "toolNames": ["Linear", "Notion", "Asana"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "Best Hosting for Next.js Apps 2025",
+      "keywords": "best nextjs hosting, next.js deployment 2025, vercel alternatives",
+      "category": "Hosting",
+      "toolNames": ["Vercel", "Netlify", "Railway"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "Cheaper Alternatives to AWS for Indie Hackers",
+      "keywords": "aws alternatives, cheap cloud hosting, indie hacker infrastructure",
+      "category": "Hosting",
+      "toolNames": ["DigitalOcean", "Hetzner", "Fly.io"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "Best Payment Processors for SaaS (2025 Comparison)",
+      "keywords": "best saas payment processor, subscription billing 2025, stripe alternatives",
+      "category": "Payments",
+      "toolNames": ["Stripe", "Paddle", "Lemon Squeezy"],
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "title": "DigitalOcean vs Linode vs Vultr for Bootstrapped Startups",
+      "keywords": "digitalocean vs linode, vultr comparison, vps hosting comparison",
+      "category": "Hosting",
+      "toolNames": ["DigitalOcean", "Linode", "Vultr"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Best CDN for Indie Hackers (Cloudflare vs Bunny CDN)",
+      "keywords": "best cdn for indie hackers, cloudflare vs bunny, cheap cdn 2025",
+      "category": "Hosting",
+      "toolNames": ["Cloudflare", "BunnyCDN"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Heroku Alternatives for Budget-Conscious Developers",
+      "keywords": "heroku alternatives, cheap paas hosting, budget developer platforms",
+      "category": "Hosting",
+      "toolNames": ["Railway", "Render", "Fly.io"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Best Serverless Platforms 2025",
+      "keywords": "best serverless platforms, lambda alternatives, serverless comparison 2025",
+      "category": "Hosting",
+      "toolNames": ["Vercel", "Netlify", "AWS Lambda"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Best Payment Gateway for Indie SaaS",
+      "keywords": "best payment gateway indie saas, subscription payments comparison",
+      "category": "Payments",
+      "toolNames": ["Stripe", "Paddle", "PayPal"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Chargebee vs Paddle vs FastSpring",
+      "keywords": "chargebee vs paddle, fastspring comparison, subscription billing platforms",
+      "category": "Payments",
+      "toolNames": ["Chargebee", "Paddle", "FastSpring"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "International Payment Processors Comparison",
+      "keywords": "international payment processor, global payments, multi-currency billing",
+      "category": "Payments",
+      "toolNames": ["Stripe", "PayPal", "Wise"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Best Invoicing Software for Freelancers",
+      "keywords": "best invoicing software freelancers, invoice tools 2025, freelance billing",
+      "category": "Payments",
+      "toolNames": ["FreshBooks", "Wave", "Invoice Ninja"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Best AI Code Assistants 2025",
+      "keywords": "best ai code assistant 2025, coding ai tools, copilot alternatives",
+      "category": "AI Tools",
+      "toolNames": ["Cursor", "GitHub Copilot", "Codeium"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "VS Code vs Cursor vs Windsurf",
+      "keywords": "vs code vs cursor, windsurf ide comparison, best code editor 2025",
+      "category": "Developer Tools",
+      "toolNames": ["VS Code", "Cursor", "Windsurf"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Best API Testing Tools for Developers",
+      "keywords": "best api testing tools, postman alternatives, api development 2025",
+      "category": "Developer Tools",
+      "toolNames": ["Postman", "Insomnia", "Hoppscotch"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Postman vs Insomnia vs Hoppscotch",
+      "keywords": "postman vs insomnia, hoppscotch comparison, rest client comparison",
+      "category": "Developer Tools",
+      "toolNames": ["Postman", "Insomnia", "Hoppscotch"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Best Email Marketing for Bootstrapped SaaS",
+      "keywords": "best email marketing saas, bootstrap email tools, affordable email marketing",
+      "category": "Marketing",
+      "toolNames": ["ConvertKit", "Mailchimp", "SendGrid"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "ConvertKit Alternatives for Indie Hackers",
+      "keywords": "convertkit alternatives, email marketing alternatives, indie hacker email tools",
+      "category": "Marketing",
+      "toolNames": ["Loops", "Mailchimp", "Beehiiv"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Best Newsletter Platforms 2025",
+      "keywords": "best newsletter platform 2025, substack alternatives, newsletter tools",
+      "category": "Marketing",
+      "toolNames": ["Beehiiv", "Substack", "Ghost"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Beehiiv vs Substack vs Ghost",
+      "keywords": "beehiiv vs substack, ghost newsletter comparison, monetize newsletter 2025",
+      "category": "Marketing",
+      "toolNames": ["Beehiiv", "Substack", "Ghost"],
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "title": "Best Tools for Indie Hackers 2025",
+      "keywords": "best indie hacker tools 2025, startup tools, bootstrapper toolkit",
+      "category": "Complete Stack",
+      "toolNames": ["Various"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Complete Tech Stack for SaaS Startups",
+      "keywords": "saas tech stack 2025, complete startup stack, best tools for saas",
+      "category": "Complete Stack",
+      "toolNames": ["Various"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Free vs Paid Developer Tools Comparison",
+      "keywords": "free vs paid dev tools, open source alternatives, budget developer tools",
+      "category": "Developer Tools",
+      "toolNames": ["Various"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Best No-Code Tools for Non-Technical Founders",
+      "keywords": "best no-code tools, no-code saas, non-technical founder tools",
+      "category": "No-Code Tools",
+      "toolNames": ["Bubble", "Webflow", "Framer"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Essential Tools for Solo Developers",
+      "keywords": "solo developer tools, one person saas tools, indie dev stack",
+      "category": "Developer Tools",
+      "toolNames": ["Various"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Best Design Tools for Developers",
+      "keywords": "design tools for developers, figma alternatives, dev-friendly design",
+      "category": "Design Tools",
+      "toolNames": ["Figma", "Sketch", "Penpot"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Analytics Tools Comparison (GA vs Plausible vs Fathom)",
+      "keywords": "google analytics vs plausible, fathom analytics, privacy-friendly analytics",
+      "category": "Analytics",
+      "toolNames": ["Google Analytics", "Plausible", "Fathom"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Best Customer Support Tools for Startups",
+      "keywords": "best customer support tools, helpdesk for startups, support ticket system",
+      "category": "Communication",
+      "toolNames": ["Intercom", "Zendesk", "Plain"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Project Management Tools for Solo Founders",
+      "keywords": "project management solo founder, notion vs linear, simple pm tools",
+      "category": "Project Management",
+      "toolNames": ["Notion", "Linear", "Trello"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Best Database Options for Indie Hackers",
+      "keywords": "best database indie hackers, postgres vs mysql, serverless databases",
+      "category": "Database",
+      "toolNames": ["Supabase", "PlanetScale", "MongoDB"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Monitoring Tools Comparison (Sentry vs LogRocket)",
+      "keywords": "sentry vs logrocket, error monitoring tools, app monitoring 2025",
+      "category": "Developer Tools",
+      "toolNames": ["Sentry", "LogRocket", "Rollbar"],
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "title": "Best Form Builders for Developers",
+      "keywords": "best form builder developers, typeform alternatives, form tools 2025",
+      "category": "No-Code Tools",
+      "toolNames": ["Typeform", "Tally", "Google Forms"],
+      "priority": 3,
+      "status": "pending"
+    }
+  ],
+  "generated": [],
+  "metadata": {
+    "lastUpdated": "2025-01-15",
+    "totalQueued": 40,
+    "totalGenerated": 0
+  }
+}

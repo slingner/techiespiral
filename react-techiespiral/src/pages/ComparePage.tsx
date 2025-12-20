@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import Select from "react-select";
 import { useToolsContext } from "../context/ToolsContext";
+import { SEO } from "../components/SEO";
 
 type ToolOption = {
   value: string;
@@ -107,8 +108,15 @@ export const ComparePage = () => {
   };
 
   return (
-    <VStack spacing={10} align='stretch'>
-      {/* Hero */}
+    <>
+      <SEO
+        title="Compare Developer Tools - Side by Side Comparison"
+        description="Compare developer tools, SaaS platforms, and tech solutions side by side. Find the best tool for your indie hacker project with detailed feature comparisons."
+        url="https://techiespiral.com/compare"
+        keywords="compare developer tools, tool comparison, SaaS comparison, tech tool comparison, side by side comparison"
+      />
+      <VStack spacing={10} align='stretch'>
+        {/* Hero */}
       <Box
         border='1px'
         borderColor='nyt.border'
@@ -418,6 +426,7 @@ export const ComparePage = () => {
           Select two different tools above to see a detailed comparison
         </Alert>
       )}
-    </VStack>
+      </VStack>
+    </>
   );
 };
