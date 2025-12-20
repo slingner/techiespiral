@@ -32,9 +32,9 @@ export const Layout = ({ children }: LayoutProps) => {
     <Box minH="100vh" bg="white">
       {/* Header */}
       <Box borderBottom="1px" borderColor="nyt.black" bg="white">
-        <Container maxW="1200px" py={6}>
+        <Box maxW="1400px" mx="auto" px={{ base: 4, md: 8 }} py={6}>
           {/* Logo/Masthead */}
-          <VStack spacing={4}>
+          <Flex justify="space-between" align="center">
             <ChakraLink as={RouterLink} to="/" _hover={{ textDecoration: 'none' }}>
               <Flex align="center" gap={3}>
                 <Image
@@ -43,34 +43,35 @@ export const Layout = ({ children }: LayoutProps) => {
                   w="40px"
                   h="40px"
                 />
-                <Heading
-                  size="2xl"
-                  color="nyt.black"
-                  fontFamily="heading"
-                  letterSpacing="-0.03em"
-                  fontWeight="700"
-                >
-                  TechieSpiral
-                </Heading>
+                <VStack spacing={0} align="flex-start">
+                  <Heading
+                    size="2xl"
+                    color="nyt.black"
+                    fontFamily="heading"
+                    letterSpacing="-0.03em"
+                    fontWeight="700"
+                  >
+                    TechieSpiral
+                  </Heading>
+                  <Text
+                    fontSize="11px"
+                    color="nyt.mediumGray"
+                    textTransform="uppercase"
+                    letterSpacing="1px"
+                    fontFamily="body"
+                  >
+                    The Tech Stack Advisor for Indie Hackers
+                  </Text>
+                </VStack>
               </Flex>
             </ChakraLink>
-
-            <Text
-              fontSize="11px"
-              color="nyt.mediumGray"
-              textTransform="uppercase"
-              letterSpacing="1px"
-              fontFamily="body"
-            >
-              The Tech Stack Advisor for Indie Hackers
-            </Text>
-          </VStack>
-        </Container>
+          </Flex>
+        </Box>
 
         {/* Navigation */}
         <Box borderTop="1px" borderBottom="1px" borderColor="nyt.border" py={2}>
-          <Container maxW="1200px">
-            <HStack spacing={8} justify="center">
+          <Box maxW="1400px" mx="auto" px={{ base: 4, md: 8 }}>
+            <HStack spacing={8}>
               <ChakraLink
                 as={RouterLink}
                 to="/"
@@ -111,6 +112,25 @@ export const Layout = ({ children }: LayoutProps) => {
               </ChakraLink>
               <ChakraLink
                 as={RouterLink}
+                to="/quiz"
+                fontSize="13px"
+                fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
+                fontWeight="600"
+                textTransform="uppercase"
+                letterSpacing="2px"
+                color={isActive('/quiz') ? 'nyt.black' : 'nyt.mediumGray'}
+                borderBottom={isActive('/quiz') ? '2px solid' : 'none'}
+                borderColor="nyt.black"
+                pb={1}
+                _hover={{
+                  color: 'nyt.black',
+                  textDecoration: 'none'
+                }}
+              >
+                Quiz
+              </ChakraLink>
+              <ChakraLink
+                as={RouterLink}
                 to="/compare"
                 fontSize="13px"
                 fontFamily='-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif'
@@ -129,14 +149,14 @@ export const Layout = ({ children }: LayoutProps) => {
                 Compare
               </ChakraLink>
             </HStack>
-          </Container>
+          </Box>
         </Box>
       </Box>
 
       {/* Main Content */}
-      <Container maxW="1200px" py={12} px={{ base: 4, md: 6 }}>
+      <Box maxW="1400px" mx="auto" py={12} px={{ base: 4, md: 8 }}>
         {children}
-      </Container>
+      </Box>
 
       {/* Footer */}
       <Box
@@ -147,7 +167,7 @@ export const Layout = ({ children }: LayoutProps) => {
         py={12}
         mt={20}
       >
-        <Container maxW="1200px">
+        <Box maxW="1400px" mx="auto" px={{ base: 4, md: 8 }}>
           <VStack spacing={6}>
             <Divider borderColor="nyt.border" />
             <Heading
@@ -201,7 +221,7 @@ export const Layout = ({ children }: LayoutProps) => {
               © 2025 TechieSpiral. All rights reserved.
             </Text>
           </VStack>
-        </Container>
+        </Box>
       </Box>
     </Box>
   );

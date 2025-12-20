@@ -20,7 +20,6 @@ import { ToolCard } from '../components/ToolCard';
 import { NewsletterSignup } from '../components/NewsletterSignup';
 import { useToolsContext } from '../context/ToolsContext';
 import { useStacksContext } from '../context/StacksContext';
-import { StartupStage } from '../types/Tool';
 
 const CATEGORIES = [
   'Developer Tools',
@@ -35,17 +34,10 @@ const CATEGORIES = [
   'Database'
 ];
 
-const STARTUP_STAGES: { value: StartupStage; label: string; description: string }[] = [
-  { value: 'validating', label: 'Validating Idea', description: 'Researching and validating your idea' },
-  { value: 'mvp', label: 'Building MVP', description: 'Building your first version' },
-  { value: 'launched', label: 'First Customers', description: 'Getting early traction' },
-  { value: 'scaling', label: 'Scaling', description: 'Growing your business' }
-];
 
 export const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedStage, setSelectedStage] = useState<StartupStage | ''>('');
   const [displayCount, setDisplayCount] = useState(24);
 
   const { tools: allTools, loading, error } = useToolsContext();
@@ -60,18 +52,9 @@ export const HomePage = () => {
 
       const matchesCategory = !selectedCategory || tool.category === selectedCategory;
 
-      // For startup stage: if no stage selected, show all tools
-      // If a stage is selected:
-      //   - Tools WITHOUT startup_stages defined -> show them (backwards compatibility)
-      //   - Tools WITH startup_stages -> only show if stage matches
-      const matchesStage = !selectedStage ||
-        !tool.startup_stages ||
-        tool.startup_stages.length === 0 ||
-        tool.startup_stages.includes(selectedStage);
-
-      return matchesSearch && matchesCategory && matchesStage;
+      return matchesSearch && matchesCategory;
     });
-  }, [allTools, searchTerm, selectedCategory, selectedStage]);
+  }, [allTools, searchTerm, selectedCategory]);
 
   const displayedTools = filteredTools.slice(0, displayCount);
   const hasMoreTools = filteredTools.length > displayCount;
@@ -168,39 +151,6 @@ export const HomePage = () => {
         </HStack>
       </Box>
 
-      {/* How It Works - Explainer */}
-      <Box
-        bg="blue.50"
-        border="1px"
-        borderColor="blue.200"
-        p={6}
-        borderRadius="md"
-      >
-        <VStack spacing={4} align="stretch">
-          <Heading size="md" color="blue.900">
-            Find the Right Tools for Your Stage
-          </Heading>
-          <Text color="blue.800" fontSize="16px" lineHeight="1.6">
-            Click a stage button below to see tools recommended for where you are.
-            Tools with stage recommendations will be highlighted. Tools without recommendations are shown for all stages.
-          </Text>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3}>
-            <Box bg="white" p={3} borderRadius="md" border="1px" borderColor="blue.100">
-              <Text fontSize="14px" color="gray.700">
-                <Text as="span" fontWeight="bold" color="blue.700">Example:</Text> Click "Building MVP"
-                → See tools like GitHub, Figma perfect for prototyping
-              </Text>
-            </Box>
-            <Box bg="white" p={3} borderRadius="md" border="1px" borderColor="blue.100">
-              <Text fontSize="14px" color="gray.700">
-                <Text as="span" fontWeight="bold" color="blue.700">Combine filters:</Text> Select "Scaling"
-                + "Communication" → Find team tools for growth stage
-              </Text>
-            </Box>
-          </SimpleGrid>
-        </VStack>
-      </Box>
-
       {/* Search and Filter - NYT Style */}
       <Box
         borderTop="1px"
@@ -209,139 +159,67 @@ export const HomePage = () => {
         py={6}
         bg="nyt.veryLightGray"
       >
-        <VStack spacing={5}>
-          {/* Startup Stage Filter - FIRST */}
-          <Box w="full" maxW="container.lg">
-            <VStack spacing={3}>
-              <Heading
-                size="sm"
-                color="nyt.black"
-                fontWeight="700"
-                textAlign="center"
-              >
-                1. Where Are You In Your Journey?
-              </Heading>
-              <Flex
-                gap={3}
-                justify="center"
-                align="center"
-                wrap="wrap"
-              >
-                <Button
-                  size="md"
-                  variant={selectedStage === '' ? 'solid' : 'outline'}
-                  bg={selectedStage === '' ? 'nyt.black' : 'white'}
-                  color={selectedStage === '' ? 'white' : 'nyt.black'}
-                  borderColor="nyt.border"
-                  onClick={() => setSelectedStage('')}
-                  _hover={{
-                    bg: selectedStage === '' ? 'nyt.darkGray' : 'nyt.veryLightGray'
-                  }}
-                >
-                  All Stages
-                </Button>
-                {STARTUP_STAGES.map(stage => (
-                  <Button
-                    key={stage.value}
-                    size="md"
-                    variant={selectedStage === stage.value ? 'solid' : 'outline'}
-                    bg={selectedStage === stage.value ? 'nyt.black' : 'white'}
-                    color={selectedStage === stage.value ? 'white' : 'nyt.black'}
-                    borderColor="nyt.border"
-                    onClick={() => setSelectedStage(stage.value)}
-                    _hover={{
-                      bg: selectedStage === stage.value ? 'nyt.darkGray' : 'nyt.veryLightGray'
-                    }}
-                  >
-                    {stage.label}
-                  </Button>
-                ))}
-              </Flex>
-              {selectedStage && (
-                <Badge
-                  bg="blue.100"
-                  color="blue.800"
-                  fontSize="13px"
-                  px={4}
-                  py={2}
-                  borderRadius="md"
-                >
-                  Showing tools for: {STARTUP_STAGES.find(s => s.value === selectedStage)?.description}
-                </Badge>
-              )}
-            </VStack>
-          </Box>
+        <VStack spacing={3}>
+          <Heading
+            size="sm"
+            color="nyt.black"
+            fontWeight="700"
+            textAlign="center"
+          >
+            Filter Tools
+          </Heading>
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            gap={4}
+            align="center"
+            justify="center"
+            w="full"
+          >
+            <Input
+              placeholder="Search by tool name..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              maxW="350px"
+              bg="white"
+              borderColor="nyt.border"
+              fontSize="16px"
+              _focus={{
+                borderColor: 'nyt.black',
+                boxShadow: 'none'
+              }}
+            />
 
-          {/* Optional Refinement Filters */}
-          <Box w="full" borderTop="1px" borderColor="nyt.border" pt={4}>
-            <VStack spacing={3}>
-              <Heading
-                size="xs"
-                color="nyt.mediumGray"
-                fontWeight="600"
-                textAlign="center"
-              >
-                2. Refine Your Search (Optional)
-              </Heading>
-              <Flex
-                direction={{ base: 'column', md: 'row' }}
-                gap={4}
-                align="center"
-                justify="center"
-                w="full"
-              >
-                <Input
-                  placeholder="Search by tool name..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  maxW="350px"
-                  bg="white"
-                  borderColor="nyt.border"
-                  fontSize="16px"
-                  _focus={{
-                    borderColor: 'nyt.black',
-                    boxShadow: 'none'
-                  }}
-                />
-
-                <Select
-                  placeholder="All Categories"
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  maxW="250px"
-                  bg="white"
-                  borderColor="nyt.border"
-                  fontSize="16px"
-                  _focus={{
-                    borderColor: 'nyt.black',
-                    boxShadow: 'none'
-                  }}
-                >
-                  {CATEGORIES.map(category => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </Select>
-              </Flex>
-            </VStack>
-          </Box>
+            <Select
+              placeholder="All Categories"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              maxW="250px"
+              bg="white"
+              borderColor="nyt.border"
+              fontSize="16px"
+              _focus={{
+                borderColor: 'nyt.black',
+                boxShadow: 'none'
+              }}
+            >
+              {CATEGORIES.map(category => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </Select>
+          </Flex>
         </VStack>
       </Box>
 
       {/* Active Filters Display */}
-      {(selectedStage || selectedCategory || searchTerm) && (
+      {(selectedCategory || searchTerm) && (
         <Box bg="white" border="1px" borderColor="nyt.border" p={4} borderRadius="md">
           <Flex justify="space-between" align="center" wrap="wrap" gap={3}>
             <HStack spacing={2} flexWrap="wrap">
               <Text fontSize="14px" fontWeight="600" color="nyt.mediumGray">
                 Active filters:
               </Text>
-              {selectedStage && (
-                <Badge bg="blue.100" color="blue.800" fontSize="12px" px={3} py={1}>
-                  Stage: {STARTUP_STAGES.find(s => s.value === selectedStage)?.label}
-                </Badge>
-              )}
               {selectedCategory && (
                 <Badge bg="purple.100" color="purple.800" fontSize="12px" px={3} py={1}>
                   Category: {selectedCategory}
@@ -359,7 +237,6 @@ export const HomePage = () => {
               onClick={() => {
                 setSearchTerm('');
                 setSelectedCategory('');
-                setSelectedStage('');
               }}
             >
               Clear all
@@ -376,11 +253,7 @@ export const HomePage = () => {
               No tools found
             </Heading>
             <Text color="gray.600" textAlign="center">
-              {selectedStage && selectedCategory
-                ? `No tools match both "${STARTUP_STAGES.find(s => s.value === selectedStage)?.label}" stage and "${selectedCategory}" category.`
-                : selectedStage
-                ? `No tools found for the "${STARTUP_STAGES.find(s => s.value === selectedStage)?.label}" stage${searchTerm ? ` matching "${searchTerm}"` : ''}.`
-                : selectedCategory
+              {selectedCategory
                 ? `No tools found in "${selectedCategory}"${searchTerm ? ` matching "${searchTerm}"` : ''}.`
                 : `No tools found matching "${searchTerm}".`}
             </Text>
@@ -388,7 +261,6 @@ export const HomePage = () => {
               onClick={() => {
                 setSearchTerm('');
                 setSelectedCategory('');
-                setSelectedStage('');
               }}
               colorScheme="blue"
               variant="outline"

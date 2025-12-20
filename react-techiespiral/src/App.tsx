@@ -6,6 +6,7 @@ import { ToolDetailPage } from './pages/ToolDetailPage';
 import { StacksPage } from './pages/StacksPage';
 import { StackDetailPage } from './pages/StackDetailPage';
 import { ComparePage } from './pages/ComparePage';
+import { QuizPage } from './pages/QuizPage';
 import { ToolsProvider } from './context/ToolsContext';
 import { StacksProvider } from './context/StacksContext';
 
@@ -21,6 +22,7 @@ function App() {
             <Route path="/stacks" element={<StacksPage />} />
             <Route path="/stack/:id" element={<StackDetailPage />} />
             <Route path="/compare" element={<ComparePage />} />
+            <Route path="/quiz" element={<QuizPage />} />
           </Routes>
         </Layout>
       </StacksProvider>
