@@ -12,19 +12,13 @@ import {
   Tooltip
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Tool, StartupStage } from '../types/Tool';
+import { Tool } from '../types/Tool';
 import { ScoutScore } from './ScoutScore';
+import { STAGE_LABELS, getStageColors } from '../utils/stageColors';
 
 interface ToolCardProps {
   tool: Tool;
 }
-
-const STAGE_LABELS: Record<StartupStage, string> = {
-  validating: 'Validating',
-  mvp: 'MVP',
-  launched: 'Launched',
-  scaling: 'Scaling'
-};
 
 export const ToolCard = ({ tool }: ToolCardProps) => {
   return (
@@ -107,19 +101,22 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
               <Text fontSize="11px" color="nyt.mediumGray" fontWeight="600">
                 Recommended for:
               </Text>
-              {tool.startup_stages.map(stage => (
-                <Badge
-                  key={stage}
-                  bg="blue.50"
-                  color="blue.700"
-                  fontSize="9px"
-                  px={2}
-                  py={0.5}
-                  borderRadius="sm"
-                >
-                  {STAGE_LABELS[stage]}
-                </Badge>
-              ))}
+              {tool.startup_stages.map(stage => {
+                const colors = getStageColors(stage);
+                return (
+                  <Badge
+                    key={stage}
+                    bg={colors.bg}
+                    color={colors.color}
+                    fontSize="9px"
+                    px={2}
+                    py={0.5}
+                    borderRadius="sm"
+                  >
+                    {STAGE_LABELS[stage]}
+                  </Badge>
+                );
+              })}
             </HStack>
           )}
         </VStack>

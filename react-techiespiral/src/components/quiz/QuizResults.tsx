@@ -15,6 +15,7 @@ import { QuizAnswers } from '../../types/Quiz';
 import { ToolCard } from '../ToolCard';
 import { BUDGET_RANGES } from '../../utils/budgetFilters';
 import { useStacksContext } from '../../context/StacksContext';
+import { getStageColors } from '../../utils/stageColors';
 
 const STARTUP_STAGES: { value: StartupStage; label: string; description: string }[] = [
   { value: 'validating', label: 'Validating Idea', description: 'Researching and validating your idea' },
@@ -76,11 +77,15 @@ export const QuizResults = ({ answers, filteredTools, onRetakeQuiz }: QuizResult
               <Text fontSize="14px" fontWeight="600" color="blue.900">
                 Your preferences:
               </Text>
-              {stageLabels.map(label => (
-                <Badge key={label} bg="blue.100" color="blue.800" fontSize="12px" px={3} py={1}>
-                  {label}
-                </Badge>
-              ))}
+              {answers.stages.map(stage => {
+                const colors = getStageColors(stage);
+                const label = STARTUP_STAGES.find(s => s.value === stage)?.label;
+                return (
+                  <Badge key={stage} bg={colors.bg} color={colors.color} fontSize="12px" px={3} py={1}>
+                    {label}
+                  </Badge>
+                );
+              })}
               {budgetLabels.map(label => (
                 <Badge key={label} bg="purple.100" color="purple.800" fontSize="12px" px={3} py={1}>
                   {label}

@@ -24,6 +24,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useToolsContext } from '../context/ToolsContext';
 import { ScoutScore } from '../components/ScoutScore';
 import { SEO } from '../components/SEO';
+import { STAGE_LABELS, getStageColors } from '../utils/stageColors';
 
 export const ToolDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -178,7 +179,7 @@ export const ToolDetailPage = () => {
               )}
             </Box>
 
-            <VStack align="flex-start" flex="1">
+            <VStack align="flex-start" flex="1" spacing={3}>
               <Heading size="xl" color="nyt.black" fontWeight="700">
                 {tool.tool_name}
               </Heading>
@@ -195,6 +196,31 @@ export const ToolDetailPage = () => {
                   </Badge>
                 )}
               </HStack>
+
+              {/* Startup Stage Badges */}
+              {tool.startup_stages && tool.startup_stages.length > 0 && (
+                <HStack spacing={2} flexWrap="wrap">
+                  <Text fontSize="11px" color="nyt.mediumGray" fontWeight="600">
+                    Recommended for:
+                  </Text>
+                  {tool.startup_stages.map(stage => {
+                    const colors = getStageColors(stage);
+                    return (
+                      <Badge
+                        key={stage}
+                        bg={colors.bg}
+                        color={colors.color}
+                        fontSize="10px"
+                        px={2}
+                        py={1}
+                        borderRadius="sm"
+                      >
+                        {STAGE_LABELS[stage]}
+                      </Badge>
+                    );
+                  })}
+                </HStack>
+              )}
             </VStack>
           </Flex>
 
