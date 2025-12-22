@@ -92,7 +92,7 @@ export const HomePage = () => {
     <>
       <SEO
         title="TechieSpiral - Tech Stack Advisor for Indie Hackers"
-        description="Curated tools and complete tech stacks for indie developers and bootstrapped founders. Scout-rated tools, budget-friendly picks, and proven tool combinations to build, ship, and grow."
+        description="Curated tools and complete tech stacks for indie developers and bootstrapped founders. TechieSpiral-rated tools, budget-friendly picks, and proven tool combinations to build, ship, and grow."
         url="https://techiespiral.com"
         keywords="tech tools, indie hackers, tech stacks, developer tools, SaaS tools, bootstrapped founders, startup tools, best tools for developers"
       />
@@ -136,7 +136,7 @@ export const HomePage = () => {
             py={1}
             borderRadius='md'
           >
-            Scout-Rated Tools
+            TechieSpiral-Rated Tools
           </Badge>
           <Badge
             bg='nyt.veryLightGray'

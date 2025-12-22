@@ -299,22 +299,22 @@ export const ComparePage = () => {
                   <Badge colorScheme='green'>{tool2.price_range}</Badge>
                 </Td>
               </Tr>
-              {(tool1.scout_score || tool2.scout_score) && (
+              {(tool1.techiespiral_score || tool2.techiespiral_score) && (
                 <Tr>
-                  <Td fontWeight='semibold'>Scout Score</Td>
+                  <Td fontWeight='semibold'>TechieSpiral Score</Td>
                   <Td>
-                    {tool1.scout_score ? (
+                    {tool1.techiespiral_score ? (
                       <Badge colorScheme='purple' fontSize='lg'>
-                        {tool1.scout_score}/100
+                        {tool1.techiespiral_score}/100
                       </Badge>
                     ) : (
                       <Text color='gray.400'>Not rated yet</Text>
                     )}
                   </Td>
                   <Td>
-                    {tool2.scout_score ? (
+                    {tool2.techiespiral_score ? (
                       <Badge colorScheme='purple' fontSize='lg'>
-                        {tool2.scout_score}/100
+                        {tool2.techiespiral_score}/100
                       </Badge>
                     ) : (
                       <Text color='gray.400'>Not rated yet</Text>

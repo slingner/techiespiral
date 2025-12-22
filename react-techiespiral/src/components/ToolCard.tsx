@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Tool } from '../types/Tool';
-import { ScoutScore } from './ScoutScore';
+import { TechieScore } from './TechieScore';
 import { STAGE_LABELS, getStageColors } from '../utils/stageColors';
 
 interface ToolCardProps {
@@ -73,8 +73,8 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
             >
               {tool.tool_name}
             </Heading>
-            {tool.scout_score && (
-              <ScoutScore scoutScore={tool.scout_score} size="sm" />
+            {tool.techiespiral_score && (
+              <TechieScore techieScore={tool.techiespiral_score} size="sm" />
             )}
           </Box>
         </Flex>

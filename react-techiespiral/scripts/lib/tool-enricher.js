@@ -28,7 +28,7 @@ export class ToolEnricher {
 
       return {
         ...tool,
-        scout_score: result.scout_score,
+        techiespiral_score: result.techiespiral_score,
         value_score: result.value_score,
         ease_score: result.ease_score,
         features_score: result.features_score,

@@ -12,8 +12,8 @@ export interface Tool {
   pros_cons?: string;
   use_cases?: string;
   best_for?: string;
-  // Scout Score (our custom rating system)
-  scout_score?: number; // 0-100
+  // TechieSpiral Score (our custom rating system)
+  techiespiral_score?: number; // 0-100
   value_score?: number; // 0-5
   ease_score?: number; // 0-5
   features_score?: number; // 0-5

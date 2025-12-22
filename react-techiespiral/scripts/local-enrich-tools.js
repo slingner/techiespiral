@@ -10,7 +10,7 @@ const TOOLS_PATH = join(__dirname, '../src/data/tools.json');
 // Intelligent enrichment based on tool data patterns
 function enrichTool(tool, allTools, categoryMap) {
   // Skip if already enriched
-  if (tool.scout_score) {
+  if (tool.techiespiral_score) {
     return tool;
   }
 
@@ -64,31 +64,31 @@ function enrichTool(tool, allTools, categoryMap) {
     features_score = 2;
   }
 
-  // Calculate scout_score (composite)
-  let scout_score = 50;
+  // Calculate techiespiral_score (composite)
+  let techiespiral_score = 50;
 
   // Adjust based on value
-  scout_score += (value_score - 3) * 10;
+  techiespiral_score += (value_score - 3) * 10;
 
   // Adjust based on ease
-  scout_score += (ease_score - 3) * 5;
+  techiespiral_score += (ease_score - 3) * 5;
 
   // Adjust based on features
-  scout_score += (features_score - 3) * 8;
+  techiespiral_score += (features_score - 3) * 8;
 
   // Boost for popular categories
   const popularCategories = ['Developer Tools', 'Design Tools', 'Analytics', 'Hosting', 'Payment Processing'];
   if (popularCategories.includes(category)) {
-    scout_score += 10;
+    techiespiral_score += 10;
   }
 
   // Boost for well-known tools
   if (popularTools.some(name => tool.tool_name.toLowerCase().includes(name))) {
-    scout_score += 15;
+    techiespiral_score += 15;
   }
 
   // Clamp between 40 and 95 (realistic range)
-  scout_score = Math.max(40, Math.min(95, scout_score));
+  techiespiral_score = Math.max(40, Math.min(95, techiespiral_score));
 
   // Find alternatives in same category
   const sameCategory = categoryMap[category] || [];
@@ -100,7 +100,7 @@ function enrichTool(tool, allTools, categoryMap) {
 
   return {
     ...tool,
-    scout_score,
+    techiespiral_score,
     value_score,
     ease_score,
     features_score,
@@ -126,7 +126,7 @@ async function enrichAllTools() {
   });
 
   // Count tools needing enrichment
-  const needsEnrichment = tools.filter(t => !t.scout_score).length;
+  const needsEnrichment = tools.filter(t => !t.techiespiral_score).length;
   console.log(`Found ${needsEnrichment} tools without scores\n`);
 
   if (needsEnrichment === 0) {
@@ -139,8 +139,8 @@ async function enrichAllTools() {
   // Enrich all tools
   const enrichedTools = tools.map((tool, index) => {
     const enriched = enrichTool(tool, tools, categoryMap);
-    if (!tool.scout_score && enriched.scout_score) {
-      console.log(`  [${index + 1}/${tools.length}] ${tool.tool_name} - Scout: ${enriched.scout_score}/100`);
+    if (!tool.techiespiral_score && enriched.techiespiral_score) {
+      console.log(`  [${index + 1}/${tools.length}] ${tool.tool_name} - TechieSpiral Score: ${enriched.techiespiral_score}/100`);
     }
     return enriched;
   });
@@ -155,9 +155,9 @@ async function enrichAllTools() {
   console.log(`💾 Updated tools.json with enriched data`);
 
   // Calculate stats
-  const newlyEnriched = enrichedTools.filter(t => t.scout_score && !tools.find(old => old.Id === t.Id)?.scout_score);
+  const newlyEnriched = enrichedTools.filter(t => t.techiespiral_score && !tools.find(old => old.Id === t.Id)?.techiespiral_score);
   const avgScores = {
-    scout: Math.round(newlyEnriched.reduce((sum, t) => sum + t.scout_score, 0) / newlyEnriched.length),
+    scout: Math.round(newlyEnriched.reduce((sum, t) => sum + t.techiespiral_score, 0) / newlyEnriched.length),
     value: (newlyEnriched.reduce((sum, t) => sum + t.value_score, 0) / newlyEnriched.length).toFixed(1),
     ease: (newlyEnriched.reduce((sum, t) => sum + t.ease_score, 0) / newlyEnriched.length).toFixed(1),
     features: (newlyEnriched.reduce((sum, t) => sum + t.features_score, 0) / newlyEnriched.length).toFixed(1),
@@ -165,7 +165,7 @@ async function enrichAllTools() {
 
   console.log('\n📈 Enrichment Statistics:');
   console.log(`   Tools Enriched: ${newlyEnriched.length}`);
-  console.log(`   Average Scout Score: ${avgScores.scout}/100`);
+  console.log(`   Average TechieSpiral Score: ${avgScores.scout}/100`);
   console.log(`   Average Value Score: ${avgScores.value}/5`);
   console.log(`   Average Ease Score: ${avgScores.ease}/5`);
   console.log(`   Average Features Score: ${avgScores.features}/5`);

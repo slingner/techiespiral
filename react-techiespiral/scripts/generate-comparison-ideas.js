@@ -49,7 +49,7 @@ RECENTLY DISCOVERED TOOLS:
 ${recentTools.map(t => `- ${t.tool_name} (${t.category}) - ${t.description}`).join('\n')}
 
 EXISTING POPULAR TOOLS FOR CONTEXT:
-${tools.filter(t => t.scout_score > 80).slice(0, 20).map(t => `- ${t.tool_name} (${t.category})`).join('\n')}
+${tools.filter(t => t.techiespiral_score > 80).slice(0, 20).map(t => `- ${t.tool_name} (${t.category})`).join('\n')}
 
 GUIDELINES:
 1. Compare new tools against established competitors

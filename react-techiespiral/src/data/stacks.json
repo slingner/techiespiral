@@ -10,7 +10,8 @@
     "total_monthly_cost": "$0-50/month",
     "total_annual_cost": "$200-500/year",
     "badge": "Budget-Friendly",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 2,
@@ -23,7 +24,8 @@
     "total_monthly_cost": "$100-200/month",
     "total_annual_cost": "$1000-2000/year",
     "badge": "Popular",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 3,
@@ -36,7 +38,8 @@
     "total_monthly_cost": "$80-100/month",
     "total_annual_cost": "$800-1000/year",
     "badge": "Most Popular",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 4,
@@ -49,7 +52,8 @@
     "total_monthly_cost": "$20-60/month",
     "total_annual_cost": "$200-600/year",
     "badge": "Creator-Friendly",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 5,
@@ -62,7 +66,8 @@
     "total_monthly_cost": "$40-80/month",
     "total_annual_cost": "$400-800/year",
     "badge": "No-Code",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 6,
@@ -75,7 +80,8 @@
     "total_monthly_cost": "$0-75/month",
     "total_annual_cost": "$300-800/year",
     "badge": "Modern Stack",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 7,
@@ -88,7 +94,8 @@
     "total_monthly_cost": "$0-50/month",
     "total_annual_cost": "$100-500/year",
     "badge": "Performance",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 8,
@@ -101,7 +108,8 @@
     "total_monthly_cost": "$0-100/month",
     "total_annual_cost": "$300-1000/year",
     "badge": "Cross-Platform",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 9,
@@ -114,7 +122,8 @@
     "total_monthly_cost": "$20-50/month",
     "total_annual_cost": "$200-500/year",
     "badge": "Privacy First",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 10,
@@ -127,7 +136,8 @@
     "total_monthly_cost": "$0-60/month",
     "total_annual_cost": "$200-600/year",
     "badge": "Indie Friendly",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 11,
@@ -140,7 +150,8 @@
     "total_monthly_cost": "$20-50/month",
     "total_annual_cost": "$240-600/year",
     "badge": "Productivity",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 12,
@@ -153,7 +164,8 @@
     "total_monthly_cost": "$0-80/month",
     "total_annual_cost": "$300-900/year",
     "badge": "Collaborative",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 13,
@@ -166,7 +178,8 @@
     "total_monthly_cost": "$0-100/month",
     "total_annual_cost": "$300-1000/year",
     "badge": "Developer Tools",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 14,
@@ -179,7 +192,8 @@
     "total_monthly_cost": "$30-100/month",
     "total_annual_cost": "$300-1000/year",
     "badge": "Creator Stack",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 15,
@@ -192,7 +206,8 @@
     "total_monthly_cost": "$0-50/month",
     "total_annual_cost": "$200-600/year",
     "badge": "Design Tools",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 16,
@@ -205,7 +220,8 @@
     "total_monthly_cost": "$50-200/month",
     "total_annual_cost": "$500-2000/year",
     "badge": "Data-Driven",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 17,
@@ -218,7 +234,8 @@
     "total_monthly_cost": "$0-100/month",
     "total_annual_cost": "$300-1000/year",
     "badge": "E-Commerce",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 18,
@@ -231,7 +248,8 @@
     "total_monthly_cost": "$50-150/month",
     "total_annual_cost": "$500-1500/year",
     "badge": "DevOps",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 19,
@@ -244,7 +262,8 @@
     "total_monthly_cost": "$50-200/month",
     "total_annual_cost": "$500-2000/year",
     "badge": "Enterprise",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 20,
@@ -257,7 +276,8 @@
     "total_monthly_cost": "$50-300/month",
     "total_annual_cost": "$500-3000/year",
     "badge": "AI-Powered",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 21,
@@ -270,7 +290,8 @@
     "total_monthly_cost": "$30-100/month",
     "total_annual_cost": "$300-1000/year",
     "badge": "SEO Optimized",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 22,
@@ -283,7 +304,8 @@
     "total_monthly_cost": "$0-100/month",
     "total_annual_cost": "$300-1000/year",
     "badge": "Startup Ready",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 23,
@@ -296,7 +318,8 @@
     "total_monthly_cost": "$0-100/month",
     "total_annual_cost": "$300-1000/year",
     "badge": "Team Scale",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 24,
@@ -309,7 +332,8 @@
     "total_monthly_cost": "$100-300/month",
     "total_annual_cost": "$1000-3000/year",
     "badge": "Growth",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   },
   {
     "id": 25,
@@ -322,6 +346,7 @@
     "total_monthly_cost": "$30-100/month",
     "total_annual_cost": "$300-1000/year",
     "badge": "Privacy First",
-    "view_count": 0
+    "view_count": 0,
+    "status": "published"
   }
 ]

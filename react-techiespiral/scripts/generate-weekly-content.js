@@ -185,7 +185,7 @@ Features: ${tool.features || 'Not specified'}
 Pros & Cons: ${tool.pros_cons || 'Not specified'}
 Use Cases: ${tool.use_cases || 'Not specified'}
 Best For: ${tool.best_for || 'General use'}
-Scout Score: ${tool.scout_score || 'Not rated'}/100
+TechieSpiral Score: ${tool.techiespiral_score || 'Not rated'}/100
 Value Score: ${tool.value_score || 'Not rated'}/5
 Ease Score: ${tool.ease_score || 'Not rated'}/5
 Features Score: ${tool.features_score || 'Not rated'}/5

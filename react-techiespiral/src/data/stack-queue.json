@@ -1,0 +1,130 @@
+{
+  "queue": [
+    {
+      "stack_name": "The Profitable SaaS Stack",
+      "tagline": "From idea to $10K MRR",
+      "target_audience": "Growth-Stage Founders",
+      "focus": "Revenue & scaling tools for validated SaaS products",
+      "estimated_cost": "$200-400/month",
+      "badge": "Revenue-Focused",
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The Weekend Builder Stack",
+      "tagline": "Ship side projects in 48 hours",
+      "target_audience": "Part-Time Builders",
+      "focus": "Fast prototyping tools for developers with day jobs",
+      "estimated_cost": "$0-30/month",
+      "badge": "Quick Launch",
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The No-Code Founder Stack",
+      "tagline": "Build without writing code",
+      "target_audience": "Non-Technical Founders",
+      "focus": "Complete no-code stack for validating ideas",
+      "estimated_cost": "$50-150/month",
+      "badge": "No Code Required",
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The B2B SaaS Enterprise Stack",
+      "tagline": "Tools for selling to businesses",
+      "target_audience": "B2B SaaS Founders",
+      "focus": "Sales, compliance, and enterprise features",
+      "estimated_cost": "$300-600/month",
+      "badge": "Enterprise Ready",
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The Developer Platform Stack",
+      "tagline": "Build APIs and developer tools",
+      "target_audience": "API-First Startups",
+      "focus": "Documentation, SDKs, and developer experience",
+      "estimated_cost": "$100-250/month",
+      "badge": "Dev-First",
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The Mobile-First Stack",
+      "tagline": "Ship native iOS and Android apps",
+      "target_audience": "Mobile App Developers",
+      "focus": "Cross-platform mobile development and distribution",
+      "estimated_cost": "$150-300/month",
+      "badge": "Mobile Focused",
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The Creator Economy Stack",
+      "tagline": "Monetize your audience",
+      "target_audience": "Content Creators & Influencers",
+      "focus": "Content creation, distribution, and monetization",
+      "estimated_cost": "$50-100/month",
+      "badge": "Creator Tools",
+      "priority": 2,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The Privacy-First Stack",
+      "tagline": "Build with user privacy in mind",
+      "target_audience": "Privacy-Conscious Developers",
+      "focus": "GDPR-compliant, privacy-focused alternatives",
+      "estimated_cost": "$100-200/month",
+      "badge": "Privacy First",
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The Global SaaS Stack",
+      "tagline": "Reach customers worldwide",
+      "target_audience": "International SaaS Founders",
+      "focus": "Multi-currency, localization, global payments",
+      "estimated_cost": "$200-400/month",
+      "badge": "Global Ready",
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The Open Source Business Stack",
+      "tagline": "Monetize open source projects",
+      "target_audience": "Open Source Maintainers",
+      "focus": "Sponsorships, hosting, and commercial offerings",
+      "estimated_cost": "$50-150/month",
+      "badge": "OSS Friendly",
+      "priority": 3,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The Micro SaaS Stack",
+      "tagline": "Tiny products, big profits",
+      "target_audience": "Solo Micro SaaS Founders",
+      "focus": "Minimal overhead, maximum automation",
+      "estimated_cost": "$30-80/month",
+      "badge": "Lean & Mean",
+      "priority": 1,
+      "status": "pending"
+    },
+    {
+      "stack_name": "The E-Commerce Stack for Developers",
+      "tagline": "Sell digital and physical products",
+      "target_audience": "Developer-Entrepreneurs",
+      "focus": "Headless commerce, payments, fulfillment",
+      "estimated_cost": "$100-250/month",
+      "badge": "Commerce Ready",
+      "priority": 2,
+      "status": "pending"
+    }
+  ],
+  "generated": [],
+  "metadata": {
+    "lastUpdated": "2025-12-21",
+    "totalQueued": 12,
+    "totalGenerated": 0
+  }
+}

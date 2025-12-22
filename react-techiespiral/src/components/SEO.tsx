@@ -12,7 +12,7 @@ interface SEOProps {
 
 export const SEO = ({
   title = 'TechieSpiral - Tech Stack Advisor for Indie Hackers',
-  description = 'Curated tools and complete tech stacks for indie developers and bootstrapped founders. Scout-rated tools, budget-friendly picks, and proven tool combinations to build, ship, and grow.',
+  description = 'Curated tools and complete tech stacks for indie developers and bootstrapped founders. TechieSpiral-rated tools, budget-friendly picks, and proven tool combinations to build, ship, and grow.',
   image = '/images/logo.png',
   url = 'https://techiespiral.com',
   type = 'website',

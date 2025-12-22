@@ -28,10 +28,10 @@ async function enrichTools() {
   // Filter tools to enrich
   let toolsToEnrich;
   if (newOnly) {
-    toolsToEnrich = tools.filter(t => !t.scout_score && !t.enriched_at);
+    toolsToEnrich = tools.filter(t => !t.techiespiral_score && !t.enriched_at);
     console.log(`Found ${toolsToEnrich.length} new tools without scores`);
   } else {
-    toolsToEnrich = tools.filter(t => !t.scout_score);
+    toolsToEnrich = tools.filter(t => !t.techiespiral_score);
     console.log(`Found ${toolsToEnrich.length} tools without scores`);
   }
 
@@ -78,14 +78,14 @@ async function enrichTools() {
 
     // Stats
     const avgScores = {
-      scout: Math.round(enrichedTools.reduce((sum, t) => sum + t.scout_score, 0) / enrichedTools.length),
+      scout: Math.round(enrichedTools.reduce((sum, t) => sum + t.techiespiral_score, 0) / enrichedTools.length),
       value: (enrichedTools.reduce((sum, t) => sum + t.value_score, 0) / enrichedTools.length).toFixed(1),
       ease: (enrichedTools.reduce((sum, t) => sum + t.ease_score, 0) / enrichedTools.length).toFixed(1),
       features: (enrichedTools.reduce((sum, t) => sum + t.features_score, 0) / enrichedTools.length).toFixed(1),
     };
 
     console.log('\n📈 Enrichment Statistics:');
-    console.log(`   Average Scout Score: ${avgScores.scout}/100`);
+    console.log(`   Average TechieSpiral Score: ${avgScores.scout}/100`);
     console.log(`   Average Value Score: ${avgScores.value}/5`);
     console.log(`   Average Ease Score: ${avgScores.ease}/5`);
     console.log(`   Average Features Score: ${avgScores.features}/5`);

@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useToolsContext } from '../context/ToolsContext';
-import { ScoutScore } from '../components/ScoutScore';
+import { TechieScore } from '../components/TechieScore';
 import { SEO } from '../components/SEO';
 import { STAGE_LABELS, getStageColors } from '../utils/stageColors';
 
@@ -128,9 +128,9 @@ export const ToolDetailPage = () => {
       "price": tool.price_range,
       "priceCurrency": "USD"
     },
-    "aggregateRating": tool.scout_score ? {
+    "aggregateRating": tool.techiespiral_score ? {
       "@type": "AggregateRating",
-      "ratingValue": tool.scout_score,
+      "ratingValue": tool.techiespiral_score,
       "bestRating": "10",
       "worstRating": "0"
     } : undefined,
@@ -291,11 +291,11 @@ export const ToolDetailPage = () => {
         </GridItem>
       </Grid>
 
-      {/* Scout Score */}
-      {(tool.scout_score || tool.value_score || tool.ease_score || tool.features_score) && (
+      {/* TechieSpiral Score */}
+      {(tool.techiespiral_score || tool.value_score || tool.ease_score || tool.features_score) && (
         <Box bg="white" rounded="xl" p={8} shadow="md">
-          <ScoutScore
-            scoutScore={tool.scout_score}
+          <TechieScore
+            techieScore={tool.techiespiral_score}
             valueScore={tool.value_score}
             easeScore={tool.ease_score}
             featuresScore={tool.features_score}

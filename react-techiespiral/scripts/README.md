@@ -8,7 +8,7 @@ The system consists of three main automation workflows:
 
 1. **Weekly Content Generation** - Generates 2 comparison articles every Monday
 2. **Monthly Tool Discovery** - Discovers 10-20 new trending tools on the 1st of each month
-3. **Tool Enrichment** - Auto-populates scout scores and alternatives for tools
+3. **Tool Enrichment** - Auto-populates TechieSpiral scores and alternatives for tools
 
 ## Architecture
 
@@ -107,7 +107,7 @@ node scripts/enrich-tool-data.js --new-only
 ```
 
 **What it does:**
-- Generates `scout_score` (0-100): Overall quality rating
+- Generates `techiespiral_score` (0-100): Overall quality rating
 - Generates `value_score` (0-5): Price/value ratio
 - Generates `ease_score` (0-5): Ease of use
 - Generates `features_score` (0-5): Feature completeness

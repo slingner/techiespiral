@@ -36,7 +36,7 @@ Create a markdown table comparing:
 | Best For | ... | ... | ... |
 | Ease of Use | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
 | Support | ... | ... | ... |
-| Scout Score | X/100 | X/100 | X/100 |
+| TechieSpiral Score | X/100 | X/100 | X/100 |
 
 ## [Tool 1 Name]: Deep Dive (500-700 words)
 

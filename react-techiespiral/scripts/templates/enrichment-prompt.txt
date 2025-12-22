@@ -14,10 +14,10 @@ Best For: {best_for}
 TOOLS IN SAME CATEGORY (for alternative suggestions):
 {category_tools_list}
 
-TASK 1 - Generate Scout Scores:
+TASK 1 - Generate TechieSpiral Scores:
 Provide numeric scores based on these criteria for indie hackers specifically:
 
-1. scout_score (0-100): Overall quality and recommendation strength
+1. techiespiral_score (0-100): Overall quality and recommendation strength
    - Consider: reputation, reliability, community support, documentation, indie hacker fit
    - 90-100: Industry leader, highly recommended for indie hackers
    - 70-89: Solid choice, reliable and well-supported
@@ -54,7 +54,7 @@ Only include tool IDs from the category list provided.
 RESPONSE FORMAT:
 Respond ONLY with valid JSON (no markdown, no explanation):
 {
-  "scout_score": 85,
+  "techiespiral_score": 85,
   "value_score": 4,
   "ease_score": 5,
   "features_score": 4,

@@ -77,7 +77,7 @@ export class ToolDiscoverer {
       best_for: tool.best_for || 'Developers',
       startup_stages: tool.startup_stages || ['mvp', 'launched'],
       alternatives: '', // Will be populated by enrichment
-      scout_score: null,
+      techiespiral_score: null,
       value_score: null,
       ease_score: null,
       features_score: null,

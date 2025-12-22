@@ -17,10 +17,10 @@
       "status": "pending"
     },
     {
-      "title": "Cursor vs GitHub Copilot vs Codeium 2025",
-      "keywords": "cursor vs github copilot, codeium comparison, AI code assistant, best coding AI",
+      "title": "Cursor vs GitHub Copilot vs Windsurf 2025",
+      "keywords": "cursor vs github copilot, windsurf comparison, AI code editor, best coding AI",
       "category": "Developer Tools",
-      "toolNames": ["Cursor", "GitHub Copilot", "Codeium"],
+      "toolNames": ["Cursor", "GitHub Copilot", "Windsurf"],
       "priority": 1,
       "status": "pending"
     },
@@ -84,7 +84,7 @@
       "title": "Cheaper Alternatives to AWS for Indie Hackers",
       "keywords": "aws alternatives, cheap cloud hosting, indie hacker infrastructure",
       "category": "Hosting",
-      "toolNames": ["DigitalOcean", "Hetzner", "Fly.io"],
+      "toolNames": ["DigitalOcean", "Hetzner", "Linode"],
       "priority": 1,
       "status": "pending"
     },
@@ -122,9 +122,9 @@
     },
     {
       "title": "Best Serverless Platforms 2025",
-      "keywords": "best serverless platforms, lambda alternatives, serverless comparison 2025",
+      "keywords": "best serverless platforms, edge computing, serverless comparison 2025",
       "category": "Hosting",
-      "toolNames": ["Vercel", "Netlify", "AWS Lambda"],
+      "toolNames": ["Vercel", "Netlify", "Cloudflare Workers"],
       "priority": 2,
       "status": "pending"
     },
@@ -132,7 +132,7 @@
       "title": "Best Payment Gateway for Indie SaaS",
       "keywords": "best payment gateway indie saas, subscription payments comparison",
       "category": "Payments",
-      "toolNames": ["Stripe", "Paddle", "PayPal"],
+      "toolNames": ["Stripe", "Paddle", "Lemon Squeezy"],
       "priority": 2,
       "status": "pending"
     },
@@ -148,7 +148,7 @@
       "title": "International Payment Processors Comparison",
       "keywords": "international payment processor, global payments, multi-currency billing",
       "category": "Payments",
-      "toolNames": ["Stripe", "PayPal", "Wise"],
+      "toolNames": ["Stripe", "Paddle", "Payoneer"],
       "priority": 2,
       "status": "pending"
     },
@@ -156,7 +156,7 @@
       "title": "Best Invoicing Software for Freelancers",
       "keywords": "best invoicing software freelancers, invoice tools 2025, freelance billing",
       "category": "Payments",
-      "toolNames": ["FreshBooks", "Wave", "Invoice Ninja"],
+      "toolNames": ["FreshBooks", "Wave", "Zoho Invoice"],
       "priority": 2,
       "status": "pending"
     },
@@ -196,7 +196,7 @@
       "title": "Best Email Marketing for Bootstrapped SaaS",
       "keywords": "best email marketing saas, bootstrap email tools, affordable email marketing",
       "category": "Marketing",
-      "toolNames": ["ConvertKit", "Mailchimp", "SendGrid"],
+      "toolNames": ["ConvertKit", "Mailchimp", "EmailOctopus"],
       "priority": 2,
       "status": "pending"
     },

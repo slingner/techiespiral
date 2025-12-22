@@ -1,7 +1,7 @@
 import { Box, HStack, VStack, Text, Progress, Badge, Tooltip } from '@chakra-ui/react';
 
-interface ScoutScoreProps {
-  scoutScore?: number; // Overall score 0-100
+interface TechieScoreProps {
+  techieScore?: number; // Overall score 0-100
   valueScore?: number; // 0-5
   easeScore?: number; // 0-5
   featuresScore?: number; // 0-5
@@ -9,15 +9,15 @@ interface ScoutScoreProps {
   showDetails?: boolean;
 }
 
-export const ScoutScore = ({
-  scoutScore,
+export const TechieScore = ({
+  techieScore,
   valueScore,
   easeScore,
   featuresScore,
   size = 'md',
   showDetails = false
-}: ScoutScoreProps) => {
-  if (!scoutScore && !valueScore && !easeScore && !featuresScore) {
+}: TechieScoreProps) => {
+  if (!techieScore && !valueScore && !easeScore && !featuresScore) {
     return null;
   }
 
@@ -37,7 +37,7 @@ export const ScoutScore = ({
     return 'Poor';
   };
 
-  const score = scoutScore || 0;
+  const score = techieScore || 0;
   const colorScheme = getScoreColor(score);
   const label = getScoreLabel(score);
 
@@ -46,7 +46,7 @@ export const ScoutScore = ({
 
   if (!showDetails) {
     return (
-      <Tooltip label={`Scout Score: ${score}/100 - ${label}`} hasArrow>
+      <Tooltip label={`TechieSpiral Score: ${score}/100 - ${label}`} hasArrow>
         <Badge
           colorScheme={colorScheme}
           fontSize={badgeSize}
@@ -68,7 +68,7 @@ export const ScoutScore = ({
     <VStack align="stretch" spacing={3}>
       <HStack justify="space-between">
         <Text fontSize="lg" fontWeight="semibold" color="gray.700">
-          Scout Score
+          TechieSpiral Score
         </Text>
         <HStack>
           <Text fontSize={fontSize} fontWeight="bold" color={`${colorScheme}.600`}>
