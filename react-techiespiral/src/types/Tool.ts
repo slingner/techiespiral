@@ -26,6 +26,11 @@ export interface Tool {
   updated_at?: string;
   view_count?: number;
   click_count?: number;
+  // Sponsorship
+  featured?: boolean; // Is this a featured/sponsored tool?
+  sponsored_tier?: 'bronze' | 'silver' | 'gold'; // Sponsorship level
+  sponsor_start_date?: string;
+  sponsor_end_date?: string;
 }
 
 // Startup stages for indie hackers

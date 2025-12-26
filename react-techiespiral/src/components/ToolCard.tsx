@@ -15,12 +15,33 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Tool } from '../types/Tool';
 import { TechieScore } from './TechieScore';
 import { STAGE_LABELS, getStageColors } from '../utils/stageColors';
+import { trackToolClick } from '../utils/tracking';
 
 interface ToolCardProps {
   tool: Tool;
 }
 
 export const ToolCard = ({ tool }: ToolCardProps) => {
+  const handleVisitSite = () => {
+    trackToolClick({
+      toolId: tool.Id,
+      toolName: tool.tool_name,
+      featured: tool.featured,
+      sponsoredTier: tool.sponsored_tier,
+      clickType: 'visit_site'
+    });
+  };
+
+  const handleLearnMore = () => {
+    trackToolClick({
+      toolId: tool.Id,
+      toolName: tool.tool_name,
+      featured: tool.featured,
+      sponsoredTier: tool.sponsored_tier,
+      clickType: 'learn_more'
+    });
+  };
+
   return (
     <Box
       bg="white"
@@ -82,6 +103,31 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
         {/* Tags */}
         <VStack align="stretch" spacing={2}>
           <HStack spacing={2} flexWrap="wrap">
+            {tool.featured && (
+              <Badge
+                bg="gold"
+                color="white"
+                fontSize="10px"
+                px={2}
+                py={1}
+                fontWeight="bold"
+                boxShadow="sm"
+              >
+                ⭐ FEATURED
+              </Badge>
+            )}
+            {tool.sponsored_tier && (
+              <Badge
+                bg={tool.sponsored_tier === 'gold' ? 'purple.500' : tool.sponsored_tier === 'silver' ? 'gray.400' : 'orange.400'}
+                color="white"
+                fontSize="10px"
+                px={2}
+                py={1}
+                fontWeight="bold"
+              >
+                {tool.sponsored_tier.toUpperCase()} SPONSOR
+              </Badge>
+            )}
             <Badge bg="nyt.black" color="white" fontSize="10px" px={2} py={1}>
               {tool.category}
             </Badge>
@@ -134,6 +180,7 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
             variant="solid"
             size="sm"
             flex="1"
+            onClick={handleLearnMore}
           >
             Learn More
           </Button>
@@ -144,6 +191,7 @@ export const ToolCard = ({ tool }: ToolCardProps) => {
             variant="outline"
             size="sm"
             flex="1"
+            onClick={handleVisitSite}
           >
             Visit Site
           </Button>

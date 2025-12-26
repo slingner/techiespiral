@@ -159,6 +159,34 @@ export const HomePage = () => {
         </HStack>
       </Box>
 
+      {/* Featured Tools Section */}
+      {allTools.filter(t => t.featured).length > 0 && (
+        <Box>
+          <Heading
+            size="lg"
+            color="nyt.black"
+            fontWeight="700"
+            mb={6}
+            pb={3}
+            borderBottom="3px solid"
+            borderColor="gold"
+          >
+            ⭐ Featured Tools
+          </Heading>
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacing={6}
+          >
+            {allTools
+              .filter(t => t.featured)
+              .slice(0, 6)
+              .map(tool => (
+                <ToolCard key={tool.Id} tool={tool} />
+              ))}
+          </SimpleGrid>
+        </Box>
+      )}
+
       {/* Search and Filter - NYT Style */}
       <Box
         borderTop='1px'

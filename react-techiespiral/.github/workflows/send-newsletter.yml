@@ -1,0 +1,43 @@
+name: Send Weekly Newsletter
+
+on:
+  schedule:
+    # Run every Friday at 10am UTC (5am EST)
+    - cron: '0 10 * * 5'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  send-newsletter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate and send newsletter
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LISTMONK_URL: ${{ secrets.LISTMONK_URL }}
+          LISTMONK_USER: ${{ secrets.LISTMONK_USER }}
+          LISTMONK_PASSWORD: ${{ secrets.LISTMONK_PASSWORD }}
+          LISTMONK_LIST_IDS: ${{ secrets.LISTMONK_LIST_IDS }}
+          TEST_EMAILS: ${{ secrets.TEST_EMAILS }}
+        run: node scripts/send-newsletter.js
+
+      - name: Archive newsletter output
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: newsletter-output
+          path: newsletter-output/
+          retention-days: 30

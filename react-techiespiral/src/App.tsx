@@ -15,6 +15,8 @@ const ComparePage = lazy(() => import('./pages/ComparePage').then(module => ({ d
 const QuizPage = lazy(() => import('./pages/QuizPage').then(module => ({ default: module.QuizPage })));
 const BlogPage = lazy(() => import('./pages/BlogPage').then(module => ({ default: module.BlogPage })));
 const ArticlePage = lazy(() => import('./pages/ArticlePage').then(module => ({ default: module.ArticlePage })));
+const SponsorshipPage = lazy(() => import('./pages/SponsorshipPage').then(module => ({ default: module.SponsorshipPage })));
+const MediaKitPage = lazy(() => import('./pages/MediaKitPage').then(module => ({ default: module.MediaKitPage })));
 
 // Loading component
 const PageLoader = () => (
@@ -39,6 +41,8 @@ function App() {
               <Route path="/quiz" element={<QuizPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<ArticlePage />} />
+              <Route path="/sponsorship" element={<SponsorshipPage />} />
+              <Route path="/media-kit" element={<MediaKitPage />} />
             </Routes>
           </Suspense>
         </Layout>

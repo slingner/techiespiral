@@ -18,6 +18,7 @@
     "@emotion/styled": "^11.14.1",
     "framer-motion": "^12.23.12",
     "gray-matter": "^4.0.3",
+    "marked": "^15.0.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-helmet-async": "^2.0.5",
@@ -37,7 +38,6 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
-    "netlify-cli": "^23.1.4",
     "typescript": "^5.9.2",
     "vite": "^7.1.2"
   }
