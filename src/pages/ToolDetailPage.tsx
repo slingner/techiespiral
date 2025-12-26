@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -14,62 +14,58 @@ import {
   GridItem,
   List,
   ListItem,
-  ListIcon,
   Spinner,
   Alert,
-  AlertIcon,
   Link as ChakraLink,
-  SimpleGrid
+  SimpleGrid,
+  Divider
 } from '@chakra-ui/react';
-import { CheckIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
-import { Tool } from '../types/Tool';
-import { toolsApi } from '../services/api';
-import { useTools } from '../hooks/useTools';
+import { useToolsContext } from '../context/ToolsContext';
+import { TechieScore } from '../components/TechieScore';
+import { SEO } from '../components/SEO';
+import { STAGE_LABELS, getStageColors } from '../utils/stageColors';
 
 export const ToolDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [tool, setTool] = useState<Tool | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  
-  const { tools: allTools } = useTools();
+  const { tools: allTools, loading, getToolById } = useToolsContext();
 
+  // Force scroll to top when this component mounts
   useEffect(() => {
-    const fetchTool = async () => {
-      if (!id) return;
-      
-      try {
-        setLoading(true);
-        const toolData = await toolsApi.fetchToolById(parseInt(id));
-        setTool(toolData);
-        setError(null);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch tool');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTool();
+    window.scrollTo(0, 0);
   }, [id]);
 
-  const getRelatedTools = () => {
+  const tool = useMemo(() => {
+    if (!id) return null;
+    return getToolById(parseInt(id));
+  }, [id, getToolById]);
+
+  const getRelatedTools = useMemo(() => {
     if (!tool) return [];
-    
+
     const relatedTools = allTools
       .filter(t => t.category === tool.category && t.Id !== tool.Id)
       .slice(0, 3);
-    
+
     if (relatedTools.length < 3) {
       const otherTools = allTools
         .filter(t => t.category !== tool.category && t.Id !== tool.Id)
         .slice(0, 3 - relatedTools.length);
       relatedTools.push(...otherTools);
     }
-    
+
     return relatedTools;
-  };
+  }, [tool, allTools]);
+
+  const getAlternativeTools = useMemo(() => {
+    if (!tool || !tool.alternatives) return [];
+
+    const alternativeIds = tool.alternatives.split(',').map(id => parseInt(id.trim()));
+    return alternativeIds
+      .map(id => getToolById(id))
+      .filter(t => t !== null)
+      .slice(0, 3);
+  }, [tool, getToolById]);
 
   const parseFeatures = (features?: string) => {
     if (!features) return [];
@@ -86,7 +82,8 @@ export const ToolDetailPage = () => {
     return { pros, cons };
   };
 
-  if (loading) {
+  // Show loading only on initial app load, not during navigation
+  if (loading && allTools.length === 0) {
     return (
       <VStack spacing={4} py={20}>
         <Spinner size="xl" color="blue.500" />
@@ -95,33 +92,73 @@ export const ToolDetailPage = () => {
     );
   }
 
-  if (error || !tool) {
+  // Show not found immediately if tool doesn't exist (no loading spinner)
+  if (!loading && (!tool || !id)) {
     return (
       <Alert status="error" rounded="md">
-        <AlertIcon />
         Tool not found or failed to load
       </Alert>
     );
   }
 
+  // If still loading but we don't have the specific tool, show a minimal loading state
+  if (!tool) {
+    return (
+      <VStack spacing={4} py={8}>
+        <Spinner size="lg" color="blue.500" />
+        <Text color="gray.600">Loading...</Text>
+      </VStack>
+    );
+  }
+
   const features = parseFeatures(tool.features);
   const { pros, cons } = parseProsCons(tool.pros_cons);
-  const relatedTools = getRelatedTools();
+  const relatedTools = getRelatedTools;
+  const alternativeTools = getAlternativeTools;
+
+  // Create schema.org SoftwareApplication markup
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": tool.tool_name,
+    "description": tool.long_description || tool.description,
+    "applicationCategory": tool.category,
+    "offers": {
+      "@type": "Offer",
+      "price": tool.price_range,
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": tool.techiespiral_score ? {
+      "@type": "AggregateRating",
+      "ratingValue": tool.techiespiral_score,
+      "bestRating": "10",
+      "worstRating": "0"
+    } : undefined,
+    "url": tool.website_url,
+    "image": tool.logo_url
+  };
 
   return (
-    <VStack spacing={10} align="stretch">
-      {/* Tool Hero Section */}
-      <Box bg="white" rounded="2xl" p={10} shadow="lg">
+    <>
+      <SEO
+        title={`${tool.tool_name} Review - ${tool.category}`}
+        description={tool.long_description || tool.description || `Discover ${tool.tool_name}, a ${tool.category} tool for indie hackers. ${tool.best_for || ''}`}
+        url={`https://techiespiral.com/tool/${tool.Id}`}
+        image={tool.logo_url}
+        keywords={`${tool.tool_name}, ${tool.category}, ${tool.best_for || ''}, developer tools, indie hackers`}
+        schema={schema}
+      />
+      <VStack spacing={10} align="stretch">
+        {/* Tool Hero Section - NYT Style */}
+      <Box bg="white" border="1px" borderColor="nyt.border" p={10}>
         <VStack spacing={6} align="stretch">
           {/* Tool Header */}
           <Flex align="center" gap={6}>
             <Box
               w="80px"
               h="80px"
-              rounded="2xl"
-              bg="gray.50"
-              border="2px"
-              borderColor="gray.200"
+              border="1px"
+              borderColor="nyt.border"
               display="flex"
               alignItems="center"
               justifyContent="center"
@@ -134,47 +171,71 @@ export const ToolDetailPage = () => {
                   w="full"
                   h="full"
                   objectFit="cover"
-                  rounded="xl"
                 />
               ) : (
-                <Text fontSize="2xl" fontWeight="bold" color="gray.500">
+                <Text fontSize="2xl" fontWeight="bold" color="nyt.mediumGray">
                   {tool.tool_name.charAt(0).toUpperCase()}
                 </Text>
               )}
             </Box>
-            
-            <VStack align="flex-start" flex="1">
-              <Heading size="xl" color="gray.800">
+
+            <VStack align="flex-start" flex="1" spacing={3}>
+              <Heading size="xl" color="nyt.black" fontWeight="700">
                 {tool.tool_name}
               </Heading>
               <HStack spacing={2} flexWrap="wrap">
-                <Badge colorScheme="blue" fontSize="sm" px={3} py={1}>
+                <Badge bg="nyt.black" color="white" fontSize="11px" px={3} py={1}>
                   {tool.category}
                 </Badge>
-                <Badge colorScheme="yellow" fontSize="sm" px={3} py={1}>
+                <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="11px" px={3} py={1}>
                   {tool.price_range}
                 </Badge>
                 {tool.best_for && (
-                  <Badge colorScheme="red" fontSize="sm" px={3} py={1}>
+                  <Badge bg="nyt.veryLightGray" color="nyt.mediumGray" fontSize="11px" px={3} py={1}>
                     {tool.best_for}
                   </Badge>
                 )}
               </HStack>
+
+              {/* Startup Stage Badges */}
+              {tool.startup_stages && tool.startup_stages.length > 0 && (
+                <HStack spacing={2} flexWrap="wrap">
+                  <Text fontSize="11px" color="nyt.mediumGray" fontWeight="600">
+                    Recommended for:
+                  </Text>
+                  {tool.startup_stages.map(stage => {
+                    const colors = getStageColors(stage);
+                    return (
+                      <Badge
+                        key={stage}
+                        bg={colors.bg}
+                        color={colors.color}
+                        fontSize="10px"
+                        px={2}
+                        py={1}
+                        borderRadius="sm"
+                      >
+                        {STAGE_LABELS[stage]}
+                      </Badge>
+                    );
+                  })}
+                </HStack>
+              )}
             </VStack>
           </Flex>
 
           {/* Description */}
-          <Text fontSize="lg" color="gray.600" lineHeight="1.7">
+          <Text fontSize="18px" color="nyt.mediumGray" lineHeight="1.7">
             {tool.long_description || tool.description || 'Detailed description coming soon.'}
           </Text>
 
           {/* CTA Buttons */}
-          <Flex gap={4} direction={{ base: 'column', sm: 'row' }}>
+          <Flex gap={4} direction={{ base: 'column', sm: 'row' }} pt={4} borderTop="1px" borderColor="nyt.border">
             <Button
               as={ChakraLink}
               href={tool.website_url}
               target="_blank"
-              colorScheme="blue"
+              variant="solid"
               size="lg"
               flex="1"
             >
@@ -184,7 +245,7 @@ export const ToolDetailPage = () => {
               as={ChakraLink}
               href={tool.affiliate_link || tool.website_url}
               target="_blank"
-              colorScheme="red"
+              variant="outline"
               size="lg"
               flex="1"
             >
@@ -194,41 +255,55 @@ export const ToolDetailPage = () => {
         </VStack>
       </Box>
 
-      {/* Content Grid */}
+      {/* Content Grid - NYT Style */}
       <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={10}>
         {/* Features */}
         <GridItem>
-          <Box bg="white" rounded="xl" p={8} shadow="md">
-            <Heading size="lg" mb={4} color="gray.800">
+          <Box bg="white" border="1px" borderColor="nyt.border" p={8}>
+            <Heading size="lg" mb={4} color="nyt.black" fontWeight="700">
               Key Features
             </Heading>
             {features.length > 0 ? (
               <List spacing={2}>
                 {features.map((feature, index) => (
-                  <ListItem key={index} color="gray.600">
-                    <ListIcon as={CheckIcon} color="green.500" />
+                  <ListItem key={index} color="nyt.mediumGray" fontSize="16px" lineHeight="1.6">
+                    <Text as="span" color="nyt.black" mr={2}>✓</Text>
                     {feature}
                   </ListItem>
                 ))}
               </List>
             ) : (
-              <Text color="gray.500">Feature information coming soon.</Text>
+              <Text color="nyt.lightGray">Feature information coming soon.</Text>
             )}
           </Box>
         </GridItem>
 
         {/* Use Cases */}
         <GridItem>
-          <Box bg="white" rounded="xl" p={8} shadow="md">
-            <Heading size="lg" mb={4} color="gray.800">
+          <Box bg="white" border="1px" borderColor="nyt.border" p={8}>
+            <Heading size="lg" mb={4} color="nyt.black" fontWeight="700">
               Best Use Cases
             </Heading>
-            <Text color="gray.600" lineHeight="1.7">
+            <Text color="nyt.mediumGray" lineHeight="1.7" fontSize="16px">
               {tool.use_cases || 'Use case information coming soon.'}
             </Text>
           </Box>
         </GridItem>
       </Grid>
+
+      {/* TechieSpiral Score */}
+      {(tool.techiespiral_score || tool.value_score || tool.ease_score || tool.features_score) && (
+        <Box bg="white" rounded="xl" p={8} shadow="md">
+          <TechieScore
+            techieScore={tool.techiespiral_score}
+            valueScore={tool.value_score}
+            easeScore={tool.ease_score}
+            featuresScore={tool.features_score}
+            size="lg"
+            showDetails={true}
+          />
+        </Box>
+      )}
 
       {/* Pros & Cons */}
       {(pros || cons) && (
@@ -250,6 +325,92 @@ export const ToolDetailPage = () => {
               <Text color="gray.700">{cons || 'Cons information coming soon.'}</Text>
             </Box>
           </Grid>
+        </Box>
+      )}
+
+      {/* Alternative Tools */}
+      {alternativeTools.length > 0 && (
+        <Box bg="white" rounded="xl" p={8} shadow="md">
+          <Heading size="lg" mb={6} color="gray.800">
+            🔄 Alternatives to {tool.tool_name}
+          </Heading>
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
+            {alternativeTools.map(altTool => (
+              <Box
+                key={altTool?.Id}
+                as={RouterLink}
+                to={`/tool/${altTool?.Id}`}
+                bg="purple.50"
+                rounded="lg"
+                p={4}
+                border="2px"
+                borderColor="purple.200"
+                transition="all 0.2s"
+                _hover={{
+                  transform: 'translateY(-2px)',
+                  shadow: 'md',
+                  borderColor: 'purple.400',
+                  textDecoration: 'none'
+                }}
+              >
+                <Flex align="center" gap={3} mb={2}>
+                  <Box
+                    w="32px"
+                    h="32px"
+                    rounded="md"
+                    bg="white"
+                    border="1px"
+                    borderColor="gray.200"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    {altTool?.logo_url ? (
+                      <Image
+                        src={altTool.logo_url}
+                        alt={altTool.tool_name}
+                        w="full"
+                        h="full"
+                        objectFit="cover"
+                        rounded="sm"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <Text fontSize="sm" fontWeight="bold" color="gray.500">
+                        {altTool?.tool_name.charAt(0).toUpperCase()}
+                      </Text>
+                    )}
+                  </Box>
+                  <Text fontWeight="semibold" color="gray.800">
+                    {altTool?.tool_name}
+                  </Text>
+                </Flex>
+                <Text fontSize="sm" color="gray.600" mb={2}>
+                  {altTool?.description || 'Discover what this tool can do for you.'}
+                </Text>
+                <HStack spacing={2}>
+                  <Badge colorScheme="purple" fontSize="xs">
+                    {altTool?.category}
+                  </Badge>
+                  <Badge colorScheme="green" fontSize="xs">
+                    {altTool?.price_range}
+                  </Badge>
+                </HStack>
+              </Box>
+            ))}
+          </SimpleGrid>
+          <Divider my={4} />
+          <Flex justify="center">
+            <Button
+              as={RouterLink}
+              to={`/compare?tool1=${tool.Id}&tool2=${alternativeTools[0]?.Id}`}
+              colorScheme="purple"
+              variant="outline"
+              size="sm"
+            >
+              Compare with Alternative
+            </Button>
+          </Flex>
         </Box>
       )}
 
@@ -297,6 +458,7 @@ export const ToolDetailPage = () => {
                         h="full"
                         objectFit="cover"
                         rounded="sm"
+                        loading="lazy"
                       />
                     ) : (
                       <Text fontSize="sm" fontWeight="bold" color="gray.500">
@@ -319,6 +481,7 @@ export const ToolDetailPage = () => {
           </SimpleGrid>
         </Box>
       )}
-    </VStack>
+      </VStack>
+    </>
   );
 };
