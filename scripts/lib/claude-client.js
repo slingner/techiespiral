@@ -10,7 +10,7 @@ export class ClaudeClient {
 
   async generateContent(prompt, options = {}) {
     const {
-      model = process.env.CLAUDE_MODEL || 'claude-3-5-sonnet-20241022',
+      model = 'claude-3-5-haiku-20241022',
       maxTokens = 4096,
       temperature = 0.7,
     } = options;
