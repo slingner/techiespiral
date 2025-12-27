@@ -7,7 +7,7 @@ async function sendNewsletter() {
   const listmonkUser = process.env.LISTMONK_USER;
   const listmonkPassword = process.env.LISTMONK_PASSWORD;
   const listIds = process.env.LISTMONK_LIST_IDS?.split(',').map(Number) || [1]; // Default to list ID 1
-  const testEmails = process.env.TEST_EMAILS?.split(','); // Optional
+  const testEmails = process.env.TEST_EMAILS?.split(',').filter(e => e.trim()); // Optional, filter empty strings
 
   if (!listmonkUrl || !listmonkUser || !listmonkPassword) {
     console.error('❌ Missing required environment variables:');
