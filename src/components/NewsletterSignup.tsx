@@ -40,13 +40,26 @@ export const NewsletterSignup = () => {
     setIsLoading(true);
 
     try {
-      // TODO: Integrate with email service (ConvertKit, Mailchimp, etc.)
-      // For now, just show success message
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('/api/newsletter-subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          name: email.split('@')[0]
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Subscription failed');
+      }
 
       toast({
         title: 'Success!',
-        description: "You've been added to our newsletter. Check your inbox!",
+        description: data.message || "You've been added to our newsletter!",
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -54,9 +67,10 @@ export const NewsletterSignup = () => {
 
       setEmail('');
     } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to subscribe. Please try again.';
       toast({
         title: 'Error',
-        description: 'Failed to subscribe. Please try again.',
+        description: message,
         status: 'error',
         duration: 5000,
         isClosable: true,
