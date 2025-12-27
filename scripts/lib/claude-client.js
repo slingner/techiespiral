@@ -10,7 +10,7 @@ export class ClaudeClient {
 
   async generateContent(prompt, options = {}) {
     const {
-      model = 'claude-3-opus-20240229',
+      model = 'claude-3-haiku-20240307',
       maxTokens = 4096,
       temperature = 0.7,
     } = options;
