@@ -34,6 +34,14 @@ async function sendNewsletter() {
     console.log(newsletter.markdown.substring(0, 300) + '...');
     console.log('='.repeat(60) + '\n');
 
+    // Validate generated content before attempting to send
+    if (!newsletter.subject || newsletter.subject.trim().length < 5) {
+      throw new Error(`Invalid newsletter subject: "${newsletter.subject}"`);
+    }
+    if (!newsletter.html || newsletter.html.trim().length < 200) {
+      throw new Error(`Invalid newsletter HTML: too short (${newsletter.html?.length ?? 0} chars)`);
+    }
+
     // Step 2: Send via Listmonk
     console.log('Step 2: Sending via Listmonk...');
     const listmonk = new ListmonkClient(listmonkUrl, listmonkUser, listmonkPassword);

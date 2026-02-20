@@ -8,7 +8,22 @@ export class ListmonkClient {
     this.auth = Buffer.from(`${username}:${password}`).toString('base64');
   }
 
-  async request(endpoint, options = {}) {
+  async fetchWithTimeout(url, options = {}, timeoutMs = 30000) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await fetch(url, { ...options, signal: controller.signal });
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        throw new Error(`Request timed out after ${timeoutMs}ms: ${url}`);
+      }
+      throw err;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async request(endpoint, options = {}, retries = 3) {
     const url = `${this.baseUrl}/api${endpoint}`;
     const headers = {
       'Authorization': `Basic ${this.auth}`,
@@ -16,17 +31,34 @@ export class ListmonkClient {
       ...options.headers
     };
 
-    const response = await fetch(url, {
-      ...options,
-      headers
-    });
+    let lastError;
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const response = await this.fetchWithTimeout(url, { ...options, headers });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Listmonk API error: ${response.status} - ${errorText}`);
+        if (!response.ok) {
+          const errorText = await response.text();
+          // Don't retry client errors (4xx) - only server/network errors
+          if (response.status >= 400 && response.status < 500) {
+            throw new Error(`Listmonk API error: ${response.status} - ${errorText}`);
+          }
+          throw new Error(`Listmonk server error: ${response.status} - ${errorText}`);
+        }
+
+        return response.json();
+      } catch (err) {
+        lastError = err;
+        // Don't retry on client errors
+        if (err.message.startsWith('Listmonk API error:')) throw err;
+
+        if (attempt < retries) {
+          const delay = 2 ** attempt * 1000; // 2s, 4s, 8s
+          console.warn(`⚠️  Attempt ${attempt}/${retries} failed: ${err.message}. Retrying in ${delay / 1000}s...`);
+          await new Promise(r => setTimeout(r, delay));
+        }
+      }
     }
-
-    return response.json();
+    throw new Error(`Failed after ${retries} attempts: ${lastError.message}`);
   }
 
   /**

@@ -105,6 +105,10 @@ async function generateNewsletter() {
     temperature: 0.8
   });
 
+  if (!newsletterMarkdown || newsletterMarkdown.trim().length < 100) {
+    throw new Error(`Generated newsletter content is too short or empty (got ${newsletterMarkdown?.length ?? 0} chars)`);
+  }
+
   console.log('✅ Newsletter content generated!\n');
 
   // Generate HTML version using marked
@@ -128,6 +132,10 @@ Return ONLY the subject line, nothing else.`;
   });
 
   const subjectLine = subject.trim().replace(/^["']|["']$/g, '');
+
+  if (!subjectLine || subjectLine.length < 5) {
+    throw new Error(`Generated subject line is too short or empty (got: "${subjectLine}")`);
+  }
 
   console.log(`📧 Subject: ${subjectLine}\n`);
 
