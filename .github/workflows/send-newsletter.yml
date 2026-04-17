@@ -1,10 +1,7 @@
 name: Send Weekly Newsletter
 
 on:
-  schedule:
-    # Every Friday at 10am UTC (5am EST)
-    - cron: '0 10 * * 5'
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:  # Allow manual trigger only (schedule disabled)
 
 jobs:
   send-newsletter:
